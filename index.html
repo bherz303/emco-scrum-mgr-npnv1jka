@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Internal Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #EF8B22;
+      --blue: #0979C3;
+      --dark: #27343D;
+      --gray: #53575A;
+      --light: #F6F6F6;
+      --green: #22C55E;
+      --red: #DC2626;
+      --yellow: #F59E0B;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--light);
+      color: var(--gray);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--dark);
+      padding: 28px 40px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header img {
+      height: 40px;
+      filter: brightness(0) invert(1);
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .header-title h1 {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+
+    .header-title p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      margin-top: 2px;
+    }
+
+    .header-badge {
+      background: var(--orange);
+      color: white;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+    }
+
+    /* ── SCORING OVERVIEW CARDS ── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .overview-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 18px 20px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .overview-card h3 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .score-tiers {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .tier {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .tier-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .tier-dot.green { background: var(--green); }
+    .tier-dot.yellow { background: var(--yellow); }
+    .tier-dot.red { background: var(--red); }
+
+    .tier-pts {
+      font-weight: 700;
+      width: 44px;
+      flex-shrink: 0;
+    }
+
+    .grade-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .grade-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .grade-letter {
+      font-weight: 900;
+      font-size: 16px;
+      width: 20px;
+    }
+
+    .grade-letter.a { color: var(--green); }
+    .grade-letter.b { color: #16a34a; }
+    .grade-letter.c { color: var(--yellow); }
+    .grade-letter.d { color: var(--orange); }
+    .grade-letter.f { color: var(--red); }
+
+    .modes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mode-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .mode-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .mode-icon.bh { background: #FEF3C7; }
+    .mode-icon.full { background: #DBEAFE; }
+
+    .mode-text strong {
+      font-size: 13px;
+      color: var(--dark);
+      display: block;
+    }
+
+    .mode-text span {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-header h2 {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--dark);
+    }
+
+    .section-pill {
+      background: var(--orange);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .section-pill.blue {
+      background: var(--blue);
+    }
+
+    /* ── CRITERIA GRID ── */
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .criterion-card {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+    }
+
+    .criterion-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 16px 10px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .criterion-num {
+      width: 24px;
+      height: 24px;
+      background: var(--orange);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .criterion-num.bonus {
+      background: var(--blue);
+      font-size: 10px;
+    }
+
+    .criterion-name {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--dark);
+    }
+
+    .criterion-body {
+      padding: 10px 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .criterion-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .cr-label {
+      font-weight: 700;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .cr-label.green { background: #DCFCE7; color: #15803d; }
+    .cr-label.yellow { background: #FEF9C3; color: #854d0e; }
+    .cr-label.red { background: #FEE2E2; color: #b91c1c; }
+
+    .criterion-note {
+      font-size: 11px;
+      color: var(--blue);
+      font-style: italic;
+      margin-top: 2px;
+      padding-left: 0;
+    }
+
+    /* ── MEETING MGMT ── */
+    .mm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .mm-item {
+      background: var(--white);
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .mm-item-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px 10px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .mm-num {
+      width: 22px;
+      height: 22px;
+      background: var(--blue);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .mm-text strong {
+      font-size: 13px;
+      color: var(--dark);
+      display: block;
+      font-weight: 700;
+    }
+
+    .mm-text span {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    .mm-scores {
+      padding: 8px 16px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .mm-score-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* ── QUICK WINS ── */
+    .quick-wins {
+      background: var(--dark);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 28px;
+    }
+
+    .quick-wins h2 {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .quick-wins h2 span {
+      color: var(--orange);
+    }
+
+    .wins-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .win-item {
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .win-num {
+      width: 26px;
+      height: 26px;
+      background: var(--orange);
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .win-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.4;
+    }
+
+    .win-text strong {
+      color: white;
+      display: block;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--white);
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-left {
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    .footer-left strong {
+      color: var(--dark);
+    }
+
+    .footer-right {
+      font-size: 12px;
+      color: var(--gray);
+      text-align: right;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: white; font-size: 11px; }
+      .page { padding: 12px 16px; }
+      .header { padding: 16px 20px; }
+      .overview-grid { gap: 8px; margin-bottom: 16px; }
+      .criteria-grid { gap: 8px; margin-bottom: 16px; }
+      .mm-grid { gap: 7px; margin-bottom: 16px; }
+      .quick-wins { padding: 16px 18px; margin-bottom: 16px; }
+      .wins-grid { gap: 7px; }
+    }
+
+    @media (max-width: 768px) {
+      .overview-grid { grid-template-columns: 1fr; }
+      .criteria-grid { grid-template-columns: 1fr; }
+      .mm-grid { grid-template-columns: 1fr; }
+      .wins-grid { grid-template-columns: 1fr 1fr; }
+      .header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <img src="https://www.einsteinmoving.com/wp-content/uploads/2022/02/Einstein-Logo.svg" alt="Einstein Moving" />
+      <div class="header-divider"></div>
+      <div class="header-title">
+        <h1>Scrum Board Scorecard</h1>
+        <p>What gets graded, how it's scored, and how to win.</p>
+      </div>
+    </div>
+    <div class="header-badge">CTXH Manager Reference</div>
+  </div>
+
+  <div class="page">
+
+    <!-- SCORING OVERVIEW -->
+    <div class="overview-grid">
+
+      <div class="overview-card">
+        <h3>Scoring Tiers</h3>
+        <div class="score-tiers">
+          <div class="tier">
+            <div class="tier-dot green"></div>
+            <span class="tier-pts" style="color:var(--green)">5 pts</span>
+            <span><strong>Green</strong> — Nailed it. This is working the way it should.</span>
+          </div>
+          <div class="tier">
+            <div class="tier-dot yellow"></div>
+            <span class="tier-pts" style="color:var(--yellow)">3 pts</span>
+            <span><strong>Yellow</strong> — Partially there, but needs attention.</span>
+          </div>
+          <div class="tier">
+            <div class="tier-dot red"></div>
+            <span class="tier-pts" style="color:var(--red)">1 pt</span>
+            <span><strong>Red</strong> — Not in place. Needs to be fixed.</span>
+          </div>
+          <div class="tier" style="margin-top:4px; padding-top:8px; border-top:1px solid #f3f4f6;">
+            <div class="tier-dot" style="background:#6b7280"></div>
+            <span class="tier-pts" style="color:var(--gray)">0 pts</span>
+            <span><strong>Bonus Red</strong> — Bonus items have no partial credit.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <h3>Eval Modes</h3>
+        <div class="modes-list">
+          <div class="mode-row">
+            <div class="mode-icon bh">📋</div>
+            <div class="mode-text">
+              <strong>Board Hygiene Only — 60 pts (+ 10 bonus)</strong>
+              <span>Pulled live from your Monday board. Can run anytime, no meeting required.</span>
+            </div>
+          </div>
+          <div class="mode-row">
+            <div class="mode-icon full">⭐</div>
+            <div class="mode-text">
+              <strong>Full Eval — 100 pts</strong>
+              <span>Board Hygiene + 8 Meeting Management items scored during or after a sync.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <h3>Grade Scale</h3>
+        <div class="grade-list">
+          <div class="grade-row">
+            <span class="grade-letter a">A</span>
+            <span>90–100%</span>
+            <span style="color:var(--green); font-weight:700">Excellent ✓</span>
+          </div>
+          <div class="grade-row">
+            <span class="grade-letter b">B</span>
+            <span>80–89%</span>
+            <span style="color:#16a34a; font-weight:700">Strong</span>
+          </div>
+          <div class="grade-row">
+            <span class="grade-letter c">C</span>
+            <span>70–79%</span>
+            <span style="color:var(--yellow); font-weight:700">Needs work</span>
+          </div>
+          <div class="grade-row">
+            <span class="grade-letter d">D</span>
+            <span>60–69%</span>
+            <span style="color:var(--orange); font-weight:700">Falling behind</span>
+          </div>
+          <div class="grade-row">
+            <span class="grade-letter f">F</span>
+            <span>Below 60%</span>
+            <span style="color:var(--red); font-weight:700">Board needs reset</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOARD HYGIENE -->
+    <div class="section-header">
+      <h2>Board Hygiene Criteria</h2>
+      <span class="section-pill">60 pts standard + 10 bonus</span>
+    </div>
+
+    <div class="criteria-grid">
+
+      <!-- BH-1 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">1</div>
+          <span class="criterion-name">LOW Values on Today Items</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>All Today items have a valid Fibonacci LOW — 1, 2, 3, 5, 8, 13, or 21.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>1 or 2 Today items are missing a LOW or have an invalid value (like 0 or 4).</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>3 or more Today items have no LOW, or LOWs aren't being used at all.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BH-2 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">2</div>
+          <span class="criterion-name">Pulse Titles</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>Titles describe the next action and give enough context to know what the task is.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>A few titles are vague or generic.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>Most titles are things like "Follow up," "Call," or "Meeting" with zero context.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BH-3 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">3</div>
+          <span class="criterion-name">Later Group Dates</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>Every Deferred item has a future Monday-specific due date set.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>1 or 2 deferred items have no date or a non-Monday date.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>3 or more deferred items with wrong dates — automations won't fire correctly.</span>
+          </div>
+          <p class="criterion-note">💡 Dates must be Mondays — that's when the automation returns items to your Inbox for review.</p>
+        </div>
+      </div>
+
+      <!-- BH-4 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">4</div>
+          <span class="criterion-name">QG Pulses &amp; Happiness Pulse Visible</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>At least one QG Live pulse is visible in Today or This Week, AND a Happiness pulse is present in either group.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>One of the two is present — either QG pulses are visible or a Happiness pulse exists, but not both.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>No QG Live pulses visible in active groups AND no Happiness pulse present.</span>
+          </div>
+          <p class="criterion-note">💡 QG Live pulses parked in Deferred with no date don't count — they need to be in Today or This Week to be visible to the team.</p>
+        </div>
+      </div>
+
+      <!-- BH-5 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">5</div>
+          <span class="criterion-name">QG Value on Quarterly Goal Pulses</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>All active QG Live pulses have the QG Value column filled in.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>Some QG Live pulses are missing QG values.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>The QG Value column isn't being used on QG pulses at all.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BH-6 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">6</div>
+          <span class="criterion-name">Inbox Age</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>No untriaged pulses older than 5 days sitting in the Inbox.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>1 or 2 Inbox items are older than 5 days.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>3 or more stale items, or the Inbox is being used as a dumping ground.</span>
+          </div>
+          <p class="criterion-note">💡 Triage means: assign it, set a date, move it — don't let things rot in Inbox.</p>
+        </div>
+      </div>
+
+      <!-- BH-7 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">7</div>
+          <span class="criterion-name">Project Column</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>At least half of active pulses have a Project set, AND all QG and DB Pulse items are correctly tagged.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>At least half filled in but a QG or DB Pulse item is missing its tag — OR fewer than half filled in but all QG and DB Pulse items are correct.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>Fewer than half of active pulses have a Project set AND QG or DB Pulse items are missing their tags.</span>
+          </div>
+          <p class="criterion-note">💡 QG (Quarterly Goal) and DB Pulse (Roundtable) items must always be tagged. Everything else — aim for at least half coverage.</p>
+        </div>
+      </div>
+
+      <!-- BH-8 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">8</div>
+          <span class="criterion-name">Updates with Context</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>Most active pulses have at least one update showing what's actually happening on the task.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>Some pulses have updates, others are bare.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>Most active pulses have no updates at all — the board tells no story.</span>
+          </div>
+          <p class="criterion-note">💡 Your board should read like a logbook. Anyone picking it up should be able to understand what's going on.</p>
+        </div>
+      </div>
+
+      <!-- BH-9 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">9</div>
+          <span class="criterion-name">No Duplicates</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>One pulse per task — no duplicate entries cluttering the board.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>1 or 2 suspected duplicates — same title, same date, same apparent task.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>Clear duplicates present — identical task entered more than once with no differentiation.</span>
+          </div>
+          <p class="criterion-note">💡 Sales blocks are NOT duplicates. Managers run multiple sales blocks per week on different days (Monday PM, Tuesday AM, Thursday AM, etc.) — each one is a separate, intentional pulse.</p>
+        </div>
+      </div>
+
+      <!-- BH-10 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">10</div>
+          <span class="criterion-name">Automations</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>Items move via status changes — group distribution matches the automation flow.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>A few irregularities — some items in wrong groups for their status.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>Items are clearly being dragged manually — statuses and groups don't line up.</span>
+          </div>
+          <p class="criterion-note">💡 Use status changes to move pulses. No drag and drop — that breaks the automation logic.</p>
+        </div>
+      </div>
+
+      <!-- BONUS 1 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num bonus">★</div>
+          <span class="criterion-name">Bonus — Definition of Done</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>Done group items have a meaningful update explaining what was accomplished.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>Some Done items have notes, others are blank.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">0 pts</span>
+            <span>No updates on Done pulses — no partial credit on this one.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BONUS 2 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num bonus">★</div>
+          <span class="criterion-name">Bonus — No Past-Due Items</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>No items in Today or This Week have a past due date.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>1 or 2 items are past their due date.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">0 pts</span>
+            <span>3 or more past-due items sitting around — no partial credit.</span>
+          </div>
+          <p class="criterion-note">💡 If it's past due, either complete it, defer it with a new Monday date, or delete it. Don't let it linger.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MEETING MANAGEMENT -->
+    <div class="section-header">
+      <h2>Meeting Management Criteria</h2>
+      <span class="section-pill blue">Full Eval only — 40 pts</span>
+    </div>
+
+    <div class="mm-grid">
+
+      <div class="mm-item">
+        <div class="mm-item-header">
+          <div class="mm-num">1</div>
+          <div class="mm-text">
+            <strong>Pre-Sync Board Prep</strong>
+            <span>Board is prepped 10–15 minutes before the meeting, and the Regional Manager is alerted when it's ready.</span>
+          </div>
+        </div>
+        <div class="mm-scores">
+          <div class="mm-score-row"><span class="cr-label green">5 pts</span><span>Board prepped on time and RM alerted before the meeting starts.</span></div>
+          <div class="mm-score-row"><span class="cr-label yellow">3 pts</span><span>Board prepped but RM wasn't alerted, or it was prepped late.</span></div>
+          <div class="mm-score-row"><span class="cr-label red">1 pt</span><span>Board wasn't prepped before the meeting.</span></div>
+        </div>
+      </div>
+
+      <div class="mm-item">
+        <div class="mm-item-header">
+          <div class="mm-num">2</div>
+          <div class="mm-text">
+            <strong>Agenda Flow</strong>
+            <span>Meeting follows the standard order — Velocity check, then Hold for Sync, then This Week, then Today, then Inbox cleanup.</span>
+          </div>
+        </div>
+        <div class="mm-scores">
+          <div class="mm-score-row"><span class="cr-label green">5 pts</span><span>Followed the exact agenda order start to finish.</span></div>
+          <div class="mm-score-row"><span class="cr-label yellow">3 pts</span><span>Mostly followed but skipped a step or went out of order.</span></div>
+          <div class="mm-score-row"><span class="cr-label red">1 pt</span><span>No clear structure — meeting jumped around with no agenda.</span></div>
+        </div>
+      </div>
+
+      <div class="mm-item">
+        <div class="mm-item-header">
+          <div class="mm-num">3</div>
+          <div class="mm-text">
+            <strong>Time Management</strong>
+            <span>Each person stays within 10 minutes. The meeting doesn't run long because one topic took over.</span>
+          </div>
+        </div>
+        <div class="mm-scores">
+          <div class="mm-score-row"><span class="cr-label green">5 pts</span><span>Everyone stayed within 10 minutes. Meeting finished on time.</span></div>
+          <div class="mm-score-row"><span class="cr-label yellow">3 pts</span><span>One person ran over but the meeting recovered.</span></div>
+          <div class="mm-score-row"><span class="cr-label red">1 pt</span><span>Meeting ran long because time wasn't managed.</span></div>
+        </div>
+      </div>
+
+      <div class="mm-item">
+        <div class="mm-item-header">
+          <div class="mm-num">4</div>
+          <div class="mm-text">
+            <strong>Tabling Discussions</strong>
+            <span>Big topics that derail the flow get tabled and followed up on after the sync — not allowed to eat the meeting.</span>
+          </div>
+        </div>
+        <div class="mm-scores">
+          <div class="mm-score-row"><span class="cr-label green">5 pts</span><span>Off-topic items were tabled promptly and captured for follow-up.</span></div>
+          <div class="mm-score-row"><span class="cr-label yellow">3 pts</span><span>Some derailment happened but was recovered before major damage.</span></div>
+          <div class="mm-score-row"><span class="cr-label red">1 pt</span><span>A tangent took over the meeting and wasn't redirected.</span></div>
+        </div>
+      </div>
+
+      <div class="mm-item">
+        <div class="mm-item-header">
+          <div class="mm-num">5</div>
+          <div class="mm-text">
+            <strong>Tone</strong>
+            <span>The meeting is engaged and constructive. People are present and adding energy — not checked out or combative.</span>
+          </div>
+        </div>
+        <div class="mm-scores">
+          <div class="mm-score-row"><span class="cr-label green">5 pts</span><span>Energy was high, everyone was present and constructive.</span></div>
+          <div class="mm-score-row"><span class="cr-label yellow">3 pts</span><span>Mostly engaged but some distraction or low energy.</span></div>
+          <div class="mm-score-row"><span class="cr-label red">1 pt</span><span>People checked out or the tone was negative or combative.</span></div>
+        </div>
+      </div>
+
+      <div class="mm-item">
+        <div class="mm-item-header">
+          <div class="mm-num">6</div>
+          <div class="mm-text">
+            <strong>Manager Release</strong>
+            <span>The BM releases FMs and Flex managers early when appropriate so they can get to on-sites or sales calls.</span>
+          </div>
+        </div>
+        <div class="mm-scores">
+          <div class="mm-score-row"><span class="cr-label green">5 pts</span><span>FMs and Flex released at the right time without being asked.</span></div>
+          <div class="mm-score-row"><span class="cr-label yellow">3 pts</span><span>Released but late, or only after prompting.</span></div>
+          <div class="mm-score-row"><span class="cr-label red">1 pt</span><span>FMs were held through the whole meeting unnecessarily.</span></div>
+        </div>
+      </div>
+
+      <div class="mm-item">
+        <div class="mm-item-header">
+          <div class="mm-num">7</div>
+          <div class="mm-text">
+            <strong>Automations in Meeting</strong>
+            <span>No drag-and-drop during the sync. Pulses move via status changes only — every time.</span>
+          </div>
+        </div>
+        <div class="mm-scores">
+          <div class="mm-score-row"><span class="cr-label green">5 pts</span><span>Zero drag-and-drop. Every pulse moved via status change.</span></div>
+          <div class="mm-score-row"><span class="cr-label yellow">3 pts</span><span>1–2 instances of drag-and-drop caught during the meeting.</span></div>
+          <div class="mm-score-row"><span class="cr-label red">1 pt</span><span>Drag-and-drop used throughout — automation logic is broken.</span></div>
+        </div>
+      </div>
+
+      <div class="mm-item">
+        <div class="mm-item-header">
+          <div class="mm-num">8</div>
+          <div class="mm-text">
+            <strong>Velocity Reviewed</strong>
+            <span>The team's velocity is checked and discussed during the sync — DLOW and WLOW are reviewed and the pace for the week is acknowledged.</span>
+          </div>
+        </div>
+        <div class="mm-scores">
+          <div class="mm-score-row"><span class="cr-label green">5 pts</span><span>Velocity was reviewed, discussed, and the week's pace acknowledged.</span></div>
+          <div class="mm-score-row"><span class="cr-label yellow">3 pts</span><span>Velocity was mentioned but not meaningfully discussed.</span></div>
+          <div class="mm-score-row"><span class="cr-label red">1 pt</span><span>Velocity wasn't covered at all.</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- QUICK WINS -->
+    <div class="quick-wins">
+      <h2>5 Things That Move Your Score the <span>Most</span></h2>
+      <div class="wins-grid">
+        <div class="win-item">
+          <div class="win-num">1</div>
+          <div class="win-text">
+            <strong>Set a LOW on every Today item</strong>
+            Before your sync — go through Today and make sure every pulse has a valid Fibonacci number. It takes 2 minutes.
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-num">2</div>
+          <div class="win-text">
+            <strong>Tag the Project column on active pulses</strong>
+            This is the most commonly missed item. A quick pass through Today assigning project tags gets you easy points.
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-num">3</div>
+          <div class="win-text">
+            <strong>Keep your Velocity pulse active — don't Done it</strong>
+            The Velocity pulse should live in Today or This Week permanently. Marking it Done kills your velocity tracking.
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-num">4</div>
+          <div class="win-text">
+            <strong>Always defer to a Monday date</strong>
+            When you defer something, set the date to the Monday you plan to revisit it. Any other day breaks the automation.
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-num">5</div>
+          <div class="win-text">
+            <strong>Post a brief update on active pulses</strong>
+            Even one sentence — "Waiting on parts," "Called client, no answer" — makes the board tell the story of your work.
+          </div>
+        </div>
+        <div class="win-item" style="background:rgba(239,139,34,0.12); border: 1px solid rgba(239,139,34,0.3);">
+          <div class="win-num" style="background:var(--white); color:var(--orange);">💡</div>
+          <div class="win-text">
+            <strong style="color:var(--orange);">Target DLOW of 15–20</strong>
+            Daily Level of Work should be 15 to 20 per person. If Today is overloaded, triage — move lower-priority items to This Week or defer them.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-left">
+        <strong>Questions?</strong> Talk to Brian. Scores are pulled live from your Monday board and can be run at any time.
+      </div>
+      <div class="footer-right">
+        Einstein Moving Company — CTXH Region<br />
+        Scrum University Scorecard v1.0
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
