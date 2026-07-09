@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Internal Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --orange:#EF8B22; --blue:#0979C3; --dark:#27343D; --gray:#53575A;
+      --light:#F6F6F6; --green:#22C55E; --yellow:#F59E0B; --red:#DC2626; --white:#fff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Roboto',sans-serif;background:var(--light);color:var(--gray);font-size:14px;line-height:1.5}
+
+    .header{background:var(--dark);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .header-left{display:flex;align-items:center;gap:20px}
+    .header img{height:38px;filter:brightness(0) invert(1)}
+    .header-divider{width:1px;height:38px;background:rgba(255,255,255,.2)}
+    .header-title h1{font-size:21px;font-weight:900;color:#fff;letter-spacing:-.3px}
+    .header-title p{font-size:13px;color:rgba(255,255,255,.65);margin-top:2px}
+    .header-badge{background:var(--orange);color:#fff;font-weight:700;font-size:12px;padding:6px 14px;border-radius:20px;white-space:nowrap}
+
+    .page{max-width:1100px;margin:0 auto;padding:26px 24px 48px}
+
+    .region-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:26px}
+    .stat-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:18px 20px}
+    .stat-card h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--orange);margin-bottom:8px}
+    .stat-big{font-size:34px;font-weight:900;color:var(--dark);line-height:1}
+    .stat-sub{font-size:12px;color:var(--gray);margin-top:6px}
+
+    .section-header{display:flex;align-items:center;gap:12px;margin:26px 0 14px}
+    .section-header h2{font-size:16px;font-weight:900;color:var(--dark)}
+
+    .branch-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:8px}
+    .branch-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 18px}
+    .branch-card .bc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .branch-name{font-weight:700;font-size:14px;color:var(--dark)}
+    .branch-mgr{font-size:12px;color:var(--gray)}
+    .grade-chip{font-size:18px;font-weight:900;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff}
+    .bc-score{font-size:26px;font-weight:900;color:var(--dark);line-height:1}
+    .bc-score small{font-size:14px;font-weight:700;color:var(--gray)}
+    .bc-trend{font-size:12px;font-weight:700;margin-top:6px;display:flex;align-items:center;gap:5px}
+    .bc-date{font-size:11px;color:#9ca3af;margin-top:4px}
+
+    .chart-wrap{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px 22px;margin-bottom:8px}
+    .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px}
+    .legend-item{display:flex;align-items:center;gap:6px;font-size:12px}
+    .legend-dot{width:12px;height:3px;border-radius:2px}
+
+    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;font-size:13px}
+    th{background:#f9fafb;text-align:left;padding:10px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--gray);border-bottom:1px solid #e5e7eb}
+    td{padding:10px 14px;border-bottom:1px solid #f3f4f6}
+    tr:last-child td{border-bottom:none}
+    .grade-pill{font-weight:900;padding:2px 9px;border-radius:10px;font-size:12px;color:#fff}
+    .legacy-tag{font-size:10px;color:#9ca3af;font-style:italic}
+
+    .note-banner{background:#FEF3C7;border:1px solid #FADF98;border-radius:10px;padding:12px 16px;font-size:12px;color:#854d0e;margin-bottom:22px}
+
+    .footer{margin-top:26px;font-size:12px;color:#9ca3af;text-align:center}
+
+    @media (max-width:768px){
+      .region-row{grid-template-columns:1fr}
+      .branch-grid{grid-template-columns:1fr}
+      .header{flex-direction:column;align-items:flex-start}
+      table{display:block;overflow-x:auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <img src="https://www.einsteinmoving.com/wp-content/uploads/2022/02/Einstein-Logo.svg" alt="Einstein Moving" />
+      <div class="header-divider"></div>
+      <div class="header-title">
+        <h1>Scrum Board Performance Dashboard</h1>
+        <p>CTXH branch scorecard tracking over time</p>
+      </div>
+    </div>
+    <div class="header-badge">CTXH Region</div>
+  </div>
+
+  <div class="page">
+    <div class="region-row" id="regionRow"></div>
+
+    <div class="note-banner" id="noteBanner"></div>
+
+    <div class="section-header"><h2>Score Trend by Branch</h2></div>
+    <div class="chart-wrap">
+      <div id="chart"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="section-header"><h2>Latest Snapshot</h2></div>
+    <div class="branch-grid" id="branchGrid"></div>
+
+    <div class="section-header"><h2>Full Eval History</h2></div>
+    <div id="tableWrap"></div>
+
+    <div class="footer" id="footer"></div>
+  </div>
+
+  <script id="scoreData" type="application/json">
+  {
+    "meta": {
+      "current_rubric_version": "1.3",
+      "last_updated": "2026-07-09"
+    },
+    "branches": {
+      "north_austin": { "name": "North Austin", "manager": "Calvin Hughes" },
+      "south_austin": { "name": "South Austin", "manager": "Chris Anderson" },
+      "leander":      { "name": "Leander",      "manager": "Frank Williams" },
+      "san_antonio":  { "name": "San Antonio",  "manager": "Dustin Street" },
+      "houston":      { "name": "Houston",      "manager": "Sergio Buenrostro" }
+    },
+    "evals": [
+      { "date": "2026-06-15", "branch": "leander",      "score": 34, "max": 60, "pct": 57, "grade": "F", "rubric_version": "1.0" },
+      { "date": "2026-06-22", "branch": "leander",      "score": 34, "max": 60, "pct": 57, "grade": "F", "rubric_version": "1.0" },
+      { "date": "2026-06-22", "branch": "san_antonio",  "score": 28, "max": 60, "pct": 47, "grade": "F", "rubric_version": "1.0" },
+      { "date": "2026-06-23", "branch": "north_austin", "score": 26, "max": 60, "pct": 43, "grade": "F", "rubric_version": "1.0" },
+      { "date": "2026-06-23", "branch": "south_austin", "score": 30, "max": 60, "pct": 50, "grade": "F", "rubric_version": "1.0" },
+      { "date": "2026-06-23", "branch": "houston",      "score": 32, "max": 60, "pct": 53, "grade": "F", "rubric_version": "1.0" }
+    ]
+  }
+  </script>
+
+  <script>
+    const DATA = JSON.parse(document.getElementById('scoreData').textContent);
+    const BRANCH_COLORS = {
+      north_austin:'#EF8B22', south_austin:'#0979C3', leander:'#22C55E',
+      san_antonio:'#9d50dd', houston:'#DC2626'
+    };
+    const gradeColor = g => ({A:'#22C55E',B:'#16a34a',C:'#F59E0B',D:'#EF8B22',F:'#DC2626'}[g]||'#757575');
+    const fmtDate = d => { const [y,m,day]=d.split('-'); return `${+m}/${+day}`; };
+
+    // ---- Region stats (latest eval per branch) ----
+    const branchKeys = Object.keys(DATA.branches);
+    const latestByBranch = {};
+    DATA.evals.forEach(e=>{
+      if(!latestByBranch[e.branch] || e.date > latestByBranch[e.branch].date) latestByBranch[e.branch]=e;
+    });
+    const latest = branchKeys.map(k=>latestByBranch[k]).filter(Boolean);
+    const regionAvg = latest.length ? Math.round(latest.reduce((s,e)=>s+e.pct,0)/latest.length) : 0;
+    const totalEvals = DATA.evals.length;
+    const passing = latest.filter(e=>e.pct>=60).length;
+
+    document.getElementById('regionRow').innerHTML = `
+      <div class="stat-card"><h3>Region Average</h3><div class="stat-big">${regionAvg}%</div><div class="stat-sub">across ${latest.length} branches, latest read each</div></div>
+      <div class="stat-card"><h3>Branches Passing</h3><div class="stat-big">${passing}<small style="font-size:16px;color:#9ca3af"> / ${latest.length}</small></div><div class="stat-sub">scoring 60% or higher</div></div>
+      <div class="stat-card"><h3>Total Evals Logged</h3><div class="stat-big">${totalEvals}</div><div class="stat-sub">since tracking began</div></div>
+    `;
+
+    // ---- Note banner ----
+    document.getElementById('noteBanner').innerHTML =
+      `⚠️ Entries tagged <strong>legacy</strong> were scored under rubric v1.0 (before the BH-4, BH-7, BH-8 and BH-9 revisions). Compare pre- and post-7/9 scores directionally, not point-for-point. Current rubric: <strong>v${DATA.meta.current_rubric_version}</strong>.`;
+
+    // ---- Line chart (SVG) ----
+    const dates = [...new Set(DATA.evals.map(e=>e.date))].sort();
+    const W=1040,H=280,padL=42,padR=16,padT=16,padB=34;
+    const plotW=W-padL-padR, plotH=H-padT-padB;
+    const xFor = i => dates.length<=1 ? padL+plotW/2 : padL + (i/(dates.length-1))*plotW;
+    const yFor = pct => padT + (1-pct/100)*plotH;
+
+    let svg = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">`;
+    // gridlines + y labels
+    [0,20,40,60,80,100].forEach(v=>{
+      const y=yFor(v);
+      svg+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="${v===60?'#22C55E':'#eef0f2'}" stroke-width="${v===60?1.5:1}" stroke-dasharray="${v===60?'4 3':'0'}"/>`;
+      svg+=`<text x="${padL-8}" y="${y+3}" text-anchor="end" font-size="10" fill="#9ca3af" font-family="Roboto">${v}%</text>`;
+    });
+    // x labels
+    dates.forEach((d,i)=>{ svg+=`<text x="${xFor(i)}" y="${H-12}" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="Roboto">${fmtDate(d)}</text>`; });
+    // 60% pass label
+    svg+=`<text x="${W-padR}" y="${yFor(60)-5}" text-anchor="end" font-size="9" fill="#22C55E" font-family="Roboto" font-weight="700">PASS 60%</text>`;
+    // lines per branch
+    branchKeys.forEach(bk=>{
+      const pts = DATA.evals.filter(e=>e.branch===bk).sort((a,b)=>a.date.localeCompare(b.date));
+      if(!pts.length) return;
+      const color=BRANCH_COLORS[bk];
+      let path='';
+      pts.forEach(p=>{ const x=xFor(dates.indexOf(p.date)), y=yFor(p.pct); path+=(path?'L':'M')+x+' '+y+' '; });
+      if(pts.length>1) svg+=`<path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
+      pts.forEach(p=>{ const x=xFor(dates.indexOf(p.date)), y=yFor(p.pct); svg+=`<circle cx="${x}" cy="${y}" r="4" fill="${color}"/>`; });
+    });
+    svg+=`</svg>`;
+    document.getElementById('chart').innerHTML=svg;
+
+    document.getElementById('legend').innerHTML = branchKeys.map(bk=>
+      `<div class="legend-item"><span class="legend-dot" style="background:${BRANCH_COLORS[bk]}"></span>${DATA.branches[bk].name}</div>`).join('');
+
+    // ---- Branch cards (latest + trend) ----
+    document.getElementById('branchGrid').innerHTML = branchKeys.map(bk=>{
+      const hist = DATA.evals.filter(e=>e.branch===bk).sort((a,b)=>a.date.localeCompare(b.date));
+      if(!hist.length) return '';
+      const cur=hist[hist.length-1], prev=hist.length>1?hist[hist.length-2]:null;
+      let trend='<span style="color:#9ca3af">— no prior read</span>';
+      if(prev){
+        const d=cur.pct-prev.pct;
+        if(d>0) trend=`<span style="color:#22C55E">▲ +${d} pts vs last</span>`;
+        else if(d<0) trend=`<span style="color:#DC2626">▼ ${d} pts vs last</span>`;
+        else trend=`<span style="color:#9ca3af">▬ flat vs last</span>`;
+      }
+      return `<div class="branch-card">
+        <div class="bc-top">
+          <div><div class="branch-name">${DATA.branches[bk].name}</div><div class="branch-mgr">${DATA.branches[bk].manager}</div></div>
+          <div class="grade-chip" style="background:${gradeColor(cur.grade)}">${cur.grade}</div>
+        </div>
+        <div class="bc-score">${cur.score}<small> / ${cur.max}</small> &nbsp;<span style="font-size:15px;color:var(--gray)">${cur.pct}%</span></div>
+        <div class="bc-trend">${trend}</div>
+        <div class="bc-date">Last graded ${fmtDate(cur.date)}${cur.rubric_version==='1.0'?' · legacy rubric':''}</div>
+      </div>`;
+    }).join('');
+
+    // ---- History table ----
+    const rows = [...DATA.evals].sort((a,b)=> b.date.localeCompare(a.date) || a.branch.localeCompare(b.branch));
+    document.getElementById('tableWrap').innerHTML = `<table>
+      <thead><tr><th>Date</th><th>Branch</th><th>Manager</th><th>Score</th><th>%</th><th>Grade</th><th>Rubric</th></tr></thead>
+      <tbody>${rows.map(e=>`<tr>
+        <td>${fmtDate(e.date)}/${e.date.slice(0,4).slice(2)}</td>
+        <td>${DATA.branches[e.branch].name}</td>
+        <td>${DATA.branches[e.branch].manager}</td>
+        <td>${e.score} / ${e.max}</td>
+        <td>${e.pct}%</td>
+        <td><span class="grade-pill" style="background:${gradeColor(e.grade)}">${e.grade}</span></td>
+        <td>${e.rubric_version==='1.0'?'<span class="legacy-tag">v1.0 legacy</span>':'v'+e.rubric_version}</td>
+      </tr>`).join('')}</tbody></table>`;
+
+    document.getElementById('footer').textContent = `Last updated ${DATA.meta.last_updated} · Data source: scrum-scores.json · Einstein Moving Company`;
+  </script>
+</body>
+</html>
