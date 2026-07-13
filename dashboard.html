@@ -42,7 +42,9 @@
     .bc-score{font-size:26px;font-weight:900;color:var(--dark);line-height:1}
     .bc-score small{font-size:14px;font-weight:700;color:var(--gray)}
     .bc-trend{font-size:12px;font-weight:700;margin-top:6px;display:flex;align-items:center;gap:5px}
-    .bc-date{font-size:11px;color:#9ca3af;margin-top:4px}
+    .bc-avg{margin-top:10px;padding-top:10px;border-top:1px solid #f3f4f6;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray)}
+    .bc-avg-grade{font-size:12px;font-weight:900;width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+    .bc-date{font-size:11px;color:#9ca3af;margin-top:8px}
 
     .chart-wrap{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px 22px;margin-bottom:8px}
     .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px}
@@ -330,6 +332,7 @@
       san_antonio:'#9d50dd', houston:'#DC2626'
     };
     const gradeColor = g => ({A:'#22C55E',B:'#16a34a',C:'#F59E0B',D:'#EF8B22',F:'#DC2626'}[g]||'#757575');
+    const pctToGrade = p => p>=90?'A':p>=80?'B':p>=70?'C':p>=60?'D':'F';
     const fmtDate = d => { const [y,m,day]=d.split('-'); return `${+m}/${+day}`; };
 
     // ---- Region stats (latest eval per branch) ----
@@ -399,13 +402,21 @@
         else if(d<0) trend=`<span style="color:#DC2626">▼ ${d} pts vs last</span>`;
         else trend=`<span style="color:#9ca3af">▬ flat vs last</span>`;
       }
+      // running average across all logged reads for this branch
+      const avgScore = hist.reduce((s,e)=>s+e.score,0)/hist.length;
+      const avgPct = Math.round(hist.reduce((s,e)=>s+e.pct,0)/hist.length);
+      const avgGrade = pctToGrade(avgPct);
       return `<div class="branch-card">
         <div class="bc-top">
           <div><div class="branch-name">${DATA.branches[bk].name}</div><div class="branch-mgr">${DATA.branches[bk].manager}</div></div>
           <div class="grade-chip" style="background:${gradeColor(cur.grade)}">${cur.grade}</div>
         </div>
-        <div class="bc-score">${cur.score}<small> / ${cur.max}</small> &nbsp;<span style="font-size:15px;color:var(--gray)">${cur.pct}%</span></div>
+        <div class="bc-score">${cur.score}<small> / ${cur.max}</small> &nbsp;<span style="font-size:15px;color:var(--gray)">${cur.pct}% current</span></div>
         <div class="bc-trend">${trend}</div>
+        <div class="bc-avg">
+          <span class="bc-avg-grade" style="background:${gradeColor(avgGrade)}">${avgGrade}</span>
+          <span>Avg <strong>${avgScore.toFixed(1)} / 60</strong> · ${avgPct}% <span style="color:#9ca3af">(${hist.length} read${hist.length>1?'s':''})</span></span>
+        </div>
         <div class="bc-date">Last graded ${fmtDate(cur.date)}${cur.rubric_version!==DATA.meta.current_rubric_version?' · v'+cur.rubric_version+' rubric':''}</div>
       </div>`;
     }).join('');
