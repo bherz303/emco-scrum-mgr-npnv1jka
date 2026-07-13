@@ -72,6 +72,40 @@
 
     .footer{margin-top:26px;font-size:12px;color:#9ca3af;text-align:center}
 
+    tbody tr{cursor:pointer}
+    tbody tr:hover{background:#fafafa}
+    .row-hint{font-size:10px;color:#9ca3af;font-weight:400;text-transform:none;letter-spacing:0}
+
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(39,52,61,.55);z-index:50;padding:24px;overflow-y:auto}
+    .modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+    .modal{background:#fff;border-radius:14px;max-width:760px;width:100%;margin:auto;padding:0;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+    .modal-close{position:absolute;top:14px;right:14px;border:none;background:#f3f4f6;color:var(--gray);width:30px;height:30px;border-radius:8px;font-size:14px;cursor:pointer}
+    .modal-close:hover{background:#e5e7eb}
+    .sc{padding:26px 28px}
+    .sc-head{border-bottom:2px solid var(--orange);padding-bottom:14px;margin-bottom:16px}
+    .sc-head h2{font-size:18px;font-weight:900;color:var(--dark)}
+    .sc-head .sc-sub{font-size:13px;color:var(--gray);margin-top:3px}
+    .sc-total{display:flex;align-items:center;gap:12px;margin:16px 0}
+    .sc-total .sc-grade{font-size:22px;font-weight:900;width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff}
+    .sc-total .sc-num{font-size:20px;font-weight:900;color:var(--dark)}
+    .sc-total .sc-num small{font-size:13px;font-weight:700;color:var(--gray)}
+    .sc-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--orange);margin:18px 0 8px}
+    .sc-crit{display:flex;gap:9px;padding:7px 0;border-bottom:1px solid #f3f4f6;font-size:13px;line-height:1.45}
+    .sc-crit .dot{flex-shrink:0;font-size:12px;margin-top:1px}
+    .sc-crit .cn{font-weight:700;color:var(--dark)}
+    .sc-action{font-size:13px;line-height:1.45;margin:4px 0 4px 0;padding-left:18px;position:relative}
+    .sc-action:before{content:"→";position:absolute;left:0;color:var(--orange);font-weight:700}
+    .sc-ind{border:1px solid #e5e7eb;border-radius:10px;padding:11px 14px;margin-bottom:8px}
+    .sc-ind .ih{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+    .sc-ind .inm{font-weight:700;color:var(--dark);font-size:13px}
+    .sc-ind .isc{font-weight:900;font-size:13px;color:var(--gray)}
+    .sc-ind .iln{font-size:12px;color:var(--gray);line-height:1.5}
+    .sc-summary{background:#F6F6F6;border-radius:10px;padding:12px 14px;font-size:13px;color:var(--dark);line-height:1.5;margin-top:14px}
+    .sc-copy{margin-top:18px;display:flex;gap:10px;align-items:center}
+    .sc-copy button{font-family:inherit;font-size:13px;font-weight:700;padding:9px 18px;border-radius:8px;border:none;background:var(--blue);color:#fff;cursor:pointer}
+    .sc-copy .copied{color:var(--green);font-size:12px;font-weight:700}
+    .sc-nodetail{background:#FEF3C7;border:1px solid #FADF98;border-radius:10px;padding:12px 14px;font-size:12px;color:#854d0e}
+
     @media (max-width:768px){
       .region-row{grid-template-columns:1fr}
       .branch-grid{grid-template-columns:1fr}
@@ -128,6 +162,13 @@
     <div class="footer" id="footer"></div>
   </div>
 
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose" title="Close">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
   <script id="scoreData" type="application/json">
 {
   "meta": {
@@ -164,7 +205,8 @@
       "max": 60,
       "pct": 57,
       "grade": "F",
-      "rubric_version": "1.0"
+      "rubric_version": "1.0",
+      "note": "Legacy rubric read. Systemic deferred-date issue; velocity pulse parked."
     },
     {
       "date": "2026-06-22",
@@ -173,7 +215,8 @@
       "max": 60,
       "pct": 57,
       "grade": "F",
-      "rubric_version": "1.0"
+      "rubric_version": "1.0",
+      "note": "Legacy rubric read. Flat WoW. QG Live pulses deferred with no date."
     },
     {
       "date": "2026-06-22",
@@ -182,7 +225,8 @@
       "max": 60,
       "pct": 47,
       "grade": "F",
-      "rubric_version": "1.0"
+      "rubric_version": "1.0",
+      "note": "Legacy rubric read. LOW columns confirmed (Day/Week LOW). Inbox age + duplicates the main drags."
     },
     {
       "date": "2026-06-23",
@@ -191,7 +235,8 @@
       "max": 60,
       "pct": 53,
       "grade": "F",
-      "rubric_version": "1.0"
+      "rubric_version": "1.0",
+      "note": "Legacy rubric read. Best on velocity/happiness/past-due; Project column nearly unused."
     },
     {
       "date": "2026-06-23",
@@ -200,7 +245,8 @@
       "max": 60,
       "pct": 43,
       "grade": "F",
-      "rubric_version": "1.0"
+      "rubric_version": "1.0",
+      "note": "Legacy rubric read. QG values + Project column weak; scored under pre-1.3 Project rule."
     },
     {
       "date": "2026-06-23",
@@ -209,7 +255,8 @@
       "max": 60,
       "pct": 50,
       "grade": "F",
-      "rubric_version": "1.0"
+      "rubric_version": "1.0",
+      "note": "Legacy rubric read. Strong QG tracking; Project column + duplicate praise pulse the drags."
     },
     {
       "date": "2026-06-29",
@@ -218,7 +265,8 @@
       "max": 60,
       "pct": 77,
       "grade": "C",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "Corrected read (coaching session). Recovered from archive."
     },
     {
       "date": "2026-06-29",
@@ -227,7 +275,8 @@
       "max": 60,
       "pct": 83,
       "grade": "B",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "Recovered from archive."
     },
     {
       "date": "2026-06-30",
@@ -236,7 +285,8 @@
       "max": 60,
       "pct": 80,
       "grade": "B",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "Corrected read; supersedes a buggy F-read where LOW columns weren't detected."
     },
     {
       "date": "2026-06-30",
@@ -245,7 +295,8 @@
       "max": 60,
       "pct": 73,
       "grade": "C",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "Corrected read; supersedes buggy F-read."
     },
     {
       "date": "2026-06-30",
@@ -254,7 +305,8 @@
       "max": 60,
       "pct": 65,
       "grade": "D",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "Corrected read; supersedes buggy F-read."
     },
     {
       "date": "2026-07-06",
@@ -263,7 +315,8 @@
       "max": 60,
       "pct": 50,
       "grade": "F",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "This-week read. Board slipped; re-scored 7/7 after coaching."
     },
     {
       "date": "2026-07-06",
@@ -272,7 +325,8 @@
       "max": 60,
       "pct": 90,
       "grade": "A",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "This-week read. Strongest board in region."
     },
     {
       "date": "2026-07-07",
@@ -281,7 +335,8 @@
       "max": 60,
       "pct": 63,
       "grade": "D",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "This-week read (region batch)."
     },
     {
       "date": "2026-07-07",
@@ -290,7 +345,8 @@
       "max": 60,
       "pct": 83,
       "grade": "B",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "This-week read. +20 pts vs 7/6 after Frank cleaned the board."
     },
     {
       "date": "2026-07-07",
@@ -299,7 +355,8 @@
       "max": 60,
       "pct": 50,
       "grade": "F",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "This-week read (region batch)."
     },
     {
       "date": "2026-07-07",
@@ -308,7 +365,8 @@
       "max": 60,
       "pct": 42,
       "grade": "F",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "This-week read; re-scored 7/8 after coaching."
     },
     {
       "date": "2026-07-08",
@@ -317,7 +375,8 @@
       "max": 60,
       "pct": 72,
       "grade": "C",
-      "rubric_version": "1.2"
+      "rubric_version": "1.2",
+      "note": "This-week read. +18 pts vs 7/7 after Chris cleaned the board."
     },
     {
       "date": "2026-07-09",
@@ -326,7 +385,98 @@
       "max": 60,
       "pct": 83,
       "grade": "B",
-      "rubric_version": "1.3"
+      "rubric_version": "1.3",
+      "note": "First current-rubric (v1.3) read. Strong board; QG Value blank on most of Calvin's and Nick's live QG pulses is the main drag. Individuals: Calvin 24, Nick 22, Rance 28.",
+      "detail": {
+        "criteria": [
+          [
+            "LOW Values",
+            5,
+            "All 10 Today items carry valid Fibonacci Daily LOWs. The day is loaded heavy (~48 vs the 15\u201320 target) but every item is sized."
+          ],
+          [
+            "Pulse Titles",
+            5,
+            "Clear and action-oriented \u2014 onboarding checklists named by hire, the bed-damage follow-up, dispatch and truck checks. Only thin one is Nick's bare \"Sales\" pulse."
+          ],
+          [
+            "Later Group Dates",
+            3,
+            "The one deferred item, \"Monthly Inventory Reset,\" is dated today (a Thursday) instead of a future Monday."
+          ],
+          [
+            "Happiness Pulse + QG Value Visibility",
+            5,
+            "Happiness pulse present (\"Reach out to leads for driver certs\"); QG Value in active use on several live pulses."
+          ],
+          [
+            "QG Value on QG Pulses",
+            3,
+            "Used on some (Mover Metrics 12, Rance's Sales 32, Damages 15) but most of Calvin's and Nick's live QG pulses are blank."
+          ],
+          [
+            "Inbox Age",
+            3,
+            "\"May 2026 Damage Report\" has sat untriaged since June 22 \u2014 17 days."
+          ],
+          [
+            "Project Column",
+            5,
+            "Over half the active board tagged; all QG and DB pulses correct."
+          ],
+          [
+            "Updates with Context",
+            5,
+            "Every critical pulse sampled has a current update: the Lawrence Amadi complaint, the bed-damage follow-up, Miguel's failed eval, Frank Camacho's employee pulse, and the Mover Metrics QG."
+          ],
+          [
+            "No Duplicates",
+            5,
+            "No true duplicates; repeated survey and Training-Day-app pulses are DB announcements distributed per manager."
+          ],
+          [
+            "Automations",
+            5,
+            "Statuses line up with groups; movement is status-driven."
+          ],
+          [
+            "Bonus \u2014 Definition of Done",
+            3,
+            "Mixed \u2014 some Done items have no completion note (Driver Ed Process, Grey's driving cert)."
+          ],
+          [
+            "Bonus \u2014 No Past-Due Items",
+            3,
+            "Two past-due items in This Week: the Lawrence Amadi complaint (6/19) and JERRY registration (7/8)."
+          ]
+        ],
+        "actions": [
+          "Fill in QG Value on the live QG pulses \u2014 most of Calvin's and Nick's are blank. Biggest single gap.",
+          "Clear the two past-due items (Lawrence Amadi 6/19, JERRY 7/8) and fix the deferred inventory reset to a future Monday.",
+          "Triage the \"May 2026 Damage Report\" sitting in the Inbox since June 22."
+        ],
+        "individuals": [
+          [
+            "Calvin Hughes",
+            24,
+            30,
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udd34 (most live QG blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe1 (Lawrence 6/19)"
+          ],
+          [
+            "Nick Dagel",
+            22,
+            30,
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 (\"Sales\" thin) \u00b7 Project \ud83d\udfe1 \u00b7 QG Value \ud83d\udd34 (Driver Safety/Sales/Praise/Samsara blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe1 (JERRY 7/8)"
+          ],
+          [
+            "Rance Pope",
+            28,
+            30,
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe1 (2 valued, 2 blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
+          ]
+        ],
+        "summary": "Primary drag is QG Value on the live QG pulses \u2014 Calvin and Nick both red there. Rance is the model on this board at 28 out of 30. Big step up from the June 23 read (26/60)."
+      }
     },
     {
       "date": "2026-07-13",
@@ -335,7 +485,92 @@
       "max": 60,
       "pct": 97,
       "grade": "A",
-      "rubric_version": "1.3"
+      "rubric_version": "1.3",
+      "note": "Major turnaround: deferred dates + QG values (both prior reds) now fixed. Drag = un-updated Missing Payments pulse (BH-8). Def-of-Done corrected to full credit under the damage-pulse exclusion. Individuals: Frank 28, Garrison 30.",
+      "detail": {
+        "criteria": [
+          [
+            "LOW Values",
+            5,
+            "All Today items for both Frank and Garrison carry valid Fibonacci Daily LOWs."
+          ],
+          [
+            "Pulse Titles",
+            5,
+            "Descriptive and clear \u2014 the Mary Bartholic discount, Emily's driver-training scheduling, damage reporting."
+          ],
+          [
+            "Later Group Dates",
+            5,
+            "Every deferred item now has a future Monday date. This was Frank's chronic weak spot and it's fully fixed."
+          ],
+          [
+            "Happiness Pulse + QG Value Visibility",
+            5,
+            "Happiness pulse present; QG Value in active use."
+          ],
+          [
+            "QG Value on QG Pulses",
+            5,
+            "Every live QG pulse has a QG Value. Also previously a red flag for Frank \u2014 now clean."
+          ],
+          [
+            "Inbox Age",
+            5,
+            "No stale orphans; everything triaged."
+          ],
+          [
+            "Project Column",
+            5,
+            "Majority tagged and all QG and DB pulses correct."
+          ],
+          [
+            "Updates with Context",
+            3,
+            "Most critical pulses documented (employee sprint pulses, the truck-camera issue, Amanda's sales-review flag), but the \"Missing Payments\" pulse \u2014 open since June 26 \u2014 has no progress note."
+          ],
+          [
+            "No Duplicates",
+            5,
+            "No true duplicates; the two Thursday AM sales blocks belong to different people."
+          ],
+          [
+            "Automations",
+            5,
+            "Statuses and groups align."
+          ],
+          [
+            "Bonus \u2014 Definition of Done",
+            5,
+            "Office-move sales review is well documented; damage claims are excluded from this check."
+          ],
+          [
+            "Bonus \u2014 No Past-Due Items",
+            5,
+            "Nothing past due."
+          ]
+        ],
+        "actions": [
+          "Put a progress note on the \"Missing Payments\" pulse \u2014 the one critical item running without documentation.",
+          "Keep the deferred-date and QG-value discipline that turned this board around.",
+          "Continue adding resolution notes on non-damage Done items."
+        ],
+        "individuals": [
+          [
+            "Frank Williams",
+            28,
+            30,
+            "The only ding is the un-updated Missing Payments pulse; LOWs, titles, project tags, QG values, and dates all clean."
+          ],
+          [
+            "Garrison Cobe",
+            30,
+            30,
+            "Employee pulses and fleet work all current, everything tagged and valued."
+          ]
+        ],
+        "summary": "Primary drag is the one Missing Payments pulse. Otherwise a dramatic turnaround from June \u2014 the deferred-date and QG-value fixes are exactly what moved this board."
+      }
     },
     {
       "date": "2026-07-13",
@@ -344,7 +579,98 @@
       "max": 60,
       "pct": 97,
       "grade": "A",
-      "rubric_version": "1.3"
+      "rubric_version": "1.3",
+      "note": "Regional benchmark. Only ding is inconsistent Done-completion notes. Individuals: Dustin 30, Lukas 30, Cameron K 30.",
+      "detail": {
+        "criteria": [
+          [
+            "LOW Values",
+            5,
+            "Every Today item across all three team members carries a valid Fibonacci Daily LOW."
+          ],
+          [
+            "Pulse Titles",
+            5,
+            "Clear and operational \u2014 payroll referral bonuses named by person, \"Check in with Mike Larson,\" camera-angle fleet tasks."
+          ],
+          [
+            "Later Group Dates",
+            5,
+            "All five deferred items (truck registrations, referral bonus) carry future Monday dates."
+          ],
+          [
+            "Happiness Pulse + QG Value Visibility",
+            5,
+            "Happiness pulse present (Q1 Onsite Evals); QG Value populated across the live pulses."
+          ],
+          [
+            "QG Value on QG Pulses",
+            5,
+            "Every single live QG pulse has a QG Value filled in. Fully clean."
+          ],
+          [
+            "Inbox Age",
+            5,
+            "Nothing stale; everything triaged into Today or This Week."
+          ],
+          [
+            "Project Column",
+            5,
+            "Nearly the entire active board is tagged, and all QG and DB pulses are correct."
+          ],
+          [
+            "Updates with Context",
+            5,
+            "Every critical pulse has a current note: the Mike Larson coaching thread, the missing-payments list, the branch sales QG, and the fleet camera work."
+          ],
+          [
+            "No Duplicates",
+            5,
+            "No true duplicates; repeated Hustle Team Vote and dispatch pulses are DB announcements per person."
+          ],
+          [
+            "Automations",
+            5,
+            "Statuses and groups line up cleanly."
+          ],
+          [
+            "Bonus \u2014 Definition of Done",
+            3,
+            "Mixed \u2014 the Monday Sync has a velocity completion note, but a few Done items (Inventory, Kevin verbal) are bare."
+          ],
+          [
+            "Bonus \u2014 No Past-Due Items",
+            5,
+            "Nothing past due; This Week is all future-dated."
+          ]
+        ],
+        "actions": [
+          "Add a one-line completion note to Done items before they cycle out \u2014 the only thing between this board and a perfect score.",
+          "Keep the QG Value discipline going; it's the model for the region.",
+          "No structural fixes needed \u2014 this is a clean board."
+        ],
+        "individuals": [
+          [
+            "Dustin Street",
+            30,
+            30,
+            "Clean across every criterion."
+          ],
+          [
+            "Lukas Konrad",
+            30,
+            30,
+            "LOWs, titles, project tags, QG values, updates, and dates all clean."
+          ],
+          [
+            "Cameron Klepac",
+            30,
+            30,
+            "QG pulses all valued, everything tagged and current."
+          ]
+        ],
+        "summary": "No drag on this board \u2014 it's the regional benchmark. All three managers at 30 out of 30."
+      }
     }
   ]
 }
@@ -494,8 +820,8 @@
       // ---- History table over the range ----
       const trows=[...evals].sort((a,b)=> b.date.localeCompare(a.date) || a.branch.localeCompare(b.branch));
       document.getElementById('tableWrap').innerHTML = `<table>
-        <thead><tr><th>Date</th><th>Branch</th><th>Manager</th><th>Score</th><th>%</th><th>Grade</th><th>Rubric</th></tr></thead>
-        <tbody>${trows.length?trows.map(e=>`<tr>
+        <thead><tr><th>Date</th><th>Branch</th><th>Manager</th><th>Score</th><th>%</th><th>Grade</th><th>Rubric <span class="row-hint">· click a row for the full scorecard</span></th></tr></thead>
+        <tbody>${trows.length?trows.map(e=>`<tr data-key="${e.date}|${e.branch}">
           <td>${fmtDate(e.date)}/${e.date.slice(2,4)}</td>
           <td>${DATA.branches[e.branch].name}</td>
           <td>${DATA.branches[e.branch].manager}</td>
@@ -504,7 +830,79 @@
           <td><span class="grade-pill" style="background:${gradeColor(e.grade)}">${e.grade}</span></td>
           <td>${e.rubric_version!==DATA.meta.current_rubric_version?'<span class="legacy-tag">v'+e.rubric_version+'</span>':'v'+e.rubric_version}</td>
         </tr>`).join(''):'<tr><td colspan="7" style="text-align:center;color:#9ca3af">No reads in this range</td></tr>'}</tbody></table>`;
+
+      // wire row clicks
+      document.querySelectorAll('#tableWrap tbody tr[data-key]').forEach(tr=>{
+        tr.addEventListener('click',()=>openScorecard(tr.dataset.key));
+      });
     }
+
+    // ---- Scorecard detail modal ----
+    const dotFor = pts => pts>=5?'🟢':pts>=3?'🟡':'🔴';
+
+    function evalByKey(key){
+      const [date,branch]=key.split('|');
+      return DATA.evals.find(e=>e.date===date && e.branch===branch);
+    }
+
+    // build a clean plain-text scorecard for copy/paste to a manager
+    function scorecardText(e){
+      const b=DATA.branches[e.branch], d=e.detail;
+      const L=[];
+      L.push(`Scrum Board Hygiene — ${b.name} / ${b.manager} — ${fmtDate(e.date)}/${e.date.slice(0,4)}`);
+      L.push('');
+      L.push(`Score: ${e.score} out of 60 (${e.pct}%) — Grade ${e.grade}`);
+      if(d){
+        L.push('');
+        d.criteria.forEach(c=>{ L.push(`${dotFor(c[1])} ${c[0]} (${c[1]}) — ${c[2]}`); });
+        if(d.actions&&d.actions.length){ L.push(''); L.push('Top Action Items:'); d.actions.forEach(a=>L.push(`  - ${a}`)); }
+        if(d.individuals&&d.individuals.length){ L.push(''); L.push('Individual Breakdown:'); d.individuals.forEach(i=>{ L.push(`  ${i[0]} — ${i[1]} of ${i[2]}`); L.push(`    ${i[3]}`); }); }
+        if(d.summary){ L.push(''); L.push(d.summary); }
+      } else if(e.note){ L.push(''); L.push(e.note); }
+      return L.join('\n');
+    }
+
+    function openScorecard(key){
+      const e=evalByKey(key); if(!e) return;
+      const b=DATA.branches[e.branch], d=e.detail;
+      let html=`<div class="sc">
+        <div class="sc-head">
+          <h2>${b.name} — ${b.manager}</h2>
+          <div class="sc-sub">Scrum Board Hygiene · ${fmtDate(e.date)}/${e.date.slice(0,4)} · rubric v${e.rubric_version}</div>
+        </div>
+        <div class="sc-total">
+          <div class="sc-grade" style="background:${gradeColor(e.grade)}">${e.grade}</div>
+          <div class="sc-num">${e.score}<small> / 60</small> &nbsp; ${e.pct}%</div>
+        </div>`;
+      if(d){
+        html+=`<div class="sc-section-title">Criteria Breakdown</div>`;
+        d.criteria.forEach(c=>{ html+=`<div class="sc-crit"><span class="dot">${dotFor(c[1])}</span><span><span class="cn">${c[0]} (${c[1]})</span> — ${c[2]}</span></div>`; });
+        if(d.actions&&d.actions.length){ html+=`<div class="sc-section-title">Top Action Items</div>`; d.actions.forEach(a=>html+=`<div class="sc-action">${a}</div>`); }
+        if(d.individuals&&d.individuals.length){
+          html+=`<div class="sc-section-title">Individual Breakdown</div>`;
+          d.individuals.forEach(i=>{ html+=`<div class="sc-ind"><div class="ih"><span class="inm">${i[0]}</span><span class="isc">${i[1]} / ${i[2]}</span></div><div class="iln">${i[3]}</div></div>`; });
+        }
+        if(d.summary) html+=`<div class="sc-summary">${d.summary}</div>`;
+      } else {
+        html+=`<div class="sc-nodetail">Full per-criterion findings weren't captured for this read${e.note?' — summary note below.':'.'}</div>`;
+        if(e.note) html+=`<div class="sc-summary" style="margin-top:10px">${e.note}</div>`;
+      }
+      html+=`<div class="sc-copy"><button id="copyBtn">Copy scorecard</button><span class="copied" id="copiedMsg" style="display:none">✓ Copied — paste to your manager</span></div>
+      </div>`;
+      document.getElementById('modalBody').innerHTML=html;
+      document.getElementById('modalOverlay').classList.add('open');
+      document.getElementById('copyBtn').addEventListener('click',async()=>{
+        const txt=scorecardText(e);
+        try{ await navigator.clipboard.writeText(txt); }
+        catch(_){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
+        document.getElementById('copiedMsg').style.display='inline';
+      });
+    }
+
+    function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
+    document.getElementById('modalClose').addEventListener('click',closeModal);
+    document.getElementById('modalOverlay').addEventListener('click',ev=>{ if(ev.target.id==='modalOverlay') closeModal(); });
+    document.addEventListener('keydown',ev=>{ if(ev.key==='Escape') closeModal(); });
 
     // ---- Wire up controls ----
     const presetWrap=document.getElementById('filterPresets');
