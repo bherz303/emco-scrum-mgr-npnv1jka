@@ -24,6 +24,16 @@
 
     .page{max-width:1100px;margin:0 auto;padding:26px 24px 48px}
 
+    .filter-bar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:22px;padding:14px 16px;background:#fff;border:1px solid #e5e7eb;border-radius:12px}
+    .filter-presets{display:flex;gap:6px;flex-wrap:wrap}
+    .filter-presets button{font-family:inherit;font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;border:1px solid #e5e7eb;background:#fff;color:var(--gray);cursor:pointer}
+    .filter-presets button:hover{border-color:var(--orange)}
+    .filter-presets button.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+    .filter-custom{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray)}
+    .filter-custom input{font-family:inherit;font-size:12px;padding:5px 8px;border:1px solid #e5e7eb;border-radius:6px;color:var(--gray)}
+    .filter-custom button{font-family:inherit;font-size:12px;font-weight:700;padding:6px 12px;border-radius:6px;border:none;background:var(--blue);color:#fff;cursor:pointer}
+    .filter-label{margin-left:auto;font-size:12px;font-weight:700;color:var(--dark)}
+
     .region-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:26px}
     .stat-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:18px 20px}
     .stat-card h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--orange);margin-bottom:8px}
@@ -84,6 +94,21 @@
   </div>
 
   <div class="page">
+    <div class="filter-bar">
+      <div class="filter-presets" id="filterPresets">
+        <button data-preset="lifetime" class="active">Lifetime</button>
+        <button data-preset="week">Last 7 days</button>
+        <button data-preset="month">Last 30 days</button>
+        <button data-preset="quarter">This Quarter</button>
+      </div>
+      <div class="filter-custom">
+        <label>From <input type="date" id="fromDate" /></label>
+        <label>To <input type="date" id="toDate" /></label>
+        <button id="applyCustom">Apply</button>
+      </div>
+      <div class="filter-label" id="filterLabel"></div>
+    </div>
+
     <div class="region-row" id="regionRow"></div>
 
     <div class="note-banner" id="noteBanner"></div>
@@ -334,108 +359,176 @@
     const gradeColor = g => ({A:'#22C55E',B:'#16a34a',C:'#F59E0B',D:'#EF8B22',F:'#DC2626'}[g]||'#757575');
     const pctToGrade = p => p>=90?'A':p>=80?'B':p>=70?'C':p>=60?'D':'F';
     const fmtDate = d => { const [y,m,day]=d.split('-'); return `${+m}/${+day}`; };
-
-    // ---- Region stats (latest eval per branch) ----
     const branchKeys = Object.keys(DATA.branches);
-    const latestByBranch = {};
-    DATA.evals.forEach(e=>{
-      if(!latestByBranch[e.branch] || e.date > latestByBranch[e.branch].date) latestByBranch[e.branch]=e;
-    });
-    const latest = branchKeys.map(k=>latestByBranch[k]).filter(Boolean);
-    const regionAvg = latest.length ? Math.round(latest.reduce((s,e)=>s+e.pct,0)/latest.length) : 0;
-    const totalEvals = DATA.evals.length;
-    const passing = latest.filter(e=>e.pct>=60).length;
 
-    document.getElementById('regionRow').innerHTML = `
-      <div class="stat-card"><h3>Region Average</h3><div class="stat-big">${regionAvg}%</div><div class="stat-sub">across ${latest.length} branches, latest read each</div></div>
-      <div class="stat-card"><h3>Branches Passing</h3><div class="stat-big">${passing}<small style="font-size:16px;color:#9ca3af"> / ${latest.length}</small></div><div class="stat-sub">scoring 60% or higher</div></div>
-      <div class="stat-card"><h3>Total Evals Logged</h3><div class="stat-big">${totalEvals}</div><div class="stat-sub">since tracking began</div></div>
-    `;
-
-    // ---- Note banner ----
+    // ---- Note banner (static) ----
     document.getElementById('noteBanner').innerHTML =
       `⚠️ Entries before 7/9 (rubric v1.0 and v1.2) predate the current wording of the BH-7, BH-8 and BH-9 criteria. Treat pre-7/9 scores as directional. Current rubric: <strong>v${DATA.meta.current_rubric_version}</strong>.`;
-
-    // ---- Line chart (SVG) ----
-    const dates = [...new Set(DATA.evals.map(e=>e.date))].sort();
-    const W=1040,H=280,padL=42,padR=16,padT=16,padB=34;
-    const plotW=W-padL-padR, plotH=H-padT-padB;
-    const xFor = i => dates.length<=1 ? padL+plotW/2 : padL + (i/(dates.length-1))*plotW;
-    const yFor = pct => padT + (1-pct/100)*plotH;
-
-    let svg = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">`;
-    // gridlines + y labels
-    [0,20,40,60,80,100].forEach(v=>{
-      const y=yFor(v);
-      svg+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="${v===60?'#22C55E':'#eef0f2'}" stroke-width="${v===60?1.5:1}" stroke-dasharray="${v===60?'4 3':'0'}"/>`;
-      svg+=`<text x="${padL-8}" y="${y+3}" text-anchor="end" font-size="10" fill="#9ca3af" font-family="Roboto">${v}%</text>`;
-    });
-    // x labels
-    dates.forEach((d,i)=>{ svg+=`<text x="${xFor(i)}" y="${H-12}" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="Roboto">${fmtDate(d)}</text>`; });
-    // 60% pass label
-    svg+=`<text x="${W-padR}" y="${yFor(60)-5}" text-anchor="end" font-size="9" fill="#22C55E" font-family="Roboto" font-weight="700">PASS 60%</text>`;
-    // lines per branch
-    branchKeys.forEach(bk=>{
-      const pts = DATA.evals.filter(e=>e.branch===bk).sort((a,b)=>a.date.localeCompare(b.date));
-      if(!pts.length) return;
-      const color=BRANCH_COLORS[bk];
-      let path='';
-      pts.forEach(p=>{ const x=xFor(dates.indexOf(p.date)), y=yFor(p.pct); path+=(path?'L':'M')+x+' '+y+' '; });
-      if(pts.length>1) svg+=`<path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
-      pts.forEach(p=>{ const x=xFor(dates.indexOf(p.date)), y=yFor(p.pct); svg+=`<circle cx="${x}" cy="${y}" r="4" fill="${color}"/>`; });
-    });
-    svg+=`</svg>`;
-    document.getElementById('chart').innerHTML=svg;
-
-    document.getElementById('legend').innerHTML = branchKeys.map(bk=>
-      `<div class="legend-item"><span class="legend-dot" style="background:${BRANCH_COLORS[bk]}"></span>${DATA.branches[bk].name}</div>`).join('');
-
-    // ---- Branch cards (latest + trend) ----
-    document.getElementById('branchGrid').innerHTML = branchKeys.map(bk=>{
-      const hist = DATA.evals.filter(e=>e.branch===bk).sort((a,b)=>a.date.localeCompare(b.date));
-      if(!hist.length) return '';
-      const cur=hist[hist.length-1], prev=hist.length>1?hist[hist.length-2]:null;
-      let trend='<span style="color:#9ca3af">— no prior read</span>';
-      if(prev){
-        const d=cur.pct-prev.pct;
-        if(d>0) trend=`<span style="color:#22C55E">▲ +${d} pts vs last</span>`;
-        else if(d<0) trend=`<span style="color:#DC2626">▼ ${d} pts vs last</span>`;
-        else trend=`<span style="color:#9ca3af">▬ flat vs last</span>`;
-      }
-      // running average across all logged reads for this branch
-      const avgScore = hist.reduce((s,e)=>s+e.score,0)/hist.length;
-      const avgPct = Math.round(hist.reduce((s,e)=>s+e.pct,0)/hist.length);
-      const avgGrade = pctToGrade(avgPct);
-      return `<div class="branch-card">
-        <div class="bc-top">
-          <div><div class="branch-name">${DATA.branches[bk].name}</div><div class="branch-mgr">${DATA.branches[bk].manager}</div></div>
-          <div class="grade-chip" style="background:${gradeColor(cur.grade)}">${cur.grade}</div>
-        </div>
-        <div class="bc-score">${cur.score}<small> / ${cur.max}</small> &nbsp;<span style="font-size:15px;color:var(--gray)">${cur.pct}% current</span></div>
-        <div class="bc-trend">${trend}</div>
-        <div class="bc-avg">
-          <span class="bc-avg-grade" style="background:${gradeColor(avgGrade)}">${avgGrade}</span>
-          <span>Avg <strong>${avgScore.toFixed(1)} / 60</strong> · ${avgPct}% <span style="color:#9ca3af">(${hist.length} read${hist.length>1?'s':''})</span></span>
-        </div>
-        <div class="bc-date">Last graded ${fmtDate(cur.date)}${cur.rubric_version!==DATA.meta.current_rubric_version?' · v'+cur.rubric_version+' rubric':''}</div>
-      </div>`;
-    }).join('');
-
-    // ---- History table ----
-    const rows = [...DATA.evals].sort((a,b)=> b.date.localeCompare(a.date) || a.branch.localeCompare(b.branch));
-    document.getElementById('tableWrap').innerHTML = `<table>
-      <thead><tr><th>Date</th><th>Branch</th><th>Manager</th><th>Score</th><th>%</th><th>Grade</th><th>Rubric</th></tr></thead>
-      <tbody>${rows.map(e=>`<tr>
-        <td>${fmtDate(e.date)}/${e.date.slice(0,4).slice(2)}</td>
-        <td>${DATA.branches[e.branch].name}</td>
-        <td>${DATA.branches[e.branch].manager}</td>
-        <td>${e.score} / ${e.max}</td>
-        <td>${e.pct}%</td>
-        <td><span class="grade-pill" style="background:${gradeColor(e.grade)}">${e.grade}</span></td>
-        <td>${e.rubric_version!==DATA.meta.current_rubric_version?'<span class="legacy-tag">v'+e.rubric_version+'</span>':'v'+e.rubric_version}</td>
-      </tr>`).join('')}</tbody></table>`;
-
     document.getElementById('footer').textContent = `Last updated ${DATA.meta.last_updated} · Data source: scrum-scores.json · Einstein Moving Company`;
+
+    // ---- Date range helpers ----
+    const allDates = DATA.evals.map(e=>e.date).sort();
+    const minDate = allDates[0], maxDate = allDates[allDates.length-1];
+    // "today" for relative presets: use the later of real today or the newest logged read,
+    // so presets stay meaningful even when viewing historical data.
+    const isoToday = new Date().toISOString().slice(0,10);
+    const refToday = isoToday > maxDate ? isoToday : maxDate;
+    const shiftDays = (iso,n)=>{ const d=new Date(iso+'T00:00:00'); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); };
+    // Einstein quarters are offset: Q2 = May/Jun/Jul. Compute the quarter window containing refToday.
+    function quarterWindow(iso){
+      const [y,m]=iso.split('-').map(Number);
+      // offset month into quarter buckets starting Feb
+      const starts=[[2,'01'],[5,'01'],[8,'01'],[11,'01']]; // Feb, May, Aug, Nov
+      let qStartMonth, qYear=y;
+      if(m>=2&&m<=4){qStartMonth=2;} else if(m>=5&&m<=7){qStartMonth=5;}
+      else if(m>=8&&m<=10){qStartMonth=8;} else {qStartMonth=11; if(m===1)qYear=y-1;}
+      const from=`${qYear}-${String(qStartMonth).padStart(2,'0')}-01`;
+      const to=shiftDays(`${qStartMonth===11?qYear+1:qYear}-${String(qStartMonth+3>12?qStartMonth-9:qStartMonth+3).padStart(2,'0')}-01`,-1);
+      return {from,to};
+    }
+
+    let state = { from:minDate, to:maxDate, preset:'lifetime' };
+
+    function computeRange(preset){
+      if(preset==='lifetime') return {from:minDate,to:maxDate};
+      if(preset==='week')  return {from:shiftDays(refToday,-6), to:refToday};
+      if(preset==='month') return {from:shiftDays(refToday,-29), to:refToday};
+      if(preset==='quarter') return quarterWindow(refToday);
+      return {from:minDate,to:maxDate};
+    }
+
+    // ---- Master render ----
+    function render(){
+      const {from,to}=state;
+      const evals = DATA.evals.filter(e=> e.date>=from && e.date<=to);
+
+      // filter label
+      const presetName = {lifetime:'Lifetime',week:'Last 7 days',month:'Last 30 days',quarter:'This Quarter',custom:'Custom range'}[state.preset]||'Custom range';
+      document.getElementById('filterLabel').textContent =
+        `${presetName}: ${fmtDate(from)}/${from.slice(2,4)} – ${fmtDate(to)}/${to.slice(2,4)} · ${evals.length} read${evals.length!==1?'s':''}`;
+
+      // ---- Region stats over the range ----
+      const latestByBranch={}, statsByBranch={};
+      branchKeys.forEach(bk=>{
+        const h=evals.filter(e=>e.branch===bk).sort((a,b)=>a.date.localeCompare(b.date));
+        if(h.length){
+          latestByBranch[bk]=h[h.length-1];
+          statsByBranch[bk]={
+            hist:h,
+            avgScore:h.reduce((s,e)=>s+e.score,0)/h.length,
+            avgPct:Math.round(h.reduce((s,e)=>s+e.pct,0)/h.length)
+          };
+        }
+      });
+      const latest=Object.values(latestByBranch);
+      const branchAvgs=Object.values(statsByBranch);
+      // region average = average of each branch's average over the range (equal weight per branch)
+      const regionAvg = branchAvgs.length ? Math.round(branchAvgs.reduce((s,b)=>s+b.avgPct,0)/branchAvgs.length) : 0;
+      const passing = branchAvgs.filter(b=>b.avgPct>=60).length;
+
+      document.getElementById('regionRow').innerHTML = `
+        <div class="stat-card"><h3>Region Average</h3><div class="stat-big">${regionAvg}%</div><div class="stat-sub">avg of ${branchAvgs.length} branch averages in range · grade ${pctToGrade(regionAvg)}</div></div>
+        <div class="stat-card"><h3>Branches Passing</h3><div class="stat-big">${passing}<small style="font-size:16px;color:#9ca3af"> / ${branchAvgs.length}</small></div><div class="stat-sub">branch average 60% or higher</div></div>
+        <div class="stat-card"><h3>Evals in Range</h3><div class="stat-big">${evals.length}</div><div class="stat-sub">of ${DATA.evals.length} logged all-time</div></div>
+      `;
+
+      // ---- Chart over the range ----
+      const dates=[...new Set(evals.map(e=>e.date))].sort();
+      const W=1040,H=280,padL=42,padR=16,padT=16,padB=34;
+      const plotW=W-padL-padR, plotH=H-padT-padB;
+      const xFor=i=> dates.length<=1 ? padL+plotW/2 : padL+(i/(dates.length-1))*plotW;
+      const yFor=pct=> padT+(1-pct/100)*plotH;
+      let svg=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">`;
+      [0,20,40,60,80,100].forEach(v=>{const y=yFor(v);
+        svg+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="${v===60?'#22C55E':'#eef0f2'}" stroke-width="${v===60?1.5:1}" stroke-dasharray="${v===60?'4 3':'0'}"/>`;
+        svg+=`<text x="${padL-8}" y="${y+3}" text-anchor="end" font-size="10" fill="#9ca3af" font-family="Roboto">${v}%</text>`;});
+      if(dates.length){
+        dates.forEach((d,i)=>{svg+=`<text x="${xFor(i)}" y="${H-12}" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="Roboto">${fmtDate(d)}</text>`;});
+        svg+=`<text x="${W-padR}" y="${yFor(60)-5}" text-anchor="end" font-size="9" fill="#22C55E" font-family="Roboto" font-weight="700">PASS 60%</text>`;
+        branchKeys.forEach(bk=>{
+          const pts=evals.filter(e=>e.branch===bk).sort((a,b)=>a.date.localeCompare(b.date));
+          if(!pts.length) return; const color=BRANCH_COLORS[bk]; let path='';
+          pts.forEach(p=>{const x=xFor(dates.indexOf(p.date)),y=yFor(p.pct); path+=(path?'L':'M')+x+' '+y+' ';});
+          if(pts.length>1) svg+=`<path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
+          pts.forEach(p=>{const x=xFor(dates.indexOf(p.date)),y=yFor(p.pct); svg+=`<circle cx="${x}" cy="${y}" r="4" fill="${color}"/>`;});
+        });
+      } else {
+        svg+=`<text x="${W/2}" y="${H/2}" text-anchor="middle" font-size="14" fill="#9ca3af" font-family="Roboto">No reads in this range</text>`;
+      }
+      svg+=`</svg>`;
+      document.getElementById('chart').innerHTML=svg;
+      document.getElementById('legend').innerHTML = branchKeys.map(bk=>
+        `<div class="legend-item"><span class="legend-dot" style="background:${BRANCH_COLORS[bk]}"></span>${DATA.branches[bk].name}</div>`).join('');
+
+      // ---- Branch cards over the range ----
+      document.getElementById('branchGrid').innerHTML = branchKeys.map(bk=>{
+        const st=statsByBranch[bk];
+        if(!st){
+          return `<div class="branch-card">
+            <div class="bc-top"><div><div class="branch-name">${DATA.branches[bk].name}</div><div class="branch-mgr">${DATA.branches[bk].manager}</div></div>
+            <div class="grade-chip" style="background:#c4c4c4">–</div></div>
+            <div class="bc-date" style="margin-top:10px">No reads in this range</div></div>`;
+        }
+        const hist=st.hist, cur=hist[hist.length-1], prev=hist.length>1?hist[hist.length-2]:null;
+        let trend='<span style="color:#9ca3af">— only one read in range</span>';
+        if(prev){const d=cur.pct-prev.pct;
+          if(d>0) trend=`<span style="color:#22C55E">▲ +${d} pts vs prior</span>`;
+          else if(d<0) trend=`<span style="color:#DC2626">▼ ${d} pts vs prior</span>`;
+          else trend=`<span style="color:#9ca3af">▬ flat vs prior</span>`;}
+        const avgGrade=pctToGrade(st.avgPct);
+        return `<div class="branch-card">
+          <div class="bc-top">
+            <div><div class="branch-name">${DATA.branches[bk].name}</div><div class="branch-mgr">${DATA.branches[bk].manager}</div></div>
+            <div class="grade-chip" style="background:${gradeColor(cur.grade)}">${cur.grade}</div>
+          </div>
+          <div class="bc-score">${cur.score}<small> / ${cur.max}</small> &nbsp;<span style="font-size:15px;color:var(--gray)">${cur.pct}% latest</span></div>
+          <div class="bc-trend">${trend}</div>
+          <div class="bc-avg">
+            <span class="bc-avg-grade" style="background:${gradeColor(avgGrade)}">${avgGrade}</span>
+            <span>Avg <strong>${st.avgScore.toFixed(1)} / 60</strong> · ${st.avgPct}% <span style="color:#9ca3af">(${hist.length} read${hist.length>1?'s':''})</span></span>
+          </div>
+          <div class="bc-date">Latest ${fmtDate(cur.date)}${cur.rubric_version!==DATA.meta.current_rubric_version?' · v'+cur.rubric_version+' rubric':''}</div>
+        </div>`;
+      }).join('');
+
+      // ---- History table over the range ----
+      const trows=[...evals].sort((a,b)=> b.date.localeCompare(a.date) || a.branch.localeCompare(b.branch));
+      document.getElementById('tableWrap').innerHTML = `<table>
+        <thead><tr><th>Date</th><th>Branch</th><th>Manager</th><th>Score</th><th>%</th><th>Grade</th><th>Rubric</th></tr></thead>
+        <tbody>${trows.length?trows.map(e=>`<tr>
+          <td>${fmtDate(e.date)}/${e.date.slice(2,4)}</td>
+          <td>${DATA.branches[e.branch].name}</td>
+          <td>${DATA.branches[e.branch].manager}</td>
+          <td>${e.score} / ${e.max}</td>
+          <td>${e.pct}%</td>
+          <td><span class="grade-pill" style="background:${gradeColor(e.grade)}">${e.grade}</span></td>
+          <td>${e.rubric_version!==DATA.meta.current_rubric_version?'<span class="legacy-tag">v'+e.rubric_version+'</span>':'v'+e.rubric_version}</td>
+        </tr>`).join(''):'<tr><td colspan="7" style="text-align:center;color:#9ca3af">No reads in this range</td></tr>'}</tbody></table>`;
+    }
+
+    // ---- Wire up controls ----
+    const presetWrap=document.getElementById('filterPresets');
+    presetWrap.addEventListener('click',ev=>{
+      const btn=ev.target.closest('button'); if(!btn) return;
+      presetWrap.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      state.preset=btn.dataset.preset;
+      const r=computeRange(state.preset); state.from=r.from; state.to=r.to;
+      document.getElementById('fromDate').value=r.from;
+      document.getElementById('toDate').value=r.to;
+      render();
+    });
+    document.getElementById('applyCustom').addEventListener('click',()=>{
+      const f=document.getElementById('fromDate').value, t=document.getElementById('toDate').value;
+      if(!f||!t||f>t){ return; }
+      presetWrap.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      state.preset='custom'; state.from=f; state.to=t; render();
+    });
+
+    // init
+    document.getElementById('fromDate').value=minDate;
+    document.getElementById('toDate').value=maxDate;
+    render();
   </script>
 </body>
 </html>
