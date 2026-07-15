@@ -199,66 +199,6 @@
   },
   "evals": [
     {
-      "date": "2026-06-15",
-      "branch": "leander",
-      "score": 34,
-      "max": 60,
-      "pct": 57,
-      "grade": "F",
-      "rubric_version": "1.0",
-      "note": "Legacy rubric read. Systemic deferred-date issue; velocity pulse parked."
-    },
-    {
-      "date": "2026-06-22",
-      "branch": "leander",
-      "score": 34,
-      "max": 60,
-      "pct": 57,
-      "grade": "F",
-      "rubric_version": "1.0",
-      "note": "Legacy rubric read. Flat WoW. QG Live pulses deferred with no date."
-    },
-    {
-      "date": "2026-06-22",
-      "branch": "san_antonio",
-      "score": 28,
-      "max": 60,
-      "pct": 47,
-      "grade": "F",
-      "rubric_version": "1.0",
-      "note": "Legacy rubric read. LOW columns confirmed (Day/Week LOW). Inbox age + duplicates the main drags."
-    },
-    {
-      "date": "2026-06-23",
-      "branch": "houston",
-      "score": 32,
-      "max": 60,
-      "pct": 53,
-      "grade": "F",
-      "rubric_version": "1.0",
-      "note": "Legacy rubric read. Best on velocity/happiness/past-due; Project column nearly unused."
-    },
-    {
-      "date": "2026-06-23",
-      "branch": "north_austin",
-      "score": 26,
-      "max": 60,
-      "pct": 43,
-      "grade": "F",
-      "rubric_version": "1.0",
-      "note": "Legacy rubric read. QG values + Project column weak; scored under pre-1.3 Project rule."
-    },
-    {
-      "date": "2026-06-23",
-      "branch": "south_austin",
-      "score": 30,
-      "max": 60,
-      "pct": 50,
-      "grade": "F",
-      "rubric_version": "1.0",
-      "note": "Legacy rubric read. Strong QG tracking; Project column + duplicate praise pulse the drags."
-    },
-    {
       "date": "2026-06-29",
       "branch": "leander",
       "score": 46,
@@ -995,7 +935,7 @@
 
     // ---- Note banner (static) ----
     document.getElementById('noteBanner').innerHTML =
-      `⚠️ Entries before 7/9 (rubric v1.0 and v1.2) predate the current wording of the BH-7, BH-8 and BH-9 criteria. Treat pre-7/9 scores as directional. Current rubric: <strong>v${DATA.meta.current_rubric_version}</strong>.`;
+      `⚠️ Scores before 6/29 were dropped from this dashboard — they were read under outdated rubric versions and don't reflect current standards. Tracking starts 6/29. Current rubric: <strong>v${DATA.meta.current_rubric_version}</strong>.`;
     document.getElementById('footer').textContent = `Last updated ${DATA.meta.last_updated} · Data source: scrum-scores.json · Einstein Moving Company`;
 
     // ---- Date range helpers ----
