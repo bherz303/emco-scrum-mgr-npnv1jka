@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Internal Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #EF8B22;
+      --blue: #0979C3;
+      --dark: #27343D;
+      --gray: #53575A;
+      --light: #F6F6F6;
+      --green: #22C55E;
+      --red: #DC2626;
+      --yellow: #F59E0B;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; background: var(--light); color: var(--gray); font-size: 14px; line-height: 1.55; }
+
+    .backbar { background: #1B3A5C; padding: 8px 24px; }
+    .backbar a { color: #fff; font-size: .8rem; font-weight: 600; text-decoration: none; }
+
+    .header { background: var(--dark); padding: 28px 40px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .header-left { display: flex; align-items: center; gap: 20px; }
+    .header img { height: 40px; filter: brightness(0) invert(1); }
+    .header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.2); }
+    .header-title h1 { font-size: 22px; font-weight: 900; color: var(--white); letter-spacing: -0.3px; }
+    .header-title p { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+    .header-badge { background: var(--orange); color: white; font-weight: 700; font-size: 12px; padding: 6px 14px; border-radius: 20px; white-space: nowrap; }
+
+    .page { max-width: 900px; margin: 0 auto; padding: 28px 24px 60px; }
+
+    .intro { background: var(--white); border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; }
+    .intro p { margin-bottom: 8px; }
+    .intro ol, .intro ul { margin: 10px 0 0 20px; }
+
+    .stage { background: var(--white); border: 1px solid #e5e7eb; border-left: 4px solid var(--orange); border-radius: 12px; padding: 24px 26px; margin-bottom: 20px; }
+    .stage-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--orange); margin-bottom: 6px; }
+    .stage h2 { font-size: 19px; font-weight: 900; color: var(--dark); margin-bottom: 4px; }
+    .stage .goal { font-size: 13px; color: var(--gray); margin-bottom: 16px; }
+
+    .stage h3 { font-size: 14px; font-weight: 700; color: var(--dark); margin: 18px 0 6px; }
+    .stage p { margin-bottom: 8px; }
+    .stage ul, .stage ol { margin: 6px 0 10px 20px; }
+    .stage li { margin-bottom: 4px; }
+
+    .criteria-list { display: flex; flex-direction: column; gap: 10px; margin: 10px 0 16px; }
+    .criterion { padding: 12px 14px; background: var(--light); border-radius: 8px; border-left: 3px solid var(--blue); }
+    .criterion b { color: var(--dark); }
+    .criterion .self-check { display: block; font-size: 12.5px; color: var(--gray); font-style: italic; margin-top: 4px; }
+    .criterion.bonus { border-left-color: var(--orange); }
+
+    .checkpoint { background: #FDEEDC; border: 1px solid #f5d9b3; border-radius: 10px; padding: 14px 18px; margin-top: 16px; }
+    .checkpoint .cp-label { font-size: 11px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: var(--orange); margin-bottom: 6px; }
+    .checkpoint ol { margin-left: 18px; }
+
+    .habits { background: var(--light); border-radius: 8px; padding: 14px 18px; margin: 10px 0 16px; }
+    .habits ol { margin-left: 18px; }
+
+    .cert { background: var(--dark); color: var(--white); border-radius: 12px; padding: 24px 26px; margin-top: 24px; }
+    .cert h2 { font-size: 18px; font-weight: 900; margin-bottom: 10px; }
+    .cert ol { margin-left: 20px; margin-bottom: 10px; }
+    .cert p { font-size: 13px; color: rgba(255,255,255,0.75); }
+
+    @media (max-width: 640px) {
+      .header { padding: 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .page { padding: 20px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="backbar">
+    <a href="https://bherz303.github.io/einstein-scrum-hq-hf9zjgpk/">← Back to Scrum Scorecard HQ</a>
+  </div>
+
+  <div class="header">
+    <div class="header-left">
+      <img src="https://www.einsteinmoving.com/wp-content/uploads/2022/02/Einstein-Logo.svg" alt="Einstein Moving" />
+      <div class="header-divider"></div>
+      <div class="header-title">
+        <h1>Scrum Board Mastery — Manager Training Module</h1>
+        <p>Learn the board. Work the board. Lead the sync.</p>
+      </div>
+    </div>
+    <div class="header-badge">CTXH Manager Training</div>
+  </div>
+
+  <div class="page">
+
+    <div class="intro">
+      <p>This is a self-paced training that takes you from "I have a Monday board" to "my board scores Green across the rubric and I can run a clean sync-up." It pairs with:</p>
+      <ol>
+        <li>The <b>Scorecard Reference Sheet</b> — what gets graded (your rubric)</li>
+        <li>The <b>Mock Practice Board</b> — a broken board you'll fix as a hands-on exercise</li>
+      </ol>
+      <p style="margin-top:10px;">Work through the three stages in order. Each stage ends with a checkpoint you must be able to answer before moving on.</p>
+    </div>
+
+    <!-- STAGE 1 -->
+    <div class="stage">
+      <div class="stage-eyebrow">Stage 1 · Day 1–2</div>
+      <h2>Learn the Board</h2>
+      <p class="goal">Understand what the board is, how work flows through it, and the vocabulary behind the scorecard.</p>
+
+      <h3>Why we use a Scrum board</h3>
+      <p>Your Monday board is your hammer and chisel. There is only so much time in a day, and the board is how we decide what actually gets worked, who owns it, and whether we're moving fast enough. A clean board isn't busywork — it's the difference between reacting to your week and running it.</p>
+
+      <h3>The groups and how work flows</h3>
+      <p>Work moves through groups in a predictable cycle. Learn this flow — most board problems come from items sitting in the wrong group.</p>
+      <ul>
+        <li><b>Inbox</b> — New, untriaged items land here. At sync: decide owner, next action, due date, priority. Nothing should rot here past 5 days.</li>
+        <li><b>Today</b> — What you are working on today. If you're not touching it today, it doesn't belong here.</li>
+        <li><b>This Week</b> — Work happening this week, each item carrying the specific day. When that day arrives, it moves to Today.</li>
+        <li><b>Later / Deferred</b> — Not this week. Every deferred item must carry a future Monday date — that triggers the automation to pull it back into Inbox before your next sync.</li>
+        <li><b>Hold for Sync Up</b> — Where "Done" items rest until reviewed at the next sync.</li>
+        <li><b>Done</b> — Completed or sufficiently progressed for the week.</li>
+      </ul>
+      <p><b>This flow is automated, not manual.</b> Changing an item's status is what moves it — you never drag a pulse between groups. Setting status to Today, This Week, Deferred, or Done automatically relocates the item, and status → Today also stamps today's date. Drag-and-drop bypasses this and is exactly what the Automations criterion is grading against.</p>
+      <p><i>Try it on the Mock Practice Board:</i> change any item's status and watch it jump groups on its own.</p>
+
+      <h3>The Fibonacci LOW scale</h3>
+      <p>We're bad at estimating time, so we use relative sizing instead. Daily Level of Work (DLOW) uses the Fibonacci scale: <b>1</b> = 15 min or less · <b>2</b> = 30–45 min · <b>3</b> = 1–2 hrs · <b>5</b> = 3–4 hrs · <b>8</b> = 5–6 hrs · <b>13</b> = 7–8 hrs · <b>21</b> = 9–12 hrs.</p>
+      <p><b>Daily LOW (DLOW)</b> must always be one of these numbers. <b>Weekly LOW (WLOW)</b> is a cumulative total — it does not have to be Fibonacci. Target DLOW is <b>15–20 per person per day</b>. If Today adds up to 40+, you're overloaded — triage.</p>
+
+      <h3>QG Value, Velocity, and the Happiness pulse</h3>
+      <ul>
+        <li><b>QG Value</b> — The point value on your Quarterly Goal pulses (your "big rocks"), usually matching Weekly LOW for that goal. Keeps your most important work visible above day-to-day noise.</li>
+        <li><b>Velocity</b> — WLOW plus QG Value gives your pace for the week. Reviewed every sync.</li>
+        <li><b>Happiness pulse</b> — Every team member should have one pulse that, when completed, makes them happy for the week. Visible in Today or This Week.</li>
+      </ul>
+
+      <div class="checkpoint">
+        <div class="cp-label">✅ Stage 1 checkpoint</div>
+        <ol>
+          <li>Name the six groups and what belongs in each.</li>
+          <li>What's the difference between DLOW and WLOW? Which one must be Fibonacci?</li>
+          <li>Why must deferred items have a Monday date?</li>
+          <li>What is your target DLOW per day?</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- STAGE 2 -->
+    <div class="stage">
+      <div class="stage-eyebrow">Stage 2 · Day 3–5</div>
+      <h2>Work the Board</h2>
+      <p class="goal">Keep your board scoring Green against all 12 board hygiene criteria.</p>
+      <p>This stage maps directly to the scorecard. Each item below is what a grader looks for — learn to self-check before your board is ever graded.</p>
+
+      <h3>The 10 core criteria (5 / 3 / 1 points each)</h3>
+      <div class="criteria-list">
+        <div class="criterion"><b>1. LOW Values</b> — Every Today item has a valid Fibonacci DLOW.<span class="self-check">Self-check: scan Today — is any DLOW blank or non-Fibonacci (like 4 or 6)? One exception: the Velocity Check pulse is allowed DLOW 0 — it's a tracking pulse, not a worked task. That exception applies only to that pulse; a real task with DLOW 0 is still a miss.</span></div>
+        <div class="criterion"><b>2. Pulse Titles</b> — Titles name the next action with enough context. Recognized shorthand ("ESP", "Dispatch", "Courtesy Texts") is fine.<span class="self-check">Self-check: would a teammate know what to do from the title alone?</span></div>
+        <div class="criterion"><b>3. Later Group Dates</b> — Every deferred item has a future Monday date.<span class="self-check">Self-check: sort Deferred by date — any past dates or non-Mondays?</span></div>
+        <div class="criterion"><b>4. QG Pulses &amp; Happiness Visible</b> — At least one QG Live pulse is in Today/This Week, and a Happiness pulse is present in either.<span class="self-check">Self-check: are your QG pulses parked in Deferred where nobody sees them?</span></div>
+        <div class="criterion"><b>5. QG Value on QG Pulses</b> — Your Quarterly Goal pulses have the QG Value column filled in.<span class="self-check">Self-check: any QG Live pulse with a blank QG Value?</span></div>
+        <div class="criterion"><b>6. Inbox Age</b> — Nothing untriaged older than 5 days.<span class="self-check">Self-check: sort Inbox by created date — anything stale? Check every item, not just the first one you spot. Freshly dropped items (today or yesterday) are not a violation.</span></div>
+        <div class="criterion"><b>7. Project Column</b> — QG and DB Pulse items are always tagged; overall at least half the active board is tagged.<span class="self-check">Self-check: are your QG and DB pulses labeled correctly?</span></div>
+        <div class="criterion"><b>8. Updates with Context</b> — Critical ongoing-project pulses (QG, fleet repair/maintenance, customer issues, employee tracking) carry current progress notes. Simple task placeholders don't need updates.<span class="self-check">Self-check: does each customer issue and fleet pulse have a recent note on where it stands?</span></div>
+        <div class="criterion"><b>9. No Duplicates</b> — One pulse per task.<span class="self-check">Note: multiple sales blocks on different days are intentional, not duplicates. Same-title/same-date pulses in Inbox tagged as a Delegation or DB Pulse are also legitimate — one copy lands per assignee before triage. That exception only holds while still in Inbox; if the same pair rides untriaged into Today or This Week, it becomes a real duplicate.</span></div>
+        <div class="criterion"><b>10. Automations</b> — Items move by status change, not drag-and-drop.<span class="self-check">Self-check: do statuses and groups line up, or is something dragged into the wrong place?</span></div>
+      </div>
+
+      <h3>The 2 bonus criteria (5 / 3 / 0 points — no partial credit on a miss)</h3>
+      <div class="criteria-list">
+        <div class="criterion bonus"><b>11. Definition of Done</b> — Done items carry a note on what was accomplished.</div>
+        <div class="criterion bonus"><b>12. No Past-Due Items</b> — Nothing in Today or This Week is past its due date.</div>
+      </div>
+
+      <p><b>Scoring reminder:</b> All 60 points count toward one total. A perfect board scores 60. Green = 90%+, and everything below 60% means the board needs a reset.</p>
+
+      <h3>The 5 highest-impact habits</h3>
+      <div class="habits">
+        <ol>
+          <li>Set a LOW on every Today item before your sync.</li>
+          <li>Tag the Project column on QG and DB pulses first, then the rest.</li>
+          <li>Keep your Velocity pulse active — never mark it Done.</li>
+          <li>Defer only to Monday dates.</li>
+          <li>Post a one-line update on your critical project pulses so the board tells the story.</li>
+        </ol>
+      </div>
+
+      <div class="checkpoint">
+        <div class="cp-label">✅ Stage 2 checkpoint</div>
+        <p>Open your real board and self-score all 12 criteria. Bring your score to your Stage 3 walkthrough.</p>
+      </div>
+    </div>
+
+    <!-- STAGE 3 -->
+    <div class="stage">
+      <div class="stage-eyebrow">Stage 3 · Week 2</div>
+      <h2>Lead the Sync</h2>
+      <p class="goal">Run a sync-up that scores well on the Meeting Management criteria.</p>
+
+      <h3>The sync-up agenda (in order)</h3>
+      <ol>
+        <li><b>Velocity check</b> — Review the team's pace. Happiness pulse is acknowledged here.</li>
+        <li><b>Sort by priority</b> — Critical on top, super-low at the bottom.</li>
+        <li><b>Hold for Sync review</b> — Focus on high-level and QG-value pulses. Don't cover every single item.</li>
+        <li><b>Review This Week</b> — Confirm dates, LOWs, and priorities.</li>
+        <li><b>Review Today</b> — Keep it tight and realistic.</li>
+        <li><b>Inbox cleanup</b> — Assign, date, prioritize, and clear.</li>
+      </ol>
+
+      <h3>Timing and flow</h3>
+      <ul>
+        <li>5–10 min warm-up to connect and set the tone.</li>
+        <li>~10 min per manager presenting their board.</li>
+        <li>5–10 min for the BM to wrap Inbox and scorecard.</li>
+        <li><b>Rule of thumb:</b> if a topic turns into a big discussion, table it and follow up 1:1 after the sync.</li>
+        <li>Present order: Field Manager → Flex Manager → Operations Manager → Branch Manager. Release FMs/Flex early if they need to get to on-sites.</li>
+      </ul>
+
+      <h3>What gets graded in a Full Eval (Meeting Management)</h3>
+      <ul>
+        <li>Pre-sync board prep done, RM alerted when ready</li>
+        <li>Agenda flow followed</li>
+        <li>Time kept to ~10 min per person</li>
+        <li>Big discussions tabled, followed up after</li>
+        <li>Tone engaged and constructive</li>
+        <li>Managers released early when appropriate</li>
+        <li>Velocity reviewed (with the Happiness pulse called out)</li>
+        <li>No drag-and-drop during the sync — status changes only</li>
+      </ul>
+
+      <div class="checkpoint">
+        <div class="cp-label">✅ Stage 3 checkpoint</div>
+        <p>Run a mock sync using the practice board. Your RM (or a peer) scores you on the 8 Meeting Management items. A passing certification is a Board Hygiene score of 90%+ plus a clean mock sync.</p>
+      </div>
+    </div>
+
+    <div class="cert">
+      <h2>Certification</h2>
+      <p>You're certified once you can:</p>
+      <ol>
+        <li>Pass all three stage checkpoints.</li>
+        <li>Score your live board 90%+ on Board Hygiene two weeks running.</li>
+        <li>Lead a mock sync that scores Green on the Meeting Management items.</li>
+      </ol>
+      <p>Recertification runs on the same path whenever the rubric materially changes.</p>
+    </div>
+
+  </div>
+</body>
+</html>
