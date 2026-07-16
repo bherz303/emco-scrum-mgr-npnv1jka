@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Internal Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #EF8B22;
+      --blue: #0979C3;
+      --dark: #27343D;
+      --gray: #53575A;
+      --light: #F6F6F6;
+      --green: #22C55E;
+      --red: #DC2626;
+      --yellow: #F59E0B;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; background: var(--light); color: var(--gray); font-size: 14px; line-height: 1.55; }
+
+    .backbar { background: #1B3A5C; padding: 8px 24px; }
+    .backbar a { color: #fff; font-size: .8rem; font-weight: 600; text-decoration: none; }
+
+    .header { background: var(--dark); padding: 28px 40px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .header-left { display: flex; align-items: center; gap: 20px; }
+    .header img { height: 40px; filter: brightness(0) invert(1); }
+    .header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.2); }
+    .header-title h1 { font-size: 22px; font-weight: 900; color: var(--white); letter-spacing: -0.3px; }
+    .header-title p { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+    .header-badge { background: var(--orange); color: white; font-weight: 700; font-size: 12px; padding: 6px 14px; border-radius: 20px; white-space: nowrap; }
+
+    .page { max-width: 900px; margin: 0 auto; padding: 28px 24px 60px; }
+
+    .search-box { margin-bottom: 22px; }
+    .search-box input {
+      width: 100%; padding: 12px 16px; font-size: 14px; font-family: 'Roboto', sans-serif;
+      border: 1px solid #e5e7eb; border-radius: 10px; background: var(--white); color: var(--dark);
+    }
+    .search-box input:focus { outline: 2px solid var(--blue); }
+
+    .jumpbar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 26px; }
+    .jumpbar a {
+      font-size: 12px; font-weight: 700; color: var(--blue); text-decoration: none;
+      background: var(--white); border: 1px solid #e5e7eb; border-radius: 6px; padding: 4px 9px;
+    }
+    .jumpbar a:hover { background: var(--light); }
+
+    .section { margin-bottom: 30px; }
+    .section-eyebrow {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--orange); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--orange);
+    }
+
+    .term-card { background: var(--white); border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; }
+    .term-card b { color: var(--dark); font-size: 14.5px; }
+    .term-card p { margin-top: 4px; }
+    .term-card .also { font-size: 12px; color: #9ca3af; font-style: italic; margin-top: 4px; }
+
+    .term-card.hidden { display: none; }
+
+    footer { margin-top: 40px; font-size: 12px; color: #9ca3af; border-top: 1px solid #e5e7eb; padding-top: 16px; text-align: center; }
+
+    @media (max-width: 640px) {
+      .header { padding: 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .page { padding: 20px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="backbar">
+    <a href="https://bherz303.github.io/einstein-scrum-hq-hf9zjgpk/">← Back to Scrum Scorecard HQ</a>
+  </div>
+
+  <div class="header">
+    <div class="header-left">
+      <img src="https://www.einsteinmoving.com/wp-content/uploads/2022/02/Einstein-Logo.svg" alt="Einstein Moving" />
+      <div class="header-divider"></div>
+      <div class="header-title">
+        <h1>Scrum Board Glossary</h1>
+        <p>Every term used across the rubric, training, and scoring — in one place.</p>
+      </div>
+    </div>
+    <div class="header-badge">CTXH Reference</div>
+  </div>
+
+  <div class="page">
+
+    <div class="search-box">
+      <input type="text" id="filterInput" placeholder="Search a term (e.g. 'DLOW', 'Velocity Check', 'Decertification')..." oninput="filterTerms()" />
+    </div>
+
+    <div class="jumpbar">
+      <a href="#groups">Groups</a>
+      <a href="#vocab">Core Vocabulary</a>
+      <a href="#scoring">Scoring &amp; Grading</a>
+      <a href="#cert">Certification</a>
+      <a href="#roles">Roles</a>
+    </div>
+
+    <div class="section" id="groups">
+      <div class="section-eyebrow">Groups — Where Pulses Live</div>
+
+      <div class="term-card"><b>Inbox</b><p>New, untriaged items land here. Triaged at sync: owner, next action, due date, priority assigned, then moved out. Nothing should sit untriaged past 5 days.</p></div>
+      <div class="term-card"><b>Today</b><p>What's being worked on today. If it's not being touched today, it doesn't belong here.</p></div>
+      <div class="term-card"><b>This Week</b><p>Work planned for this week, each item carrying the specific day it's planned for. Moves to Today when that day arrives.</p></div>
+      <div class="term-card"><b>Later / Deferred</b><p>Not this week. Every item here must carry a future Monday date — that date is what triggers the automation pulling it back to Inbox before the next sync.</p></div>
+      <div class="term-card"><b>Hold for Sync Up</b><p>Where "Done" items rest until reviewed at the next sync-up.</p></div>
+      <div class="term-card"><b>Done</b><p>Completed, or sufficiently progressed for the week.</p></div>
+      <div class="term-card"><b>Quarterly Goals</b><p>Where QG (Quarterly Goal) pulses live when not actively being worked in Today/This Week.</p></div>
+    </div>
+
+    <div class="section" id="vocab">
+      <div class="section-eyebrow">Core Vocabulary</div>
+
+      <div class="term-card"><b>DLOW (Daily Level of Work)</b><p>The Fibonacci-scale point value on a Today item estimating how much of the day it takes. Must always be a Fibonacci number.</p></div>
+      <div class="term-card"><b>WLOW (Weekly Level of Work)</b><p>A cumulative point total for the week. Does <i>not</i> have to be Fibonacci — it's a sum, not an estimate.</p></div>
+      <div class="term-card"><b>Fibonacci LOW scale</b><p>The relative-sizing scale used instead of clock-time estimates: 1 = 15 min or less · 2 = 30–45 min · 3 = 1–2 hrs · 5 = 3–4 hrs · 8 = 5–6 hrs · 13 = 7–8 hrs · 21 = 9–12 hrs.</p></div>
+      <div class="term-card"><b>Target DLOW</b><p>The healthy daily load per person: 15–20 points. Above 40 in Today means overloaded — triage.</p></div>
+      <div class="term-card"><b>QG (Quarterly Goal) pulse</b><p>A pulse representing one of the "big rocks" for the quarter. Also called a <b>QG Live pulse</b> when actively being worked.</p></div>
+      <div class="term-card"><b>QG Value</b><p>The point value assigned to a QG pulse, usually matching its Weekly LOW. Keeps the most important work visible above day-to-day noise.</p></div>
+      <div class="term-card"><b>Velocity</b><p>Weekly LOW plus QG Value for the week — the team's pace. Reviewed every sync.</p></div>
+      <div class="term-card"><b>Velocity Check pulse</b><p>A tracking pulse (not a worked task) used to review pace at sync. Allowed a DLOW of 0 since it isn't real work — that exception applies only to this specific pulse. Often split into one copy per person (BM, FM, Flex manager) so each tracks their own pace; that's legitimate, not a duplicate.</p></div>
+      <div class="term-card"><b>Happiness pulse</b><p>One pulse per person that, when completed, makes them happy for the week. Should be visible in Today or This Week, not buried.</p></div>
+      <div class="term-card"><b>Project column</b><p>The tag identifying what category of work a pulse belongs to (e.g., QG, DB Pulse, Delegation Pulse). QG and DB Pulse items must always be tagged; overall at least half the active board should be tagged.</p></div>
+      <div class="term-card"><b>DB Pulse</b><p>A Roundtable "DB" (database) item — company-wide tracked items that flow through the branch board's Inbox. Often appears as one copy per assignee before triage.</p></div>
+      <div class="term-card"><b>Delegation Pulse</b><p>A pulse tagged as a delegated task, same per-assignee-copy pattern as DB Pulses while sitting untriaged in Inbox.</p></div>
+      <div class="term-card"><b>Sales block</b><p>A recurring scheduled pulse for a sales activity (e.g., "Monday PM Sales Block"). Multiple sales-block pulses on different days are intentional, not duplicates.</p></div>
+      <div class="term-card"><b>Damage pulse / damage claim</b><p>A pulse tracking a customer damage claim. Excluded from certain scoring checks (e.g., Definition of Done) since these often stay open past a single sync cycle by nature.</p></div>
+      <div class="term-card"><b>Sub-items</b><p>Nested detail rows under a pulse. Sub-item content (names, amounts, status notes, dates) counts as valid context, satisfying the Updates-with-Context criterion even without a top-level update post.</p></div>
+      <div class="term-card"><b>Automations</b><p>Monday's status-driven behavior: changing an item's status (e.g., to Today, This Week, Deferred, Done) automatically moves it to the matching group and, for Today, stamps today's date. Dragging a pulse between groups manually bypasses this and is what the Automations criterion grades against.</p></div>
+    </div>
+
+    <div class="section" id="scoring">
+      <div class="section-eyebrow">Scoring &amp; Grading</div>
+
+      <div class="term-card"><b>Board Hygiene</b><p>The 12-criterion, 60-point rubric that grades the state of the board itself (LOW values, titles, dates, duplicates, automations, etc.).</p></div>
+      <div class="term-card"><b>Meeting Management</b><p>The 8-item checklist grading how a sync-up itself was run (agenda flow, timing, tone, etc.), scored only on a Full Eval.</p></div>
+      <div class="term-card"><b>Full Eval</b><p>A scorecard read that includes both Board Hygiene and Meeting Management (i.e., the grader observed a live sync-up, not just the board).</p></div>
+      <div class="term-card"><b>Board-only read</b><p>A scorecard read scoring just Board Hygiene, no live sync observed.</p></div>
+      <div class="term-card"><b>Scorecard read</b><p>Any single graded pass against a branch board, logged to the dashboard with a date, score, and grade.</p></div>
+      <div class="term-card"><b>Green / Yellow / Red</b><p>The three-tier scoring color per individual criterion: Green (5 pts, nailed it), Yellow (3 pts, partially there), Red (1 pt, not in place — bonus criteria score 0 on Red instead of 1).</p></div>
+      <div class="term-card"><b>Grade Scale (A–F)</b><p>The overall score-to-letter mapping: A = 90–100% (Excellent), B = 80–89% (Strong), C = 70–79% (Needs work), D = 60–69% (Falling behind), F = below 60% (Board needs reset).</p></div>
+      <div class="term-card"><b>Rubric version</b><p>The dated version of the scoring rubric (e.g., v1.3) tracked so historical scores stay interpretable even after the rubric is corrected.</p></div>
+    </div>
+
+    <div class="section" id="cert">
+      <div class="section-eyebrow">Certification</div>
+
+      <div class="term-card"><b>Certification</b><p>The status a manager earns after passing all three training checkpoints, scoring 90%+ on Board Hygiene two weeks running, and leading a mock sync that scores Green on Meeting Management.</p></div>
+      <div class="term-card"><b>Recertification</b><p>Repeating the certification bar (90%+ on two reads running) after a decertification.</p></div>
+      <div class="term-card"><b>Decertification</b><p>Losing certified status, triggered by a single read below 60% (F) or two consecutive monthly reads both below 90% (A).</p></div>
+      <div class="term-card"><b>Maintenance read</b><p>The once-a-month formal, logged scorecard read that keeps a certified board's status current.</p></div>
+    </div>
+
+    <div class="section" id="roles">
+      <div class="section-eyebrow">Roles</div>
+
+      <div class="term-card"><b>RM</b><p>Regional Manager (Brian, for CTXH).</p></div>
+      <div class="term-card"><b>BM</b><p>Branch Manager (owns the branch board being graded).</p></div>
+      <div class="term-card"><b>FM</b><p>Field Manager.</p></div>
+      <div class="term-card"><b>Flex</b><p>Flex Manager (covers across roles/branches as needed).</p></div>
+    </div>
+
+    <footer>Einstein Moving Company — CTXH Region · Scrum Board Glossary</footer>
+
+  </div>
+
+  <script>
+    function filterTerms() {
+      const q = document.getElementById('filterInput').value.trim().toLowerCase();
+      document.querySelectorAll('.term-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.classList.toggle('hidden', q.length > 0 && !text.includes(q));
+      });
+      document.querySelectorAll('.section').forEach(section => {
+        const anyVisible = [...section.querySelectorAll('.term-card')].some(c => !c.classList.contains('hidden'));
+        section.style.display = anyVisible ? '' : 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>
