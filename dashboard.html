@@ -175,160 +175,282 @@
   <script id="scoreData" type="application/json">
 {
   "meta": {
+    "description": "Scrum board scorecard history for CTXH branches. Source of truth for the scrum performance dashboard. Append one entry per eval run.",
     "current_rubric_version": "1.3",
-    "last_updated": "2026-07-14"
+    "rubric_notes": {
+      "1.0": "Original 12-criterion rubric. Scored /60 standard + /10 bonus framing.",
+      "1.3": "Current. 60 pts total (bonus included). BH-4 = QG+Happiness visible (Velocity moved to Meeting Mgmt). BH-7 = QG/DB tags required + half-board coverage. BH-8 = critical ongoing-project pulses only. BH-9 = sales blocks not duplicates.",
+      "1.2": "Interim (late June\u2013early July). Current criteria names in use but before the final 7/9 BH-7/BH-8/BH-9 wording tightening."
+    },
+    "last_updated": "2026-07-20"
   },
   "branches": {
     "north_austin": {
       "name": "North Austin",
-      "manager": "Calvin Hughes"
+      "manager": "Calvin Hughes",
+      "board_id": "632875805"
     },
     "south_austin": {
       "name": "South Austin",
-      "manager": "Chris Anderson"
+      "manager": "Chris Anderson",
+      "board_id": "631528092"
     },
     "leander": {
       "name": "Leander",
-      "manager": "Frank Williams"
+      "manager": "Frank Williams",
+      "board_id": "1194862999"
     },
     "san_antonio": {
       "name": "San Antonio",
-      "manager": "Dustin Street"
+      "manager": "Dustin Street",
+      "board_id": "621795564"
     },
     "houston": {
       "name": "Houston",
-      "manager": "Sergio Buenrostro"
+      "manager": "Sergio Buenrostro",
+      "board_id": "616803582"
     }
   },
   "evals": [
     {
+      "date": "2026-06-15",
+      "branch": "leander",
+      "mode": "board_hygiene",
+      "score": 34,
+      "max": 60,
+      "pct": 57,
+      "grade": "F",
+      "rubric_version": "1.0",
+      "criteria": {},
+      "note": "Legacy rubric read. Systemic deferred-date issue; velocity pulse parked."
+    },
+    {
+      "date": "2026-06-22",
+      "branch": "leander",
+      "mode": "board_hygiene",
+      "score": 34,
+      "max": 60,
+      "pct": 57,
+      "grade": "F",
+      "rubric_version": "1.0",
+      "criteria": {},
+      "note": "Legacy rubric read. Flat WoW. QG Live pulses deferred with no date."
+    },
+    {
+      "date": "2026-06-22",
+      "branch": "san_antonio",
+      "mode": "board_hygiene",
+      "score": 28,
+      "max": 60,
+      "pct": 47,
+      "grade": "F",
+      "rubric_version": "1.0",
+      "criteria": {},
+      "note": "Legacy rubric read. LOW columns confirmed (Day/Week LOW). Inbox age + duplicates the main drags."
+    },
+    {
+      "date": "2026-06-23",
+      "branch": "houston",
+      "mode": "board_hygiene",
+      "score": 32,
+      "max": 60,
+      "pct": 53,
+      "grade": "F",
+      "rubric_version": "1.0",
+      "criteria": {},
+      "note": "Legacy rubric read. Best on velocity/happiness/past-due; Project column nearly unused."
+    },
+    {
+      "date": "2026-06-23",
+      "branch": "north_austin",
+      "mode": "board_hygiene",
+      "score": 26,
+      "max": 60,
+      "pct": 43,
+      "grade": "F",
+      "rubric_version": "1.0",
+      "criteria": {},
+      "note": "Legacy rubric read. QG values + Project column weak; scored under pre-1.3 Project rule."
+    },
+    {
+      "date": "2026-06-23",
+      "branch": "south_austin",
+      "mode": "board_hygiene",
+      "score": 30,
+      "max": 60,
+      "pct": 50,
+      "grade": "F",
+      "rubric_version": "1.0",
+      "criteria": {},
+      "note": "Legacy rubric read. Strong QG tracking; Project column + duplicate praise pulse the drags."
+    },
+    {
       "date": "2026-06-29",
       "branch": "leander",
+      "mode": "board_hygiene",
       "score": 46,
       "max": 60,
       "pct": 77,
       "grade": "C",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "Corrected read (coaching session). Recovered from archive."
     },
     {
       "date": "2026-06-29",
       "branch": "san_antonio",
+      "mode": "board_hygiene",
       "score": 50,
       "max": 60,
       "pct": 83,
       "grade": "B",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "Recovered from archive."
     },
     {
       "date": "2026-06-30",
       "branch": "houston",
+      "mode": "board_hygiene",
       "score": 48,
       "max": 60,
       "pct": 80,
       "grade": "B",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "Corrected read; supersedes a buggy F-read where LOW columns weren't detected."
     },
     {
       "date": "2026-06-30",
       "branch": "north_austin",
+      "mode": "board_hygiene",
       "score": 44,
       "max": 60,
       "pct": 73,
       "grade": "C",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "Corrected read; supersedes buggy F-read."
     },
     {
       "date": "2026-06-30",
       "branch": "south_austin",
+      "mode": "board_hygiene",
       "score": 39,
       "max": 60,
       "pct": 65,
       "grade": "D",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "Corrected read; supersedes buggy F-read."
     },
     {
       "date": "2026-07-06",
       "branch": "leander",
+      "mode": "board_hygiene",
       "score": 30,
       "max": 60,
       "pct": 50,
       "grade": "F",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "This-week read. Board slipped; re-scored 7/7 after coaching."
     },
     {
       "date": "2026-07-06",
       "branch": "san_antonio",
+      "mode": "board_hygiene",
       "score": 54,
       "max": 60,
       "pct": 90,
       "grade": "A",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "This-week read. Strongest board in region."
     },
     {
       "date": "2026-07-07",
       "branch": "houston",
+      "mode": "board_hygiene",
       "score": 38,
       "max": 60,
       "pct": 63,
       "grade": "D",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "This-week read (region batch)."
     },
     {
       "date": "2026-07-07",
       "branch": "leander",
+      "mode": "board_hygiene",
       "score": 50,
       "max": 60,
       "pct": 83,
       "grade": "B",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "This-week read. +20 pts vs 7/6 after Frank cleaned the board."
     },
     {
       "date": "2026-07-07",
       "branch": "north_austin",
+      "mode": "board_hygiene",
       "score": 30,
       "max": 60,
       "pct": 50,
       "grade": "F",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "This-week read (region batch)."
     },
     {
       "date": "2026-07-07",
       "branch": "south_austin",
+      "mode": "board_hygiene",
       "score": 25,
       "max": 60,
       "pct": 42,
       "grade": "F",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "This-week read; re-scored 7/8 after coaching."
     },
     {
       "date": "2026-07-08",
       "branch": "south_austin",
+      "mode": "board_hygiene",
       "score": 43,
       "max": 60,
       "pct": 72,
       "grade": "C",
       "rubric_version": "1.2",
+      "criteria": {},
       "note": "This-week read. +18 pts vs 7/7 after Chris cleaned the board."
     },
     {
       "date": "2026-07-09",
       "branch": "north_austin",
+      "mode": "board_hygiene",
       "score": 50,
       "max": 60,
       "pct": 83,
       "grade": "B",
       "rubric_version": "1.3",
+      "criteria": {
+        "BH-1": 5,
+        "BH-2": 5,
+        "BH-3": 3,
+        "BH-4": 5,
+        "BH-5": 3,
+        "BH-6": 3,
+        "BH-7": 5,
+        "BH-8": 5,
+        "BH-9": 5,
+        "BH-10": 5,
+        "BONUS-1": 3,
+        "BONUS-2": 3
+      },
       "note": "First current-rubric (v1.3) read. Strong board; QG Value blank on most of Calvin's and Nick's live QG pulses is the main drag. Individuals: Calvin 24, Nick 22, Rance 28.",
       "detail": {
         "criteria": [
@@ -424,11 +546,26 @@
     {
       "date": "2026-07-13",
       "branch": "leander",
+      "mode": "board_hygiene",
       "score": 60,
       "max": 60,
       "pct": 100,
       "grade": "A",
       "rubric_version": "1.3",
+      "criteria": {
+        "BH-1": 5,
+        "BH-2": 5,
+        "BH-3": 5,
+        "BH-4": 5,
+        "BH-5": 5,
+        "BH-6": 5,
+        "BH-7": 5,
+        "BH-8": 5,
+        "BH-9": 5,
+        "BH-10": 5,
+        "BONUS-1": 5,
+        "BONUS-2": 5
+      },
       "note": "Perfect score. Turnaround complete: deferred dates + QG values (prior reds) fixed. Missing Payments pulse has sub-items with per-customer detail (Elizabeth Wiegers, Molly Reasner, Kenny Carrol, all touched 7/13) \u2014 correctly counts as valid update context. Individuals: Frank 30, Garrison 30.",
       "detail": {
         "criteria": [
@@ -518,11 +655,26 @@
     {
       "date": "2026-07-13",
       "branch": "san_antonio",
+      "mode": "board_hygiene",
       "score": 58,
       "max": 60,
       "pct": 97,
       "grade": "A",
       "rubric_version": "1.3",
+      "criteria": {
+        "BH-1": 5,
+        "BH-2": 5,
+        "BH-3": 5,
+        "BH-4": 5,
+        "BH-5": 5,
+        "BH-6": 5,
+        "BH-7": 5,
+        "BH-8": 5,
+        "BH-9": 5,
+        "BH-10": 5,
+        "BONUS-1": 3,
+        "BONUS-2": 5
+      },
       "note": "Regional benchmark. Only ding is inconsistent Done-completion notes. Individuals: Dustin 30, Lukas 30, Cameron K 30.",
       "detail": {
         "criteria": [
@@ -618,11 +770,26 @@
     {
       "date": "2026-07-14",
       "branch": "houston",
+      "mode": "board_hygiene",
       "score": 58,
       "max": 60,
       "pct": 97,
       "grade": "A",
       "rubric_version": "1.3",
+      "criteria": {
+        "BH-1": 5,
+        "BH-2": 3,
+        "BH-3": 5,
+        "BH-4": 5,
+        "BH-5": 5,
+        "BH-6": 5,
+        "BH-7": 5,
+        "BH-8": 5,
+        "BH-9": 5,
+        "BH-10": 5,
+        "BONUS-1": 5,
+        "BONUS-2": 5
+      },
       "note": "Corrected: the two Velocity Check pulses are owned by different people (Sergio and Alex), not a real duplicate \u2014 the '(copy)(copy)' naming was misleading but ownership was already split per-person. Board is now clean apart from a few VW-by-contact-info titles. Individuals: Sergio 28, Joel 26, Alex 27.",
       "detail": {
         "criteria": [
@@ -718,11 +885,26 @@
     {
       "date": "2026-07-14",
       "branch": "north_austin",
+      "mode": "board_hygiene",
       "score": 55,
       "max": 60,
       "pct": 92,
       "grade": "A",
       "rubric_version": "1.3",
+      "criteria": {
+        "BH-1": 5,
+        "BH-2": 5,
+        "BH-3": 5,
+        "BH-4": 5,
+        "BH-5": 3,
+        "BH-6": 3,
+        "BH-7": 5,
+        "BH-8": 5,
+        "BH-9": 5,
+        "BH-10": 3,
+        "BONUS-1": 5,
+        "BONUS-2": 3
+      },
       "note": "Nick closed his QG Value gap from last week. Calvin's own live QG pulses (Branch Sales Goals, Games Overall, People Analyzer, Scrum Accountability) still blank \u2014 now the primary drag. May 2026 Damage Report still untriaged since 6/22. Individuals: Calvin 26, Nick 28, Rance 27.",
       "detail": {
         "criteria": [
@@ -818,11 +1000,26 @@
     {
       "date": "2026-07-14",
       "branch": "south_austin",
+      "mode": "board_hygiene",
       "score": 50,
       "max": 60,
       "pct": 83,
       "grade": "B",
       "rubric_version": "1.3",
+      "criteria": {
+        "BH-1": 3,
+        "BH-2": 5,
+        "BH-3": 5,
+        "BH-4": 5,
+        "BH-5": 3,
+        "BH-6": 5,
+        "BH-7": 5,
+        "BH-8": 3,
+        "BH-9": 5,
+        "BH-10": 5,
+        "BONUS-1": 3,
+        "BONUS-2": 5
+      },
       "note": "Automations corrected to full credit \u2014 the 7/8 bulk-touch batch was legacy/template pulses (OPSP templates, Q2 goal templates, Redirect Template), not active work being dragged. Christopher's own QG pulses and one fresh customer dispute without an update are the real drags. Individuals: Christopher 24, Daniel 22, Hector 27, Jespah 26.",
       "detail": {
         "criteria": [
@@ -920,10 +1117,119 @@
         ],
         "summary": "Hector is the strongest on this board. Christopher is the primary drag on QG Value and the one bare customer-issue pulse. Corrected from an initial 48/60 read once the bulk-cleanup exemption was applied to Automations."
       }
+    },
+    {
+      "date": "2026-07-20",
+      "branch": "leander",
+      "mode": "board_hygiene",
+      "score": 49,
+      "max": 60,
+      "pct": 82,
+      "grade": "B",
+      "rubric_version": "1.3",
+      "criteria": {
+        "BH-1": 3,
+        "BH-2": 5,
+        "BH-3": 3,
+        "BH-4": 5,
+        "BH-5": 5,
+        "BH-6": 5,
+        "BH-7": 5,
+        "BH-8": 3,
+        "BH-9": 5,
+        "BH-10": 5,
+        "BONUS-1": 0,
+        "BONUS-2": 5
+      },
+      "note": "Frank's four live QG pulses only carry the original May rubric post \u2014 no weekly progress logged since. Definition of Done is the biggest miss: most Done items closed with no note. Garrison is keeping his own QG pulses current; Frank is the primary drag. Individuals: Frank 26, Garrison 28.",
+      "detail": {
+        "criteria": [
+          [
+            "LOW Values",
+            3,
+            "Two Today items missing a Daily LOW: \"Best Practices - Job management on EMMA/Schedule Optimization\" (Garrison's copy) and the \"Hiring Targets\" live QG pulse (Frank's)."
+          ],
+          [
+            "Pulse Titles",
+            5,
+            "All active pulses read with real context \u2014 no vague titles found."
+          ],
+          [
+            "Later Group Dates",
+            3,
+            "Eight of nine Deferred items have future Monday dates. \"Inspect and Register SAG\" is dated 6/1/2027, which is a Tuesday, so it won't trigger the pull-back automation."
+          ],
+          [
+            "Happiness Pulse + QG Value Visibility",
+            5,
+            "Happiness-tagged pulses present for both Frank and Garrison; QG Value is actively used across the board."
+          ],
+          [
+            "QG Value on QG Pulses",
+            5,
+            "Every live QG pulse for both Frank and Garrison has QG Value filled in."
+          ],
+          [
+            "Inbox Age",
+            5,
+            "Only one item in Inbox, created today \u2014 nothing stale."
+          ],
+          [
+            "Project Column",
+            5,
+            "Well over half of active pulses tagged across both Frank and Garrison; all QG and DB Pulse items correctly labeled."
+          ],
+          [
+            "Updates with Context",
+            3,
+            "Frank's four live QG pulses (Scrum Accountability, Hiring Targets, Einstein Games, Branch/Individual Sales Goals) have only the original 5/11 rubric post \u2014 no weekly progress logged since. \"Follow up with negative nps - Katharina Hathaway\" has zero updates. Garrison's QG pulses and both managers' employee-tracking and truck pulses are current."
+          ],
+          [
+            "No Duplicates",
+            5,
+            "The two \"Best Practices\" and two \"Bill Pay\" pulses are legitimate one-copy-per-manager DB Pulse triage copies, not true duplicates. Sales blocks on different days are intentional."
+          ],
+          [
+            "Automations",
+            5,
+            "Status and group placement are consistent across Today, This Week, Deferred, and Done \u2014 no evidence of manual dragging."
+          ],
+          [
+            "Bonus \u2014 Definition of Done",
+            0,
+            "Most sampled Done items have no completion note: \"Give team TD feedback,\" \"Speak with Anne about attendance policy,\" \"Trial day pay for Tavis room mate,\" and the $50 discount correction all closed with nothing logged."
+          ],
+          [
+            "Bonus \u2014 No Past-Due Items",
+            5,
+            "Nothing past due in Today or This Week."
+          ]
+        ],
+        "actions": [
+          "Start logging weekly progress on Frank's four live QG pulses \u2014 they've only had the original May rubric post since creation.",
+          "Fix the truck registration date for unit SAG to a Monday, and fill in the missing Daily LOW on the Hiring Targets goal pulse.",
+          "Leave a one-line completion note before marking items Done \u2014 several closed items this week have nothing logged."
+        ],
+        "individuals": [
+          [
+            "Frank Williams",
+            26,
+            30,
+            "LOW \ud83d\udfe1 (Hiring Targets missing) \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe1 (QG pulses stale since May, nps follow-up bare) \u00b7 Past-Due \ud83d\udfe2"
+          ],
+          [
+            "Garrison Cobe",
+            28,
+            30,
+            "LOW \ud83d\udfe1 (Best Practices copy missing) \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
+          ]
+        ],
+        "summary": "Garrison is the stronger of the two, keeping his own QG pulses logged weekly. Frank is the primary drag \u2014 stale QG pulses since May and no Definition of Done notes on closed items."
+      }
     }
   ]
 }
-  </script>
+</script>
 
   <script>
     const DATA = JSON.parse(document.getElementById('scoreData').textContent);
