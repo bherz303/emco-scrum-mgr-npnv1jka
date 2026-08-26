@@ -195,7 +195,7 @@
       "1.5": "Current. Twelve criteria x 5 = 60, uniform 5/3/1 floor (no criterion scores 0). Sections: Fundamentals (C1-C10) and Conscientious Details (C11-C12); Definition of Done moved into Fundamentals, Project Column into Conscientious Details. Keys migrated BH-*/BONUS-* to C1-C12. C4 is Happiness only (QG Value visibility folded into C5). C7/C10 share one hierarchy: current update = 5, title+DoD that covers the action = 3, neither = 1 (retires the v1.4 full-marks grace; the <1hr-old grace stays). Updates must be within 7 days. C10 population is movement-derived from the prior read's active_items. No sampling. No N/A - max is always 60; empty scope is a confirmed green on C6/C8/C12 and a miss on C3/C4/C5/C10. Individuals scored on all 12 out of 60 (was 6 out of 30). Cert line 85% (51/60). Ladder: one miss = redirect logged; 3 misses in a rolling 4 reads, or 2 consecutive at <=44, requires recertification; recovery = 85%+ on two consecutive live reads. Mock certifies, live maintains, weekly. BMs clear both scores."
     },
     "last_updated": "2026-08-26",
-    "certification_schema": "Each entry in `certifications`: name (manager), position (BM/Ops/FM/Flex), branch (branch key or null for Flex), date (test date, YYYY-MM-DD), score, max, pct, grade, certified (bool), recert_due (date, 6 months after `date` on a pass).",
+    "certification_schema": "Each entry in `certifications`: name, position (BM/Ops/FM/Flex), branch (branch key or null for Flex), date (test date), rescored (optional, if regraded under a later rubric), score, max, pct, grade, band, certified (bool), recert_due (6 months after `date` on a pass), rubric_version, phase, mode, board_id, attempts, criteria (C1-C12), flags, prior_result (optional, the superseded result), note. On a mock read the manager is the only person on the board, so the board score IS their individual score - no separate `individuals` array is needed.",
     "pattern_watch_note": "On every mock-board certification run, tag each entry's `flags` with any matching pattern_watch id, then append the manager to that watch's `observed` or `clean` list. Check the regrade_trigger once the cohort is complete.",
     "criteria_map": {
       "note": "v1.5 renamed criterion keys. Legacy entries migrated; this maps old to new.",
@@ -264,7 +264,10 @@
       "cadence": "weekly live read, typically on that branch's sync day",
       "ooo": "manager off for the read week: log no entry at all",
       "state": "derived from read history at run time; never stored"
-    }
+    },
+    "archive_note": "Brian's call 2026-08-26: nothing before 2026-08-24 is a reference point any more. 31 reads dated 2026-06-15 to 2026-07-27 were moved out of `evals` into `archived_evals` \u2014 retained for history, not rendered on the dashboard, not used for any ladder math. They were graded under rubric v1.0-v1.4 against a different criteria set, so they are not comparable to v1.5 scores. This also retires the two logged arithmetic errors found during the v1.5 migration (7/14 North Austin 55-vs-52 and 7/14 South Austin 50-vs-52) - both sit in the archive and no longer need a ruling.",
+    "active_since": "2026-08-24",
+    "mock_read_note": "On a mock certification read, C10 (Definition of Done) is graded against the Done group as planted - all items, any date, damage claims excluded - NOT the movement window used on live weekly reads. The mock board's planted C10 error is '3 of the 4 Done items have no completion note' and those items are dated July by design, so a movement window would make the planted error unfixable. Caught 2026-08-26 during the Calvin/Joel re-scores, same day v1.5 shipped."
   },
   "branches": {
     "north_austin": {
@@ -299,13 +302,19 @@
       "position": "Flex",
       "branch": null,
       "date": "2026-08-25",
+      "rescored": "2026-08-26",
       "score": 52,
       "max": 60,
       "pct": 87,
       "grade": "B",
+      "band": "pass",
       "certified": true,
       "recert_due": "2027-02-25",
-      "rubric_version": "1.4",
+      "rubric_version": "1.5",
+      "phase": "official",
+      "mode": "mock_certification",
+      "board_id": "18426584892",
+      "attempts": 1,
       "criteria": {
         "C1": 3,
         "C2": 5,
@@ -320,25 +329,36 @@
         "C11": 5,
         "C12": 5
       },
-      "note": "Passed by 1 point over the 51 bar. Baseline 29 to 52. Remaining: non-Fibonacci DLOW of 6 on Truck check + dispatch; duplicate 'Order warehouse supplies' closed rather than deleted; Marcus Webb onboarding has no update and no Definition of Done; 4 Done items lack completion notes.",
       "flags": [
         "duplicate-closed-not-archived"
       ],
-      "phase": "testing",
-      "band": "pass"
+      "prior_result": {
+        "rubric_version": "1.4",
+        "score": 52,
+        "pct": 87,
+        "grade": "B",
+        "phase": "testing"
+      },
+      "note": "Re-scored under v1.5 on 8/26. Total unchanged at 52 (87%, clears the 51-point line) though the composition differs. Misses: non-Fibonacci daily LOW of 6 on 'Truck check + dispatch'; the duplicate 'Order warehouse supplies' closed as Done rather than archived (3 of 5 per the pattern-watch ruling); 'Onboarding checklist - Marcus Webb' carries neither an update nor a Definition of Done; Definition of Done at 3 with the office printer and July truck inventory items still bare and both sales blocks DoD-only. Scored as of his 8/25 work date, not 8/26, so the Today items dated 8/25 were not treated as past-due - the calendar moving is not a board finding. C10 graded against the Done group as planted (mock-read basis)."
     },
     {
       "name": "Joel Villatoro",
       "position": "Ops",
       "branch": "houston",
       "date": "2026-08-25",
-      "score": 54,
+      "rescored": "2026-08-26",
+      "score": 52,
       "max": 60,
-      "pct": 90,
-      "grade": "A",
+      "pct": 87,
+      "grade": "B",
+      "band": "pass",
       "certified": true,
       "recert_due": "2027-02-25",
-      "rubric_version": "1.4",
+      "rubric_version": "1.5",
+      "phase": "official",
+      "mode": "mock_certification",
+      "board_id": "18426584971",
+      "attempts": 2,
       "criteria": {
         "C1": 5,
         "C2": 3,
@@ -346,7 +366,7 @@
         "C4": 5,
         "C5": 3,
         "C6": 5,
-        "C7": 5,
+        "C7": 3,
         "C8": 5,
         "C9": 5,
         "C10": 3,
@@ -354,13 +374,36 @@
         "C12": 5
       },
       "flags": [],
-      "attempts": 2,
-      "note": "Re-scored after rework the same day: 48 to 54, now certified with an A. Cleared the entire Inbox (4 items triaged out, was the 1-of-5 red), fixed the Reply-to-Google-reviews status/group mismatch, and added 4 more context updates. Still open: 'Follow up' left as a vague title with DoD 'Need more context', all three live QG Values still placeholder 1s against Weekly LOWs of 10/12/8, and 2 of 3 Done items still have no completion note.",
-      "phase": "testing",
-      "band": "pass"
+      "prior_result": {
+        "rubric_version": "1.4",
+        "score": 54,
+        "pct": 90,
+        "grade": "A",
+        "phase": "testing"
+      },
+      "note": "Re-scored under v1.5 on 8/26: 54 to 52, still clearing the 51-point line. The drop is entirely Updates with Context going 5 to 3 - v1.5 retires the v1.4 grace that passed title-plus-Definition-of-Done pulses at full marks, and nine of his critical pulses rely on that instead of a current update. Two do carry real current updates (Amara Chen mirror valued at $200 with a refund plan; Marcus Webb I-9 note). Other misses: 'Follow up' left vague with DoD 'Need more context' - though he posted an update asking regional for context rather than guessing, which is the right instinct; all three live QG Values still placeholder 1s against Weekly LOWs of 12/8/10; 2 of 3 Done items still without completion notes. Clean on duplicates - he archived the planted duplicate rather than closing it. Scored as of his 8/25 work date. C10 graded against the Done group as planted (mock-read basis)."
     }
   ],
-  "evals": [
+  "evals": [],
+  "pattern_watch": [
+    {
+      "id": "duplicate-closed-not-archived",
+      "criterion": "BH-9",
+      "opened": "2026-08-25",
+      "opened_by": "Brian",
+      "description": "Manager correctly identifies the planted duplicate but closes it as Done instead of archiving/deleting it. Leaves a false completion record on the board while the open copy still sits in This Week.",
+      "ruling": "Scores 3 out of 5, not 5 \u2014 identifying it is not the same as resolving it. Confirmed by Brian on the Calvin Hughes run.",
+      "regrade_trigger": "If a majority of certified managers hit this same miss, treat it as a training/instruction gap rather than an individual error and regrade everyone affected.",
+      "observed": [
+        "Calvin Hughes"
+      ],
+      "clean": [
+        "Joel Villatoro"
+      ],
+      "status": "watching"
+    }
+  ],
+  "archived_evals": [
     {
       "date": "2026-06-15",
       "branch": "leander",
@@ -2129,24 +2172,6 @@
       "phase": "testing",
       "band": "pass"
     }
-  ],
-  "pattern_watch": [
-    {
-      "id": "duplicate-closed-not-archived",
-      "criterion": "BH-9",
-      "opened": "2026-08-25",
-      "opened_by": "Brian",
-      "description": "Manager correctly identifies the planted duplicate but closes it as Done instead of archiving/deleting it. Leaves a false completion record on the board while the open copy still sits in This Week.",
-      "ruling": "Scores 3 out of 5, not 5 \u2014 identifying it is not the same as resolving it. Confirmed by Brian on the Calvin Hughes run.",
-      "regrade_trigger": "If a majority of certified managers hit this same miss, treat it as a training/instruction gap rather than an individual error and regrade everyone affected.",
-      "observed": [
-        "Calvin Hughes"
-      ],
-      "clean": [
-        "Joel Villatoro"
-      ],
-      "status": "watching"
-    }
   ]
 }
   </script>
@@ -2174,7 +2199,12 @@
 
     // ---- Date range helpers ----
     const allDates = DATA.evals.map(e=>e.date).sort();
-    const minDate = allDates[0], maxDate = allDates[allDates.length-1];
+    // Empty-evals guard: the pre-8/24 history was archived out of `evals` on 8/26/2026, so this
+    // array is legitimately empty until the first v1.5 live read lands. Fall back to the
+    // active-since date rather than letting undefined dates break every downstream calculation.
+    const fallbackDate = (DATA.meta && DATA.meta.active_since) || new Date().toISOString().slice(0,10);
+    const minDate = allDates.length ? allDates[0] : fallbackDate;
+    const maxDate = allDates.length ? allDates[allDates.length-1] : fallbackDate;
     // "today" for relative presets: use the later of real today or the newest logged read,
     // so presets stay meaningful even when viewing historical data.
     const isoToday = new Date().toISOString().slice(0,10);
