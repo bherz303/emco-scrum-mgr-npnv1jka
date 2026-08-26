@@ -186,16 +186,85 @@
 {
   "meta": {
     "description": "Scrum board scorecard history for CTXH branches. Source of truth for the scrum performance dashboard. Append one entry per eval run.",
-    "current_rubric_version": "1.4",
+    "current_rubric_version": "1.5",
     "rubric_notes": {
       "1.0": "Original 12-criterion rubric. Scored /60 standard + /10 bonus framing.",
       "1.3": "Current. 60 pts total (bonus included). BH-4 = QG+Happiness visible (Velocity moved to Meeting Mgmt). BH-7 = QG/DB tags required + half-board coverage. BH-8 = critical ongoing-project pulses only. BH-9 = sales blocks not duplicates.",
-      "1.2": "Interim (late June–early July). Current criteria names in use but before the final 7/9 BH-7/BH-8/BH-9 wording tightening.",
-      "1.4": "Current. Adds BH-8/IND-5 grace conditions: a pulse under 1 hour old created the same day, or one whose title + Definition of Done already describe the action, passes without penalty but is flagged for attention."
+      "1.2": "Interim (late June\u2013early July). Current criteria names in use but before the final 7/9 BH-7/BH-8/BH-9 wording tightening.",
+      "1.4": "Current. Adds BH-8/IND-5 grace conditions: a pulse under 1 hour old created the same day, or one whose title + Definition of Done already describe the action, passes without penalty but is flagged for attention.",
+      "1.5": "Current. Twelve criteria x 5 = 60, uniform 5/3/1 floor (no criterion scores 0). Sections: Fundamentals (C1-C10) and Conscientious Details (C11-C12); Definition of Done moved into Fundamentals, Project Column into Conscientious Details. Keys migrated BH-*/BONUS-* to C1-C12. C4 is Happiness only (QG Value visibility folded into C5). C7/C10 share one hierarchy: current update = 5, title+DoD that covers the action = 3, neither = 1 (retires the v1.4 full-marks grace; the <1hr-old grace stays). Updates must be within 7 days. C10 population is movement-derived from the prior read's active_items. No sampling. No N/A - max is always 60; empty scope is a confirmed green on C6/C8/C12 and a miss on C3/C4/C5/C10. Individuals scored on all 12 out of 60 (was 6 out of 30). Cert line 85% (51/60). Ladder: one miss = redirect logged; 3 misses in a rolling 4 reads, or 2 consecutive at <=44, requires recertification; recovery = 85%+ on two consecutive live reads. Mock certifies, live maintains, weekly. BMs clear both scores."
     },
-    "last_updated": "2026-08-25",
+    "last_updated": "2026-08-26",
     "certification_schema": "Each entry in `certifications`: name (manager), position (BM/Ops/FM/Flex), branch (branch key or null for Flex), date (test date, YYYY-MM-DD), score, max, pct, grade, certified (bool), recert_due (date, 6 months after `date` on a pass).",
-    "pattern_watch_note": "On every mock-board certification run, tag each entry's `flags` with any matching pattern_watch id, then append the manager to that watch's `observed` or `clean` list. Check the regrade_trigger once the cohort is complete."
+    "pattern_watch_note": "On every mock-board certification run, tag each entry's `flags` with any matching pattern_watch id, then append the manager to that watch's `observed` or `clean` list. Check the regrade_trigger once the cohort is complete.",
+    "criteria_map": {
+      "note": "v1.5 renamed criterion keys. Legacy entries migrated; this maps old to new.",
+      "map": {
+        "BH-1": "C1",
+        "BH-2": "C2",
+        "BH-3": "C3",
+        "BH-4": "C4",
+        "BH-5": "C5",
+        "BH-6": "C6",
+        "BH-7": "C11",
+        "BH-8": "C7",
+        "BH-9": "C8",
+        "BH-10": "C9",
+        "BONUS-1": "C10",
+        "BONUS-2": "C12"
+      },
+      "sections": {
+        "fundamentals": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9",
+          "C10"
+        ],
+        "conscientious_details": [
+          "C11",
+          "C12"
+        ]
+      },
+      "names": {
+        "C1": "LOW Values",
+        "C2": "Pulse Titles",
+        "C3": "Later Group Dates",
+        "C4": "Happiness Pulse",
+        "C5": "QG Value on QG Pulses",
+        "C6": "Inbox Age",
+        "C7": "Updates with Context",
+        "C8": "No Duplicates",
+        "C9": "Automations",
+        "C10": "Definition of Done",
+        "C11": "Project Column",
+        "C12": "No Past-Due Items"
+      }
+    },
+    "phase_note": "phase='testing' = graded under a pre-v1.5 rubric; kept for history, excluded from ladder math and the dashboard default view. phase='official' = v1.5+ live read that counts toward the ladder.",
+    "bands": {
+      "pass": "51-60 (85%+)",
+      "soft_miss": "45-50 (75-83%)",
+      "miss": "12-44 (<75%)",
+      "cert_line": "51 of 60 = 85%",
+      "floor": "minimum possible total is 12; no criterion scores 0"
+    },
+    "ladder": {
+      "one_miss": "redirect logged for the team; no recertification",
+      "slow_trigger": "3 misses inside any rolling 4 reads",
+      "fast_trigger": "2 consecutive reads at 44 or below",
+      "recovery": "85%+ on two consecutive weekly live reads",
+      "scheduled_retest": "every 6 months from last passing test, on the mock board",
+      "bm_rule": "a BM must clear the line on BOTH their individual score and the board score",
+      "cadence": "weekly live read, run the morning of that branch's sync-up",
+      "ooo": "manager off for the read week: log no entry at all",
+      "state": "derived from read history at run time; never stored"
+    }
   },
   "branches": {
     "north_austin": {
@@ -238,23 +307,25 @@
       "recert_due": "2027-02-25",
       "rubric_version": "1.4",
       "criteria": {
-        "BH-1": 3,
-        "BH-2": 5,
-        "BH-3": 5,
-        "BH-4": 5,
-        "BH-5": 5,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 3,
-        "BH-9": 3,
-        "BH-10": 5,
-        "BONUS-1": 3,
-        "BONUS-2": 5
+        "C1": 3,
+        "C2": 5,
+        "C3": 5,
+        "C4": 5,
+        "C5": 5,
+        "C6": 5,
+        "C7": 3,
+        "C8": 3,
+        "C9": 5,
+        "C10": 3,
+        "C11": 5,
+        "C12": 5
       },
       "note": "Passed by 1 point over the 51 bar. Baseline 29 to 52. Remaining: non-Fibonacci DLOW of 6 on Truck check + dispatch; duplicate 'Order warehouse supplies' closed rather than deleted; Marcus Webb onboarding has no update and no Definition of Done; 4 Done items lack completion notes.",
       "flags": [
         "duplicate-closed-not-archived"
-      ]
+      ],
+      "phase": "testing",
+      "band": "pass"
     },
     {
       "name": "Joel Villatoro",
@@ -269,22 +340,24 @@
       "recert_due": "2027-02-25",
       "rubric_version": "1.4",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 3,
-        "BH-3": 5,
-        "BH-4": 5,
-        "BH-5": 3,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 3,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 3,
+        "C3": 5,
+        "C4": 5,
+        "C5": 3,
+        "C6": 5,
+        "C7": 5,
+        "C8": 5,
+        "C9": 5,
+        "C10": 3,
+        "C11": 5,
+        "C12": 5
       },
       "flags": [],
       "attempts": 2,
-      "note": "Re-scored after rework the same day: 48 to 54, now certified with an A. Cleared the entire Inbox (4 items triaged out, was the 1-of-5 red), fixed the Reply-to-Google-reviews status/group mismatch, and added 4 more context updates. Still open: 'Follow up' left as a vague title with DoD 'Need more context', all three live QG Values still placeholder 1s against Weekly LOWs of 10/12/8, and 2 of 3 Done items still have no completion note."
+      "note": "Re-scored after rework the same day: 48 to 54, now certified with an A. Cleared the entire Inbox (4 items triaged out, was the 1-of-5 red), fixed the Reply-to-Google-reviews status/group mismatch, and added 4 more context updates. Still open: 'Follow up' left as a vague title with DoD 'Need more context', all three live QG Values still placeholder 1s against Weekly LOWs of 10/12/8, and 2 of 3 Done items still have no completion note.",
+      "phase": "testing",
+      "band": "pass"
     }
   ],
   "evals": [
@@ -298,7 +371,9 @@
       "grade": "F",
       "rubric_version": "1.0",
       "criteria": {},
-      "note": "Legacy rubric read. Systemic deferred-date issue; velocity pulse parked."
+      "note": "Legacy rubric read. Systemic deferred-date issue; velocity pulse parked.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-06-22",
@@ -310,7 +385,9 @@
       "grade": "F",
       "rubric_version": "1.0",
       "criteria": {},
-      "note": "Legacy rubric read. Flat WoW. QG Live pulses deferred with no date."
+      "note": "Legacy rubric read. Flat WoW. QG Live pulses deferred with no date.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-06-22",
@@ -322,7 +399,9 @@
       "grade": "F",
       "rubric_version": "1.0",
       "criteria": {},
-      "note": "Legacy rubric read. LOW columns confirmed (Day/Week LOW). Inbox age + duplicates the main drags."
+      "note": "Legacy rubric read. LOW columns confirmed (Day/Week LOW). Inbox age + duplicates the main drags.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-06-23",
@@ -334,7 +413,9 @@
       "grade": "F",
       "rubric_version": "1.0",
       "criteria": {},
-      "note": "Legacy rubric read. Best on velocity/happiness/past-due; Project column nearly unused."
+      "note": "Legacy rubric read. Best on velocity/happiness/past-due; Project column nearly unused.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-06-23",
@@ -346,7 +427,9 @@
       "grade": "F",
       "rubric_version": "1.0",
       "criteria": {},
-      "note": "Legacy rubric read. QG values + Project column weak; scored under pre-1.3 Project rule."
+      "note": "Legacy rubric read. QG values + Project column weak; scored under pre-1.3 Project rule.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-06-23",
@@ -358,7 +441,9 @@
       "grade": "F",
       "rubric_version": "1.0",
       "criteria": {},
-      "note": "Legacy rubric read. Strong QG tracking; Project column + duplicate praise pulse the drags."
+      "note": "Legacy rubric read. Strong QG tracking; Project column + duplicate praise pulse the drags.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-06-29",
@@ -370,7 +455,9 @@
       "grade": "C",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "Corrected read (coaching session). Recovered from archive."
+      "note": "Corrected read (coaching session). Recovered from archive.",
+      "phase": "testing",
+      "band": "soft_miss"
     },
     {
       "date": "2026-06-29",
@@ -382,7 +469,9 @@
       "grade": "B",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "Recovered from archive."
+      "note": "Recovered from archive.",
+      "phase": "testing",
+      "band": "soft_miss"
     },
     {
       "date": "2026-06-30",
@@ -394,7 +483,9 @@
       "grade": "B",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "Corrected read; supersedes a buggy F-read where LOW columns weren't detected."
+      "note": "Corrected read; supersedes a buggy F-read where LOW columns weren't detected.",
+      "phase": "testing",
+      "band": "soft_miss"
     },
     {
       "date": "2026-06-30",
@@ -406,7 +497,9 @@
       "grade": "C",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "Corrected read; supersedes buggy F-read."
+      "note": "Corrected read; supersedes buggy F-read.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-06-30",
@@ -418,7 +511,9 @@
       "grade": "D",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "Corrected read; supersedes buggy F-read."
+      "note": "Corrected read; supersedes buggy F-read.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-07-06",
@@ -430,7 +525,9 @@
       "grade": "F",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "This-week read. Board slipped; re-scored 7/7 after coaching."
+      "note": "This-week read. Board slipped; re-scored 7/7 after coaching.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-07-06",
@@ -442,7 +539,9 @@
       "grade": "A",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "This-week read. Strongest board in region."
+      "note": "This-week read. Strongest board in region.",
+      "phase": "testing",
+      "band": "pass"
     },
     {
       "date": "2026-07-07",
@@ -454,7 +553,9 @@
       "grade": "D",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "This-week read (region batch)."
+      "note": "This-week read (region batch).",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-07-07",
@@ -466,7 +567,9 @@
       "grade": "B",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "This-week read. +20 pts vs 7/6 after Frank cleaned the board."
+      "note": "This-week read. +20 pts vs 7/6 after Frank cleaned the board.",
+      "phase": "testing",
+      "band": "soft_miss"
     },
     {
       "date": "2026-07-07",
@@ -478,7 +581,9 @@
       "grade": "F",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "This-week read (region batch)."
+      "note": "This-week read (region batch).",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-07-07",
@@ -490,7 +595,9 @@
       "grade": "F",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "This-week read; re-scored 7/8 after coaching."
+      "note": "This-week read; re-scored 7/8 after coaching.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-07-08",
@@ -502,7 +609,9 @@
       "grade": "C",
       "rubric_version": "1.2",
       "criteria": {},
-      "note": "This-week read. +18 pts vs 7/7 after Chris cleaned the board."
+      "note": "This-week read. +18 pts vs 7/7 after Chris cleaned the board.",
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-07-09",
@@ -514,18 +623,18 @@
       "grade": "B",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 3,
-        "BH-4": 5,
-        "BH-5": 3,
-        "BH-6": 3,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 3,
-        "BONUS-2": 3
+        "C1": 5,
+        "C2": 5,
+        "C3": 3,
+        "C4": 5,
+        "C5": 3,
+        "C6": 3,
+        "C7": 5,
+        "C8": 5,
+        "C9": 5,
+        "C10": 3,
+        "C11": 5,
+        "C12": 3
       },
       "note": "First current-rubric (v1.3) read. Strong board; QG Value blank on most of Calvin's and Nick's live QG pulses is the main drag. Individuals: Calvin 24, Nick 22, Rance 28.",
       "detail": {
@@ -533,12 +642,12 @@
           [
             "LOW Values",
             5,
-            "All 10 Today items carry valid Fibonacci Daily LOWs. The day is loaded heavy (~48 vs the 15–20 target) but every item is sized."
+            "All 10 Today items carry valid Fibonacci Daily LOWs. The day is loaded heavy (~48 vs the 15\u201320 target) but every item is sized."
           ],
           [
             "Pulse Titles",
             5,
-            "Clear and action-oriented — onboarding checklists named by hire, the bed-damage follow-up, dispatch and truck checks. Only thin one is Nick's bare \"Sales\" pulse."
+            "Clear and action-oriented \u2014 onboarding checklists named by hire, the bed-damage follow-up, dispatch and truck checks. Only thin one is Nick's bare \"Sales\" pulse."
           ],
           [
             "Later Group Dates",
@@ -558,7 +667,7 @@
           [
             "Inbox Age",
             3,
-            "\"May 2026 Damage Report\" has sat untriaged since June 22 — 17 days."
+            "\"May 2026 Damage Report\" has sat untriaged since June 22 \u2014 17 days."
           ],
           [
             "Project Column",
@@ -581,18 +690,18 @@
             "Statuses line up with groups; movement is status-driven."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             3,
-            "Mixed — some Done items have no completion note (Driver Ed Process, Grey's driving cert)."
+            "Mixed \u2014 some Done items have no completion note (Driver Ed Process, Grey's driving cert)."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             3,
             "Two past-due items in This Week: the Lawrence Amadi complaint (6/19) and JERRY registration (7/8)."
           ]
         ],
         "actions": [
-          "Fill in QG Value on the live QG pulses — most of Calvin's and Nick's are blank. Biggest single gap.",
+          "Fill in QG Value on the live QG pulses \u2014 most of Calvin's and Nick's are blank. Biggest single gap.",
           "Clear the two past-due items (Lawrence Amadi 6/19, JERRY 7/8) and fix the deferred inventory reset to a future Monday.",
           "Triage the \"May 2026 Damage Report\" sitting in the Inbox since June 22."
         ],
@@ -601,23 +710,25 @@
             "Calvin Hughes",
             24,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🔴 (most live QG blank) · Updates 🟢 · Past-Due 🟡 (Lawrence 6/19)"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udd34 (most live QG blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe1 (Lawrence 6/19)"
           ],
           [
             "Nick Dagel",
             22,
             30,
-            "LOW 🟢 · Titles 🟢 (\"Sales\" thin) · Project 🟡 · QG Value 🔴 (Driver Safety/Sales/Praise/Samsara blank) · Updates 🟢 · Past-Due 🟡 (JERRY 7/8)"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 (\"Sales\" thin) \u00b7 Project \ud83d\udfe1 \u00b7 QG Value \ud83d\udd34 (Driver Safety/Sales/Praise/Samsara blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe1 (JERRY 7/8)"
           ],
           [
             "Rance Pope",
             28,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟡 (2 valued, 2 blank) · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe1 (2 valued, 2 blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ]
         ],
-        "summary": "Primary drag is QG Value on the live QG pulses — Calvin and Nick both red there. Rance is the model on this board at 28 out of 30. Big step up from the June 23 read (26/60)."
-      }
+        "summary": "Primary drag is QG Value on the live QG pulses \u2014 Calvin and Nick both red there. Rance is the model on this board at 28 out of 30. Big step up from the June 23 read (26/60)."
+      },
+      "phase": "testing",
+      "band": "soft_miss"
     },
     {
       "date": "2026-07-13",
@@ -629,20 +740,20 @@
       "grade": "A",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 5,
-        "BH-4": 5,
-        "BH-5": 5,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 5,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 5,
+        "C3": 5,
+        "C4": 5,
+        "C5": 5,
+        "C6": 5,
+        "C7": 5,
+        "C8": 5,
+        "C9": 5,
+        "C10": 5,
+        "C11": 5,
+        "C12": 5
       },
-      "note": "Perfect score. Turnaround complete: deferred dates + QG values (prior reds) fixed. Missing Payments pulse has sub-items with per-customer detail (Elizabeth Wiegers, Molly Reasner, Kenny Carrol, all touched 7/13) — correctly counts as valid update context. Individuals: Frank 30, Garrison 30.",
+      "note": "Perfect score. Turnaround complete: deferred dates + QG values (prior reds) fixed. Missing Payments pulse has sub-items with per-customer detail (Elizabeth Wiegers, Molly Reasner, Kenny Carrol, all touched 7/13) \u2014 correctly counts as valid update context. Individuals: Frank 30, Garrison 30.",
       "detail": {
         "criteria": [
           [
@@ -653,7 +764,7 @@
           [
             "Pulse Titles",
             5,
-            "Descriptive and clear — the Mary Bartholic discount, Emily's driver-training scheduling, damage reporting."
+            "Descriptive and clear \u2014 the Mary Bartholic discount, Emily's driver-training scheduling, damage reporting."
           ],
           [
             "Later Group Dates",
@@ -668,7 +779,7 @@
           [
             "QG Value on QG Pulses",
             5,
-            "Every live QG pulse has a QG Value. Also previously a red flag for Frank — now clean."
+            "Every live QG pulse has a QG Value. Also previously a red flag for Frank \u2014 now clean."
           ],
           [
             "Inbox Age",
@@ -683,7 +794,7 @@
           [
             "Updates with Context",
             5,
-            "Missing Payments pulse carries sub-items with per-customer detail (Elizabeth Wiegers, Molly Reasner, Kenny Carrol — all touched 7/13), which counts as valid context. All critical pulses covered."
+            "Missing Payments pulse carries sub-items with per-customer detail (Elizabeth Wiegers, Molly Reasner, Kenny Carrol \u2014 all touched 7/13), which counts as valid context. All critical pulses covered."
           ],
           [
             "No Duplicates",
@@ -696,18 +807,18 @@
             "Statuses and groups align."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             5,
             "Office-move sales review is well documented; damage claims are excluded from this check."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due."
           ]
         ],
         "actions": [
-          "No fixes needed — board is clean across every criterion.",
+          "No fixes needed \u2014 board is clean across every criterion.",
           "Keep using sub-items for multi-customer tracking pulses like Missing Payments; it's working well.",
           "Maintain the deferred-date and QG-value discipline that drove this turnaround."
         ],
@@ -726,7 +837,9 @@
           ]
         ],
         "summary": "Perfect board. The Missing Payments pulse initially looked bare at the top level, but its sub-items (Elizabeth Wiegers, Molly Reasner, Kenny Carrol) carry current per-customer detail, which is valid update context. Combined with the deferred-date and QG-value fixes from earlier this week, Leander is now the cleanest board in the region."
-      }
+      },
+      "phase": "testing",
+      "band": "pass"
     },
     {
       "date": "2026-07-13",
@@ -738,18 +851,18 @@
       "grade": "A",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 5,
-        "BH-4": 5,
-        "BH-5": 5,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 3,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 5,
+        "C3": 5,
+        "C4": 5,
+        "C5": 5,
+        "C6": 5,
+        "C7": 5,
+        "C8": 5,
+        "C9": 5,
+        "C10": 3,
+        "C11": 5,
+        "C12": 5
       },
       "note": "Regional benchmark. Only ding is inconsistent Done-completion notes. Individuals: Dustin 30, Lukas 30, Cameron K 30.",
       "detail": {
@@ -762,7 +875,7 @@
           [
             "Pulse Titles",
             5,
-            "Clear and operational — payroll referral bonuses named by person, \"Check in with Mike Larson,\" camera-angle fleet tasks."
+            "Clear and operational \u2014 payroll referral bonuses named by person, \"Check in with Mike Larson,\" camera-angle fleet tasks."
           ],
           [
             "Later Group Dates",
@@ -805,20 +918,20 @@
             "Statuses and groups line up cleanly."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             3,
-            "Mixed — the Monday Sync has a velocity completion note, but a few Done items (Inventory, Kevin verbal) are bare."
+            "Mixed \u2014 the Monday Sync has a velocity completion note, but a few Done items (Inventory, Kevin verbal) are bare."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due; This Week is all future-dated."
           ]
         ],
         "actions": [
-          "Add a one-line completion note to Done items before they cycle out — the only thing between this board and a perfect score.",
+          "Add a one-line completion note to Done items before they cycle out \u2014 the only thing between this board and a perfect score.",
           "Keep the QG Value discipline going; it's the model for the region.",
-          "No structural fixes needed — this is a clean board."
+          "No structural fixes needed \u2014 this is a clean board."
         ],
         "individuals": [
           [
@@ -840,8 +953,10 @@
             "QG pulses all valued, everything tagged and current."
           ]
         ],
-        "summary": "No drag on this board — it's the regional benchmark. All three managers at 30 out of 30."
-      }
+        "summary": "No drag on this board \u2014 it's the regional benchmark. All three managers at 30 out of 30."
+      },
+      "phase": "testing",
+      "band": "pass"
     },
     {
       "date": "2026-07-14",
@@ -853,20 +968,20 @@
       "grade": "A",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 3,
-        "BH-3": 5,
-        "BH-4": 5,
-        "BH-5": 5,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 5,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 3,
+        "C3": 5,
+        "C4": 5,
+        "C5": 5,
+        "C6": 5,
+        "C7": 5,
+        "C8": 5,
+        "C9": 5,
+        "C10": 5,
+        "C11": 5,
+        "C12": 5
       },
-      "note": "Corrected: the two Velocity Check pulses are owned by different people (Sergio and Alex), not a real duplicate — the '(copy)(copy)' naming was misleading but ownership was already split per-person. Board is now clean apart from a few VW-by-contact-info titles. Individuals: Sergio 28, Joel 26, Alex 27.",
+      "note": "Corrected: the two Velocity Check pulses are owned by different people (Sergio and Alex), not a real duplicate \u2014 the '(copy)(copy)' naming was misleading but ownership was already split per-person. Board is now clean apart from a few VW-by-contact-info titles. Individuals: Sergio 28, Joel 26, Alex 27.",
       "detail": {
         "criteria": [
           [
@@ -892,7 +1007,7 @@
           [
             "QG Value on QG Pulses",
             5,
-            "Sergio's, Joel's, and Alex's live QG pulses are all valued — strong QG discipline."
+            "Sergio's, Joel's, and Alex's live QG pulses are all valued \u2014 strong QG discipline."
           ],
           [
             "Inbox Age",
@@ -912,7 +1027,7 @@
           [
             "No Duplicates",
             5,
-            "The two Velocity Check pulses are owned by different people (Sergio Buenrostro and Alex Tran) — one copy per person tracking their own velocity independently. Not a duplicate, despite the misleading '(copy)(copy)' naming."
+            "The two Velocity Check pulses are owned by different people (Sergio Buenrostro and Alex Tran) \u2014 one copy per person tracking their own velocity independently. Not a duplicate, despite the misleading '(copy)(copy)' naming."
           ],
           [
             "Automations",
@@ -920,43 +1035,45 @@
             "Statuses and groups line up; Done items cycling properly."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             5,
-            "Done items have real context — each attendance write-up names the specific issue."
+            "Done items have real context \u2014 each attendance write-up names the specific issue."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due found."
           ]
         ],
         "actions": [
           "Rename VW pulses that use an email or phone number as the title to the customer's actual name.",
-          "Consider cleaning up the '(copy)(copy)' naming on Alex's Velocity Check pulse so it doesn't read as a duplicate at a glance — ownership is correct, just the label is confusing.",
-          "Otherwise, this is a strong, disciplined board — keep it up."
+          "Consider cleaning up the '(copy)(copy)' naming on Alex's Velocity Check pulse so it doesn't read as a duplicate at a glance \u2014 ownership is correct, just the label is confusing.",
+          "Otherwise, this is a strong, disciplined board \u2014 keep it up."
         ],
         "individuals": [
           [
             "Sergio Buenrostro",
             28,
             30,
-            "LOW 🟢 · Titles 🟡 (a few could be clearer) · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe1 (a few could be clearer) \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Joel Villatoro",
             26,
             30,
-            "LOW 🟢 · Titles 🟡 (VW pulses titled by contact info) · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe1 (VW pulses titled by contact info) \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Alex Tran",
             27,
             30,
-            "LOW 🟢 (Velocity Check exempt) · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢. His Velocity Check pulse correctly tracks his own velocity — not a duplicate of Sergio's."
+            "LOW \ud83d\udfe2 (Velocity Check exempt) \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2. His Velocity Check pulse correctly tracks his own velocity \u2014 not a duplicate of Sergio's."
           ]
         ],
-        "summary": "Sergio is strong across the board. The Velocity Check pulses are correctly split one-per-person (Sergio and Alex) — not a duplicate despite the confusing '(copy)(copy)' label. Corrected from 56/60 to 58/60 once the per-person Velocity Check rule was applied."
-      }
+        "summary": "Sergio is strong across the board. The Velocity Check pulses are correctly split one-per-person (Sergio and Alex) \u2014 not a duplicate despite the confusing '(copy)(copy)' label. Corrected from 56/60 to 58/60 once the per-person Velocity Check rule was applied."
+      },
+      "phase": "testing",
+      "band": "pass"
     },
     {
       "date": "2026-07-14",
@@ -968,20 +1085,20 @@
       "grade": "A",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 5,
-        "BH-4": 5,
-        "BH-5": 3,
-        "BH-6": 3,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 3,
-        "BONUS-1": 5,
-        "BONUS-2": 3
+        "C1": 5,
+        "C2": 5,
+        "C3": 5,
+        "C4": 5,
+        "C5": 3,
+        "C6": 3,
+        "C7": 5,
+        "C8": 5,
+        "C9": 3,
+        "C10": 5,
+        "C11": 5,
+        "C12": 3
       },
-      "note": "Nick closed his QG Value gap from last week. Calvin's own live QG pulses (Branch Sales Goals, Games Overall, People Analyzer, Scrum Accountability) still blank — now the primary drag. May 2026 Damage Report still untriaged since 6/22. Individuals: Calvin 26, Nick 28, Rance 27.",
+      "note": "Nick closed his QG Value gap from last week. Calvin's own live QG pulses (Branch Sales Goals, Games Overall, People Analyzer, Scrum Accountability) still blank \u2014 now the primary drag. May 2026 Damage Report still untriaged since 6/22. Individuals: Calvin 26, Nick 28, Rance 27.",
       "detail": {
         "criteria": [
           [
@@ -992,7 +1109,7 @@
           [
             "Pulse Titles",
             5,
-            "Clear throughout — \"Send Rippling warnings to Miguel and Ben K for call outs,\" employee pulses by name, dispatch and truck checks."
+            "Clear throughout \u2014 \"Send Rippling warnings to Miguel and Ben K for call outs,\" employee pulses by name, dispatch and truck checks."
           ],
           [
             "Later Group Dates",
@@ -1012,7 +1129,7 @@
           [
             "Inbox Age",
             3,
-            "\"May 2026 Damage Report\" sitting with no status since June 22 — untriaged."
+            "\"May 2026 Damage Report\" sitting with no status since June 22 \u2014 untriaged."
           ],
           [
             "Project Column",
@@ -1032,46 +1149,49 @@
           [
             "Automations",
             3,
-            "A few QG pulses show QG-Value-of-0 (likely new-pulse artifacts), and one pulse sits in a non-standard \"SYNCED\" status — minor irregularity on active pulses."
+            "A few QG pulses show QG-Value-of-0 (likely new-pulse artifacts), and one pulse sits in a non-standard \"SYNCED\" status \u2014 minor irregularity on active pulses."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             5,
             "Done items have real notes (Corey Brennan PTO, Jamain's FWW, driving cert completions)."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             3,
-            "\"Update Tool Bag Inventory\" shows a QG Value of 0 alongside its 7/14 date — minor watch item."
+            "\"Update Tool Bag Inventory\" shows a QG Value of 0 alongside its 7/14 date \u2014 minor watch item."
           ]
         ],
         "actions": [
-          "Fill in QG Value on Calvin's own live QG pulses — Nick has closed this gap, Calvin hasn't yet.",
+          "Fill in QG Value on Calvin's own live QG pulses \u2014 Nick has closed this gap, Calvin hasn't yet.",
           "Triage the \"May 2026 Damage Report\" pulse sitting with no status since June 22.",
-          "Keep the momentum — up from 50/60 last week to 55/60 this week."
+          "Keep the momentum \u2014 up from 50/60 last week to 55/60 this week."
         ],
         "individuals": [
           [
             "Calvin Hughes",
             26,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🔴 (his own live QG pulses still blank) · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udd34 (his own live QG pulses still blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Nick Dagel",
             28,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 (closed the gap from last week) · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 (closed the gap from last week) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Rance Pope",
             27,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟡 (some at 0, likely new pulses) · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe1 (some at 0, likely new pulses) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ]
         ],
-        "summary": "Nick fixed his QG Value gap from last week. Calvin is now the primary drag — his own QG pulses remain unvalued while his team's have improved. Up from 50/60 (B) last week to 55/60 (A) this week."
-      }
+        "summary": "Nick fixed his QG Value gap from last week. Calvin is now the primary drag \u2014 his own QG pulses remain unvalued while his team's have improved. Up from 50/60 (B) last week to 55/60 (A) this week."
+      },
+      "phase": "testing",
+      "data_note": "\u26a0\ufe0f Logged score 55 does not equal the sum of its own criteria (52). Pre-existing arithmetic error found during the v1.5 migration (2026-08-26); the original stored score is preserved unchanged pending Brian's call. Testing-phase entry \u2014 nothing live depends on it.",
+      "band": "pass"
     },
     {
       "date": "2026-07-14",
@@ -1083,20 +1203,20 @@
       "grade": "B",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 3,
-        "BH-2": 5,
-        "BH-3": 5,
-        "BH-4": 5,
-        "BH-5": 3,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 3,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 3,
-        "BONUS-2": 5
+        "C1": 3,
+        "C2": 5,
+        "C3": 5,
+        "C4": 5,
+        "C5": 3,
+        "C6": 5,
+        "C7": 3,
+        "C8": 5,
+        "C9": 5,
+        "C10": 3,
+        "C11": 5,
+        "C12": 5
       },
-      "note": "Automations corrected to full credit — the 7/8 bulk-touch batch was legacy/template pulses (OPSP templates, Q2 goal templates, Redirect Template), not active work being dragged. Christopher's own QG pulses and one fresh customer dispute without an update are the real drags. Individuals: Christopher 24, Daniel 22, Hector 27, Jespah 26.",
+      "note": "Automations corrected to full credit \u2014 the 7/8 bulk-touch batch was legacy/template pulses (OPSP templates, Q2 goal templates, Redirect Template), not active work being dragged. Christopher's own QG pulses and one fresh customer dispute without an update are the real drags. Individuals: Christopher 24, Daniel 22, Hector 27, Jespah 26.",
       "detail": {
         "criteria": [
           [
@@ -1107,7 +1227,7 @@
           [
             "Pulse Titles",
             5,
-            "Descriptive throughout — \"KW Referral - Dena Flynn,\" \"Negative GatherUp - Karen Rabinovitz,\" \"Client Dispute - DeLorean Reese.\""
+            "Descriptive throughout \u2014 \"KW Referral - Dena Flynn,\" \"Negative GatherUp - Karen Rabinovitz,\" \"Client Dispute - DeLorean Reese.\""
           ],
           [
             "Later Group Dates",
@@ -1137,7 +1257,7 @@
           [
             "Updates with Context",
             3,
-            "Jessica Jordan client dispute has real update history, but \"Client Dispute - DeLorean Reese\" — created today — has no update yet and is a critical customer issue, not a damage pulse."
+            "Jessica Jordan client dispute has real update history, but \"Client Dispute - DeLorean Reese\" \u2014 created today \u2014 has no update yet and is a critical customer issue, not a damage pulse."
           ],
           [
             "No Duplicates",
@@ -1147,22 +1267,22 @@
           [
             "Automations",
             5,
-            "The 7/8 batch touch (Redirect Template, OB Checklist, Chris's OPSP, Q2 goal templates) was legacy/reference pulses, not active work — not counted as manual dragging per the updated rule."
+            "The 7/8 batch touch (Redirect Template, OB Checklist, Chris's OPSP, Q2 goal templates) was legacy/reference pulses, not active work \u2014 not counted as manual dragging per the updated rule."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             3,
-            "Some Done items likely lack notes — held Yellow rather than guessing Green on partial data."
+            "Some Done items likely lack notes \u2014 held Yellow rather than guessing Green on partial data."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due in Today or This Week."
           ]
         ],
         "actions": [
-          "Add a progress note to \"Client Dispute - DeLorean Reese\" — a fresh customer issue that needs a note logged.",
-          "Fill in QG Value on Christopher's own live QG pulses (Individual Sales Goal, Praise Goal) — Daniel and Hector already have theirs valued.",
+          "Add a progress note to \"Client Dispute - DeLorean Reese\" \u2014 a fresh customer issue that needs a note logged.",
+          "Fill in QG Value on Christopher's own live QG pulses (Individual Sales Goal, Praise Goal) \u2014 Daniel and Hector already have theirs valued.",
           "Fix the invalid Daily LOW of 0 on \"OB - Jeremy Clayton.\""
         ],
         "individuals": [
@@ -1170,54 +1290,57 @@
             "Christopher Anderson",
             24,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🔴 (his own QG pulses blank) · Updates 🟡 (DeLorean Reese dispute bare) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udd34 (his own QG pulses blank) \u00b7 Updates \ud83d\udfe1 (DeLorean Reese dispute bare) \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Daniel Behseresht",
             22,
             30,
-            "LOW 🟡 (Jeremy Clayton's 0) · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe1 (Jeremy Clayton's 0) \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Hector Zavala",
             27,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Jespah Lara",
             26,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟡 (Praise Goal live pulse blank) · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe1 (Praise Goal live pulse blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ]
         ],
         "summary": "Hector is the strongest on this board. Christopher is the primary drag on QG Value and the one bare customer-issue pulse. Corrected from an initial 48/60 read once the bulk-cleanup exemption was applied to Automations."
-      }
+      },
+      "phase": "testing",
+      "data_note": "\u26a0\ufe0f Logged score 50 does not equal the sum of its own criteria (52). Pre-existing arithmetic error found during the v1.5 migration (2026-08-26); the original stored score is preserved unchanged pending Brian's call. Testing-phase entry \u2014 nothing live depends on it.",
+      "band": "soft_miss"
     },
     {
       "date": "2026-07-21",
       "branch": "south_austin",
       "mode": "board_hygiene",
-      "score": 43,
+      "score": 44,
       "max": 60,
-      "pct": 72,
+      "pct": 73,
       "grade": "C",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 1,
-        "BH-2": 5,
-        "BH-3": 5,
-        "BH-4": 5,
-        "BH-5": 3,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 3,
-        "BH-9": 3,
-        "BH-10": 3,
-        "BONUS-1": 0,
-        "BONUS-2": 5
+        "C1": 1,
+        "C2": 5,
+        "C3": 5,
+        "C4": 5,
+        "C5": 3,
+        "C6": 5,
+        "C7": 3,
+        "C8": 3,
+        "C9": 3,
+        "C10": 1,
+        "C11": 5,
+        "C12": 5
       },
-      "note": "Chris created two brand-new overnight-move pulses live during the audit with no LOW set, plus a Mid-Day Hydration Reminder at 0 — pushed LOW Values to Red. A real duplicate (two Negative GatherUp — Madison Loiselle pulses), five Today items sitting with a status of Needs Review instead of Today, and most Done items bare on completion notes rounded out the drag.",
+      "note": "Chris created two brand-new overnight-move pulses live during the audit with no LOW set, plus a Mid-Day Hydration Reminder at 0 \u2014 pushed LOW Values to Red. A real duplicate (two Negative GatherUp \u2014 Madison Loiselle pulses), five Today items sitting with a status of Needs Review instead of Today, and most Done items bare on completion notes rounded out the drag.",
       "detail": {
         "criteria": [
           [
@@ -1263,7 +1386,7 @@
           [
             "No Duplicates",
             3,
-            "Two \"Negative GatherUp - Madison Loiselle\" pulses, same owner and date, tagged Client Dispute vs Damage Claim — a real duplicate."
+            "Two \"Negative GatherUp - Madison Loiselle\" pulses, same owner and date, tagged Client Dispute vs Damage Claim \u2014 a real duplicate."
           ],
           [
             "Automations",
@@ -1271,18 +1394,18 @@
             "Five Today items (2x Bill Pay, Daniel Martens Redirect, Best Practices) carry status \"Needs Review\" instead of \"Today.\""
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             0,
             "4 of 5 sampled Done items have no completion note."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due."
           ]
         ],
         "actions": [
-          "Set a valid Daily LOW on every new Today item as soon as it's created — two brand-new pulses went live blank during this read.",
+          "Set a valid Daily LOW on every new Today item as soon as it's created \u2014 two brand-new pulses went live blank during this read.",
           "Resolve the duplicate Negative GatherUp - Madison Loiselle pulse.",
           "Get Daniel logging real weekly progress on the Driver Safety Coaching goal pulse instead of leaving the May definition untouched."
         ],
@@ -1291,29 +1414,31 @@
             "Christopher Anderson",
             26,
             30,
-            "LOW 🔴 (Mid-Day Hydration=0 + 2 new blank overnight-move pulses) · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udd34 (Mid-Day Hydration=0 + 2 new blank overnight-move pulses) \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Daniel Behseresht",
             28,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟡 (Driver Safety goal pulse stale since May) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe1 (Driver Safety goal pulse stale since May) \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Jespah Lara",
             28,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟡 (Individual Sales Goal blank) · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe1 (Individual Sales Goal blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Hector Zavala",
             28,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟡 (Einstein Games Damages blank) · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe1 (Einstein Games Damages blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ]
         ],
         "summary": "Christopher is the primary drag, mainly from two pulses he created mid-audit with nothing filled in. Everyone else is a strong 28/30 with one isolated gap each."
-      }
+      },
+      "phase": "testing",
+      "band": "miss"
     },
     {
       "date": "2026-07-21",
@@ -1325,20 +1450,20 @@
       "grade": "B",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 1,
-        "BH-4": 5,
-        "BH-5": 3,
-        "BH-6": 3,
-        "BH-7": 5,
-        "BH-8": 3,
-        "BH-9": 5,
-        "BH-10": 3,
-        "BONUS-1": 5,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 5,
+        "C3": 1,
+        "C4": 5,
+        "C5": 3,
+        "C6": 3,
+        "C7": 3,
+        "C8": 5,
+        "C9": 3,
+        "C10": 5,
+        "C11": 5,
+        "C12": 5
       },
-      "note": "Later Group Dates is the big miss — 9 of 19 Deferred items have no date or are months past due, some legacy fleet items over a year stale. Nick's and Rance's goal pulses are stuck on May definitions with no logged progress. Definition of Done is a genuine strength here.",
+      "note": "Later Group Dates is the big miss \u2014 9 of 19 Deferred items have no date or are months past due, some legacy fleet items over a year stale. Nick's and Rance's goal pulses are stuck on May definitions with no logged progress. Definition of Done is a genuine strength here.",
       "detail": {
         "criteria": [
           [
@@ -1354,7 +1479,7 @@
           [
             "Later Group Dates",
             1,
-            "9 of 19 Deferred items are broken — several with no date (Monthly Inventory Reset, Order tools, Inspect ULY, Reissued tools) and several past-dated, including one from December 2024."
+            "9 of 19 Deferred items are broken \u2014 several with no date (Monthly Inventory Reset, Order tools, Inspect ULY, Reissued tools) and several past-dated, including one from December 2024."
           ],
           [
             "Happiness Pulse + QG Value Visibility",
@@ -1384,7 +1509,7 @@
           [
             "No Duplicates",
             5,
-            "Clean — Bill Pay copies are legitimate one-per-manager."
+            "Clean \u2014 Bill Pay copies are legitimate one-per-manager."
           ],
           [
             "Automations",
@@ -1392,18 +1517,18 @@
             "Both Bill Pay pulses (Calvin, Nick) carry status \"Needs Review\" while sitting in the Today group."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             5,
             "Done items carry real completion notes across the board."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due in Today or This Week."
           ]
         ],
         "actions": [
-          "Clean up the Later group — several items have no date or are months in the past, breaking the pull-back automation entirely.",
+          "Clean up the Later group \u2014 several items have no date or are months in the past, breaking the pull-back automation entirely.",
           "Get Nick and Rance logging real weekly numbers on their goal pulses instead of leaving the May post untouched.",
           "Fill in QG Value on Submit Praise Cards."
         ],
@@ -1412,54 +1537,56 @@
             "Calvin Hughes",
             26,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟡 (5 of 9 Today pulses untagged) · QG Value 🟡 (Submit Praise Cards blank) · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe1 (5 of 9 Today pulses untagged) \u00b7 QG Value \ud83d\udfe1 (Submit Praise Cards blank) \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Nick Dagel",
             28,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟡 (Driver Safety stale, Von's camera bare) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe1 (Driver Safety stale, Von's camera bare) \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Rance Pope",
             28,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟡 (FM SuperBoard stale since May) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe1 (FM SuperBoard stale since May) \u00b7 Past-Due \ud83d\udfe2"
           ]
         ],
         "summary": "Calvin is the primary drag on Project Column and QG Value; the Later-group neglect is shared and mostly legacy fleet items, not tied to one person."
-      }
+      },
+      "phase": "testing",
+      "band": "soft_miss"
     },
     {
       "date": "2026-07-21",
       "branch": "leander",
       "mode": "board_hygiene",
-      "score": 55,
+      "score": 56,
       "max": 60,
-      "pct": 92,
+      "pct": 93,
       "grade": "A",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 5,
-        "BH-4": 5,
-        "BH-5": 5,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 0,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 5,
+        "C3": 5,
+        "C4": 5,
+        "C5": 5,
+        "C6": 5,
+        "C7": 5,
+        "C8": 5,
+        "C9": 5,
+        "C10": 1,
+        "C11": 5,
+        "C12": 5
       },
-      "note": "Big improvement from yesterday's discarded read — the missing Daily LOW and the broken truck-registration date are both fixed. Per Brian's one-time call for this week's read only, Frank's live goal pulses carrying just the static May definition is not counted as a miss here. Definition of Done remains the weak spot.",
+      "note": "Big improvement from yesterday's discarded read \u2014 the missing Daily LOW and the broken truck-registration date are both fixed. Per Brian's one-time call for this week's read only, Frank's live goal pulses carrying just the static May definition is not counted as a miss here. Definition of Done remains the weak spot.",
       "detail": {
         "criteria": [
           [
             "LOW Values",
             5,
-            "All 29 Today items valid — the Hiring Targets goal pulse that was missing its LOW yesterday is now fixed at 3."
+            "All 29 Today items valid \u2014 the Hiring Targets goal pulse that was missing its LOW yesterday is now fixed at 3."
           ],
           [
             "Pulse Titles",
@@ -1469,7 +1596,7 @@
           [
             "Later Group Dates",
             5,
-            "All 9 Deferred items land on a future Monday — the SAG truck registration that was on a Tuesday yesterday is now corrected to Monday 5/31/2027."
+            "All 9 Deferred items land on a future Monday \u2014 the SAG truck registration that was on a Tuesday yesterday is now corrected to Monday 5/31/2027."
           ],
           [
             "Happiness Pulse + QG Value Visibility",
@@ -1494,7 +1621,7 @@
           [
             "Updates with Context",
             5,
-            "The customer follow-up pulse that was bare yesterday now has real content from Brian's reply. Frank's goal pulses still show only the original May post — by Brian's one-time call this week, that's not scored as a miss for this read."
+            "The customer follow-up pulse that was bare yesterday now has real content from Brian's reply. Frank's goal pulses still show only the original May post \u2014 by Brian's one-time call this week, that's not scored as a miss for this read."
           ],
           [
             "No Duplicates",
@@ -1504,22 +1631,22 @@
           [
             "Automations",
             5,
-            "Status and group line up everywhere — no Needs Review mismatches today."
+            "Status and group line up everywhere \u2014 no Needs Review mismatches today."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             0,
             "Most Done items still have no completion note (Give team TD feedback, the Anne attendance conversation, Trial day pay both closed with nothing written on some, though a couple do have notes)."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due."
           ]
         ],
         "actions": [
-          "Leave a one-line completion note before marking something Done — that's the one real gap left this week.",
-          "Keep doing what fixed the LOW Values and Later Dates issues from yesterday — it stuck.",
+          "Leave a one-line completion note before marking something Done \u2014 that's the one real gap left this week.",
+          "Keep doing what fixed the LOW Values and Later Dates issues from yesterday \u2014 it stuck.",
           "Worth revisiting Frank's goal-pulse update habit in a future read even though it wasn't scored as a miss this week."
         ],
         "individuals": [
@@ -1527,17 +1654,19 @@
             "Frank Williams",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 (goal-pulse staleness not scored as a miss this week, per Brian) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 (goal-pulse staleness not scored as a miss this week, per Brian) \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Garrison Cobe",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 (goal pulse logged with real numbers today) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 (goal pulse logged with real numbers today) \u00b7 Past-Due \ud83d\udfe2"
           ]
         ],
         "summary": "Both Frank and Garrison land at a perfect 30/30 this week. The only board-level drag is Definition of Done on closed items."
-      }
+      },
+      "phase": "testing",
+      "band": "pass"
     },
     {
       "date": "2026-07-21",
@@ -1549,18 +1678,18 @@
       "grade": "A",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 3,
-        "BH-4": 5,
-        "BH-5": 5,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 5,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 5,
+        "C3": 3,
+        "C4": 5,
+        "C5": 5,
+        "C6": 5,
+        "C7": 5,
+        "C8": 5,
+        "C9": 5,
+        "C10": 5,
+        "C11": 5,
+        "C12": 5
       },
       "note": "The strongest board in the region this week. Every goal pulse across all three team members is logged with real weekly progress, several as recently as today. The only miss is one abandoned Deferred pulse from Week 6.",
       "detail": {
@@ -1598,7 +1727,7 @@
           [
             "Project Column",
             5,
-            "Essentially full coverage — every sampled pulse tagged."
+            "Essentially full coverage \u2014 every sampled pulse tagged."
           ],
           [
             "Updates with Context",
@@ -1608,7 +1737,7 @@
           [
             "No Duplicates",
             5,
-            "Clean — Bill Pay, Best Practices, and Velocity Check copies are all legitimate one-per-person."
+            "Clean \u2014 Bill Pay, Best Practices, and Velocity Check copies are all legitimate one-per-person."
           ],
           [
             "Automations",
@@ -1616,19 +1745,19 @@
             "Status and group line up everywhere, no exceptions found."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             5,
             "Nearly every Done item carries a completion note."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due in Today or This Week."
           ]
         ],
         "actions": [
           "Clear or reschedule the stale Week 6 cash-drawing pulse sitting in Deferred.",
-          "No other material gaps found — keep the current cadence.",
+          "No other material gaps found \u2014 keep the current cadence.",
           "Consider this board as the reference example for the rest of the region."
         ],
         "individuals": [
@@ -1636,23 +1765,25 @@
             "Sergio Buenrostro",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Joel Villatoro",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Alex Tran",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ]
         ],
-        "summary": "A clean sweep — all three team members score perfect individually. The only drag is the one abandoned Deferred pulse, not a person."
-      }
+        "summary": "A clean sweep \u2014 all three team members score perfect individually. The only drag is the one abandoned Deferred pulse, not a person."
+      },
+      "phase": "testing",
+      "band": "pass"
     },
     {
       "date": "2026-07-22",
@@ -1664,20 +1795,20 @@
       "grade": "A",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 1,
-        "BH-4": 5,
-        "BH-5": 5,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 3,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 5,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 5,
+        "C3": 1,
+        "C4": 5,
+        "C5": 5,
+        "C6": 5,
+        "C7": 3,
+        "C8": 5,
+        "C9": 5,
+        "C10": 5,
+        "C11": 5,
+        "C12": 5
       },
-      "note": "Up from 50 yesterday — Cameron Klepac's cluster of ten stale This Week items is fully cleared. The four broken Later Group dates are unresolved from yesterday, and Cameron's Einstein Games Damages goal pulse is still stuck on the May definition.",
+      "note": "Up from 50 yesterday \u2014 Cameron Klepac's cluster of ten stale This Week items is fully cleared. The four broken Later Group dates are unresolved from yesterday, and Cameron's Einstein Games Damages goal pulse is still stuck on the May definition.",
       "detail": {
         "criteria": [
           [
@@ -1731,43 +1862,45 @@
             "Status and group line up everywhere."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             5,
             "Real completion notes throughout."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
-            "Cameron's ten stale This Week items from yesterday are all cleared or re-dated — resolved as expected once he was back."
+            "Cameron's ten stale This Week items from yesterday are all cleared or re-dated \u2014 resolved as expected once he was back."
           ]
         ],
         "actions": [
-          "Get Cameron logging real progress on the Einstein Games Damages goal pulse — it's been sitting on the May definition the whole time.",
+          "Get Cameron logging real progress on the Einstein Games Damages goal pulse \u2014 it's been sitting on the May definition the whole time.",
           "Leave a note on Megan Bump's follow-up once there's something to report.",
-          "Fix the four broken Later-group dates — the one thing that didn't self-correct overnight."
+          "Fix the four broken Later-group dates \u2014 the one thing that didn't self-correct overnight."
         ],
         "individuals": [
           [
             "Dustin Street",
             28,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟡 (his new Megan Bump follow-up has no context yet) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe1 (his new Megan Bump follow-up has no context yet) \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Lukas Konrad",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Cameron Klepac",
             28,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟡 (Einstein Games Damages goal pulse stale since May) · Past-Due 🟢 (up from 🔴 yesterday — cluster fully cleared)"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe1 (Einstein Games Damages goal pulse stale since May) \u00b7 Past-Due \ud83d\udfe2 (up from \ud83d\udd34 yesterday \u2014 cluster fully cleared)"
           ]
         ],
-        "summary": "Cameron rebounded sharply from yesterday's 24/30 to 28/30 once he was back — the past-due cluster is resolved. His one remaining gap is the stale Einstein Games Damages goal pulse."
-      }
+        "summary": "Cameron rebounded sharply from yesterday's 24/30 to 28/30 once he was back \u2014 the past-due cluster is resolved. His one remaining gap is the stale Einstein Games Damages goal pulse."
+      },
+      "phase": "testing",
+      "band": "pass"
     },
     {
       "date": "2026-07-27",
@@ -1779,20 +1912,20 @@
       "grade": "A",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 3,
-        "BH-4": 5,
-        "BH-5": 5,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 3,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 5,
+        "C3": 3,
+        "C4": 5,
+        "C5": 5,
+        "C6": 5,
+        "C7": 5,
+        "C8": 5,
+        "C9": 5,
+        "C10": 3,
+        "C11": 5,
+        "C12": 5
       },
-      "note": "Per Brian's call for this week's read only, Frank's live QG pulses carrying just the static May definition is not counted as a miss again this week. \"Start schedule template\" is dated today instead of a future Monday. Definition of Done was corrected from an initial 0 to 3 — about half the sampled Done items do carry a real note; the rest are blank or recurring template prompts. Brian is resetting expectations for Q3 so the QG exception doesn't need to keep recurring.",
+      "note": "Per Brian's call for this week's read only, Frank's live QG pulses carrying just the static May definition is not counted as a miss again this week. \"Start schedule template\" is dated today instead of a future Monday. Definition of Done was corrected from an initial 0 to 3 \u2014 about half the sampled Done items do carry a real note; the rest are blank or recurring template prompts. Brian is resetting expectations for Q3 so the QG exception doesn't need to keep recurring.",
       "detail": {
         "criteria": [
           [
@@ -1808,7 +1941,7 @@
           [
             "Later Group Dates",
             3,
-            "\"Start schedule template\" is dated today (7/27) instead of a future Monday — won't trigger the pull-back automation."
+            "\"Start schedule template\" is dated today (7/27) instead of a future Monday \u2014 won't trigger the pull-back automation."
           ],
           [
             "Happiness Pulse + QG Value Visibility",
@@ -1823,7 +1956,7 @@
           [
             "Inbox Age",
             5,
-            "All 4 Inbox items created today — fresh."
+            "All 4 Inbox items created today \u2014 fresh."
           ],
           [
             "Project Column",
@@ -1833,32 +1966,32 @@
           [
             "Updates with Context",
             5,
-            "Frank's Hiring Targets and Einstein Games Overall goal pulses still show only the original May post — by Brian's call this week, not scored as a miss again. Everything else sampled is current."
+            "Frank's Hiring Targets and Einstein Games Overall goal pulses still show only the original May post \u2014 by Brian's call this week, not scored as a miss again. Everything else sampled is current."
           ],
           [
             "No Duplicates",
             5,
-            "Clean — the two Mover Interview Handouts copies are legitimate one-per-manager DB Pulse triage copies."
+            "Clean \u2014 the two Mover Interview Handouts copies are legitimate one-per-manager DB Pulse triage copies."
           ],
           [
             "Automations",
             5,
-            "Status and group line up everywhere — \"Mover In Person Interview Handouts\" sitting in Today with status Needs Review is not a mismatch under the updated rule."
+            "Status and group line up everywhere \u2014 \"Mover In Person Interview Handouts\" sitting in Today with status Needs Review is not a mismatch under the updated rule."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             3,
-            "7 of 15 sampled Done items carry a real completion note (Three Virtues Survey, Best Practices, Run cash drawing, Bill Pay, Update EG Dashboard, Contract Efficiency, Mover Interview Handouts). The rest are blank or recurring template prompts (Fleet Issues?, Events, Personnel?, Weekend Review) — corrected from an initial 0 read."
+            "7 of 15 sampled Done items carry a real completion note (Three Virtues Survey, Best Practices, Run cash drawing, Bill Pay, Update EG Dashboard, Contract Efficiency, Mover Interview Handouts). The rest are blank or recurring template prompts (Fleet Issues?, Events, Personnel?, Weekend Review) \u2014 corrected from an initial 0 read."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due."
           ]
         ],
         "actions": [
           "Re-date \"Start schedule template\" to a future Monday.",
-          "Get the remaining Done items — Follow up negative nps, Best of Austin banner, Onboarding checklists, PI's — a one-line completion note.",
+          "Get the remaining Done items \u2014 Follow up negative nps, Best of Austin banner, Onboarding checklists, PI's \u2014 a one-line completion note.",
           "Brian is resetting expectations for Q3 on goal-pulse updates so this doesn't need to be an exception going forward."
         ],
         "individuals": [
@@ -1866,17 +1999,19 @@
             "Frank Williams",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 (goal-pulse staleness not scored as a miss again this week, per Brian) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 (goal-pulse staleness not scored as a miss again this week, per Brian) \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Garrison Cobe",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 (goal pulse logged with real numbers today) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 (goal pulse logged with real numbers today) \u00b7 Past-Due \ud83d\udfe2"
           ]
         ],
         "summary": "Both Frank and Garrison land at a perfect 30/30 this week. The only board-level drags are the Later-group date and the still-partial Definition of Done coverage."
-      }
+      },
+      "phase": "testing",
+      "band": "pass"
     },
     {
       "date": "2026-07-27",
@@ -1888,18 +2023,18 @@
       "grade": "A",
       "rubric_version": "1.3",
       "criteria": {
-        "BH-1": 5,
-        "BH-2": 5,
-        "BH-3": 3,
-        "BH-4": 5,
-        "BH-5": 5,
-        "BH-6": 5,
-        "BH-7": 5,
-        "BH-8": 5,
-        "BH-9": 5,
-        "BH-10": 5,
-        "BONUS-1": 5,
-        "BONUS-2": 5
+        "C1": 5,
+        "C2": 5,
+        "C3": 3,
+        "C4": 5,
+        "C5": 5,
+        "C6": 5,
+        "C7": 5,
+        "C8": 5,
+        "C9": 5,
+        "C10": 5,
+        "C11": 5,
+        "C12": 5
       },
       "note": "Sharp improvement from 54 last week. Three of the four broken Later-group dates are fixed, Cameron's goal pulse is current again, and Definition of Done jumped to a clean sweep. Only a lingering Thursday-dated deferred item remains.",
       "detail": {
@@ -1917,7 +2052,7 @@
           [
             "Later Group Dates",
             3,
-            "Down to one broken item — \"Replace Air Filter\" lands on a Thursday, not a Monday. The other three from last week are fixed."
+            "Down to one broken item \u2014 \"Replace Air Filter\" lands on a Thursday, not a Monday. The other three from last week are fixed."
           ],
           [
             "Happiness Pulse + QG Value Visibility",
@@ -1942,7 +2077,7 @@
           [
             "Updates with Context",
             5,
-            "Every goal pulse — Cameron's Einstein Games Damages, Dustin's Einstein Games Overall, Lukas's Individual Sales Goal — has a real update posted today. Cameron's pulse that was stale last week is now current."
+            "Every goal pulse \u2014 Cameron's Einstein Games Damages, Dustin's Einstein Games Overall, Lukas's Individual Sales Goal \u2014 has a real update posted today. Cameron's pulse that was stale last week is now current."
           ],
           [
             "No Duplicates",
@@ -1952,45 +2087,47 @@
           [
             "Automations",
             5,
-            "Status and group line up everywhere — \"Mover In Person Interview Handouts\" sitting in Today with status Needs Review is not a mismatch under the updated rule."
+            "Status and group line up everywhere \u2014 \"Mover In Person Interview Handouts\" sitting in Today with status Needs Review is not a mismatch under the updated rule."
           ],
           [
-            "Bonus — Definition of Done",
+            "Bonus \u2014 Definition of Done",
             5,
-            "Every sampled Done item has a real completion note — a big jump from last week."
+            "Every sampled Done item has a real completion note \u2014 a big jump from last week."
           ],
           [
-            "Bonus — No Past-Due Items",
+            "Bonus \u2014 No Past-Due Items",
             5,
             "Nothing past due."
           ]
         ],
         "actions": [
-          "Re-date \"Replace Air Filter\" to a future Monday — the last of the broken Later-group dates.",
-          "No other material gaps — keep the current cadence."
+          "Re-date \"Replace Air Filter\" to a future Monday \u2014 the last of the broken Later-group dates.",
+          "No other material gaps \u2014 keep the current cadence."
         ],
         "individuals": [
           [
             "Dustin Street",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Lukas Konrad",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 \u00b7 Past-Due \ud83d\udfe2"
           ],
           [
             "Cameron Klepac",
             30,
             30,
-            "LOW 🟢 · Titles 🟢 · Project 🟢 · QG Value 🟢 · Updates 🟢 (goal pulse now current) · Past-Due 🟢"
+            "LOW \ud83d\udfe2 \u00b7 Titles \ud83d\udfe2 \u00b7 Project \ud83d\udfe2 \u00b7 QG Value \ud83d\udfe2 \u00b7 Updates \ud83d\udfe2 (goal pulse now current) \u00b7 Past-Due \ud83d\udfe2"
           ]
         ],
-        "summary": "A clean sweep — all three team members score perfect individually. Cameron fully recovered from last week's 24/30."
-      }
+        "summary": "A clean sweep \u2014 all three team members score perfect individually. Cameron fully recovered from last week's 24/30."
+      },
+      "phase": "testing",
+      "band": "pass"
     }
   ],
   "pattern_watch": [
@@ -2000,7 +2137,7 @@
       "opened": "2026-08-25",
       "opened_by": "Brian",
       "description": "Manager correctly identifies the planted duplicate but closes it as Done instead of archiving/deleting it. Leaves a false completion record on the board while the open copy still sits in This Week.",
-      "ruling": "Scores 3 out of 5, not 5 — identifying it is not the same as resolving it. Confirmed by Brian on the Calvin Hughes run.",
+      "ruling": "Scores 3 out of 5, not 5 \u2014 identifying it is not the same as resolving it. Confirmed by Brian on the Calvin Hughes run.",
       "regrade_trigger": "If a majority of certified managers hit this same miss, treat it as a training/instruction gap rather than an individual error and regrade everyone affected.",
       "observed": [
         "Calvin Hughes"
@@ -2027,7 +2164,12 @@
 
     // ---- Note banner (static) ----
     document.getElementById('noteBanner').innerHTML =
-      `⚠️ Scores before 6/29 were dropped from this dashboard — they were read under outdated rubric versions and don't reflect current standards. Tracking starts 6/29. Current rubric: <strong>v${DATA.meta.current_rubric_version}</strong>.`;
+      `⚠️ <strong>Rubric v1.5 landed 8/26/2026 — everything currently on this dashboard is pre-v1.5 and is marked <em>testing</em>.</strong> `
+      + `Testing reads are kept for history but do not count toward any manager's certification ladder. Official tracking begins with the first v1.5 live read. `
+      + `<br><br>v1.5 in brief: twelve criteria at 5 points each, <strong>60 total, nothing scores 0</strong>. Sections are <strong>Fundamentals</strong> (10) and <strong>Conscientious Details</strong> (2) — same scale, same weight. `
+      + `<strong>The bar is 85% — 51 of 60.</strong> Bands: 51–60 pass · 45–50 soft miss · 12–44 miss. Letter grades describe a read; the 85% line decides whether it passes, so a B can land on either side. `
+      + `Mock board certifies, weekly live read maintains. One miss logs a redirect; three misses in any four reads, or two straight at 44 or below, requires recertification. `
+      + `<br><br>Current rubric: <strong>v${DATA.meta.current_rubric_version}</strong>. Reads before 6/29 were dropped as pre-dating the current criteria entirely.`;
     document.getElementById('footer').textContent = `Last updated ${DATA.meta.last_updated} · Data source: scrum-scores.json · Einstein Moving Company`;
 
     // ---- Date range helpers ----
@@ -2173,7 +2315,7 @@
             <td>${fmtDate(c.date)}/${c.date.slice(2,4)}</td>
             <td>${c.score} / ${c.max}</td>
             <td><span class="grade-pill" style="background:${gradeColor(c.grade)}">${c.grade}</span></td>
-            <td><span class="cert-stamp ${c.certified?'pass':'fail'}">${c.certified?'✔ Certified':'Not Certified'}</span></td>
+            <td><span class="cert-stamp ${c.certified?'pass':'fail'}">${c.certified?'✔ Certified':'Not Certified'}</span>${c.phase==='testing'?' <span class="legacy-tag">pre-v1.5</span>':''}</td>
             <td>${c.certified ? `<span class="recert-due ${recertClass}">${recertLabel}</span>` : '—'}</td>
           </tr>`;
         }).join('')}</tbody></table>` : `<div class="note-banner" style="margin-bottom:0">No certification results logged yet — this section fills in once managers complete their mock board recert.</div>`;
@@ -2189,7 +2331,7 @@
           <td>${e.score} / ${e.max}</td>
           <td>${e.pct}%</td>
           <td><span class="grade-pill" style="background:${gradeColor(e.grade)}">${e.grade}</span></td>
-          <td>${e.rubric_version!==DATA.meta.current_rubric_version?'<span class="legacy-tag">v'+e.rubric_version+'</span>':'v'+e.rubric_version}</td>
+          <td>${e.rubric_version!==DATA.meta.current_rubric_version?'<span class="legacy-tag">v'+e.rubric_version+'</span>':'v'+e.rubric_version}${e.phase==='testing'?' <span class="legacy-tag">testing</span>':''}${e.data_note?' <span class="legacy-tag" title="'+e.data_note.replace(/"/g,'&quot;')+'">⚠</span>':''}</td>
         </tr>`).join(''):'<tr><td colspan="7" style="text-align:center;color:#9ca3af">No reads in this range</td></tr>'}</tbody></table>`;
 
       // wire row clicks
