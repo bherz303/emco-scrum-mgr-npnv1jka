@@ -530,12 +530,12 @@
           <div class="tier">
             <div class="tier-dot red"></div>
             <span class="tier-pts" style="color:var(--red)">1 pt</span>
-            <span><strong>Red</strong> — Not in place. Standard items still earn 1 pt.</span>
+            <span><strong>Red</strong> — Not in place.</span>
           </div>
           <div class="tier" style="margin-top:4px; padding-top:8px; border-top:1px solid #f3f4f6;">
             <div class="tier-dot" style="background:#6b7280"></div>
-            <span class="tier-pts" style="color:var(--gray)">0 pts</span>
-            <span><strong>Bonus Red</strong> — The 2 bonus criteria earn 0 on Red (no partial credit). All points count toward the same total — a perfect board scores 60.</span>
+            <span class="tier-pts" style="color:var(--gray)">no 0</span>
+            <span><strong>Every criterion floors at 1.</strong> All twelve use the same 5 / 3 / 1 scale — there is no criterion that scores 0. A perfect board is 60; the lowest possible board is 12. <em>(Changed in v1.5: two criteria used to score 0 on a red, which made the items labeled "bonus" the most expensive ones to miss.)</em></span>
           </div>
         </div>
       </div>
@@ -546,22 +546,45 @@
           <div class="mode-row">
             <div class="mode-icon bh">📋</div>
             <div class="mode-text">
-              <strong>Board Hygiene Only — 60 pts total</strong>
-              <span>Pulled live from your Monday board. Can run anytime, no meeting required. A perfect board scores 60.</span>
+              <strong>Board Read — 60 pts total</strong>
+              <span>Pulled live from your Monday board. Twelve criteria, 5 pts each. A perfect board scores 60; the lowest possible score is 12, because no criterion scores 0. This is the weekly maintenance read.</span>
             </div>
           </div>
           <div class="mode-row">
             <div class="mode-icon full">⭐</div>
             <div class="mode-text">
-              <strong>Full Eval — 100 pts</strong>
-              <span>Board Hygiene + 8 Meeting Management items scored during or after a sync.</span>
+              <strong>Full Eval</strong>
+              <span>Board Read + the Meeting Management items, scored by your RM during or after a sync. Total under review — see the note on that section.</span>
             </div>
           </div>
         </div>
       </div>
 
       <div class="overview-card">
+        <h3>The Bar — 85%, or 51 of 60</h3>
+        <p class="criterion-note" style="margin:0 0 12px 0;"><b>85% is the certification line.</b> Letter grades describe your read; the line decides whether you pass it. They are different scales — a B can land on either side of the line, so don't read "B" as "passing."</p>
+        <div class="grade-list">
+          <div class="grade-row">
+            <span class="grade-letter a">✓</span>
+            <span><b>51–60 pts</b> · 85%+</span>
+            <span style="color:var(--green); font-weight:700">PASS</span>
+          </div>
+          <div class="grade-row">
+            <span class="grade-letter c">~</span>
+            <span><b>45–50 pts</b> · 75–83%</span>
+            <span style="color:var(--yellow); font-weight:700">SOFT MISS</span>
+          </div>
+          <div class="grade-row">
+            <span class="grade-letter f">✕</span>
+            <span><b>12–44 pts</b> · below 75%</span>
+            <span style="color:var(--red); font-weight:700">MISS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-card">
         <h3>Grade Scale</h3>
+        <p class="criterion-note" style="margin:0 0 12px 0;">Descriptive only — the bar is the 85% line above.</p>
         <div class="grade-list">
           <div class="grade-row">
             <span class="grade-letter a">A</span>
@@ -571,7 +594,7 @@
           <div class="grade-row">
             <span class="grade-letter b">B</span>
             <span>80–89%</span>
-            <span style="color:#16a34a; font-weight:700">Strong</span>
+            <span style="color:#16a34a; font-weight:700">Strong — 85%+ clears the line, below it doesn't</span>
           </div>
           <div class="grade-row">
             <span class="grade-letter c">C</span>
@@ -593,15 +616,17 @@
 
     </div>
 
-    <!-- BOARD HYGIENE -->
+    <!-- FUNDAMENTALS -->
     <div class="section-header">
-      <h2>Board Hygiene Criteria</h2>
-      <span class="section-pill">60 pts total — perfect score possible</span>
+      <h2>Fundamentals</h2>
+      <span class="section-pill">10 criteria — 50 pts</span>
     </div>
+
+    <p class="criterion-note" style="margin:0 0 16px 0;">Twelve criteria, 5 points each, <b>60 points total</b>. Every criterion scores 5, 3, or 1 — <b>nothing scores 0</b>. Fundamentals and Conscientious Details are graded on the same scale and count toward the same total; the section names describe what the criteria are about, not how hard they're scored. <b>The certification line is 85% — 51 out of 60.</b></p>
 
     <div class="criteria-grid">
 
-      <!-- BH-1 -->
+      <!-- C1 -->
       <div class="criterion-card">
         <div class="criterion-header">
           <div class="criterion-num">1</div>
@@ -621,10 +646,11 @@
             <span>3 or more Today items have no LOW, or LOWs aren't being used at all.</span>
           </div>
           <p class="criterion-note">💡 Exception: the Velocity Check pulse is allowed to have a LOW of 0 — it's a tracking pulse, not a worked task, so it never counts against this criterion.</p>
+          <p class="criterion-note">💡 Target DLOW is 15–20 per person per day. A heavy day is worth flagging, but this criterion grades whether the work is <em>sized</em> — not whether the day is overloaded.</p>
         </div>
       </div>
 
-      <!-- BH-2 -->
+      <!-- C2 -->
       <div class="criterion-card">
         <div class="criterion-header">
           <div class="criterion-num">2</div>
@@ -643,10 +669,11 @@
             <span class="cr-label red">1 pt</span>
             <span>Most titles are things like "Follow up," "Call," or "Meeting" with zero context.</span>
           </div>
+          <p class="criterion-note">💡 Team shorthand your crew genuinely understands is fine — "ESP," "Dispatch Board," "Courtesy Texts." Only truly meaningless titles get docked.</p>
         </div>
       </div>
 
-      <!-- BH-3 -->
+      <!-- C3 -->
       <div class="criterion-card">
         <div class="criterion-header">
           <div class="criterion-num">3</div>
@@ -663,58 +690,62 @@
           </div>
           <div class="criterion-row">
             <span class="cr-label red">1 pt</span>
-            <span>3 or more deferred items with wrong dates — automations won't fire correctly.</span>
+            <span>3 or more deferred items with wrong dates — or <b>nothing in Later at all</b>.</span>
           </div>
           <p class="criterion-note">💡 Dates must be Mondays — that's when the automation returns items to your Inbox for review.</p>
+          <p class="criterion-note">⚠️ An <b>empty Later group is a miss</b>, not a free pass. Deferring nothing all week means work isn't being categorized — it's either being carried in Today/This Week when it should be deferred, or dropped.</p>
         </div>
       </div>
 
-      <!-- BH-4 -->
+      <!-- C4 -->
       <div class="criterion-card">
         <div class="criterion-header">
           <div class="criterion-num">4</div>
-          <span class="criterion-name">QG Pulses &amp; Happiness Pulse Visible</span>
+          <span class="criterion-name">Happiness Pulse</span>
         </div>
         <div class="criterion-body">
           <div class="criterion-row">
             <span class="cr-label green">5 pts</span>
-            <span>At least one QG Live pulse is visible in Today or This Week, AND a Happiness pulse is present in either group.</span>
+            <span><b>Every</b> manager on the board has one Happiness pulse identified.</span>
           </div>
           <div class="criterion-row">
             <span class="cr-label yellow">3 pts</span>
-            <span>One of the two is present — either QG pulses are visible or a Happiness pulse exists, but not both.</span>
+            <span>Some managers have one, but not all of them do.</span>
           </div>
           <div class="criterion-row">
             <span class="cr-label red">1 pt</span>
-            <span>No QG Live pulses visible in active groups AND no Happiness pulse present.</span>
+            <span>No manager on the board has one.</span>
           </div>
-          <p class="criterion-note">💡 QG Live pulses parked in Deferred with no date don't count — they need to be in Today or This Week to be visible to the team.</p>
+          <p class="criterion-note">💡 One per manager per week. It should be tied to a critical task, a QG pulse, or something you'll genuinely be glad to clear — and it needs to sit in Today or This Week.</p>
+          <p class="criterion-note">💡 On your <em>individual</em> score this is pass/fail: you have one, or you don't. There's no middle grade at the personal level.</p>
         </div>
       </div>
 
-      <!-- BH-5 -->
+      <!-- C5 -->
       <div class="criterion-card">
         <div class="criterion-header">
           <div class="criterion-num">5</div>
-          <span class="criterion-name">QG Value on Quarterly Goal Pulses</span>
+          <span class="criterion-name">QG Pulses Visible &amp; QG Value Set</span>
         </div>
         <div class="criterion-body">
           <div class="criterion-row">
             <span class="cr-label green">5 pts</span>
-            <span>All active QG Live pulses have the QG Value column filled in.</span>
+            <span>QG Live pulses are visible in Today or This Week, AND all of them have the QG Value column filled in.</span>
           </div>
           <div class="criterion-row">
             <span class="cr-label yellow">3 pts</span>
-            <span>Some QG Live pulses are missing QG values.</span>
+            <span>QG pulses are visible but some are missing QG Value — or values are set but the pulses aren't in an active group.</span>
           </div>
           <div class="criterion-row">
             <span class="cr-label red">1 pt</span>
-            <span>The QG Value column isn't being used on QG pulses at all.</span>
+            <span>QG Value isn't being used on QG pulses at all — or <b>you own no QG pulses</b>.</span>
           </div>
+          <p class="criterion-note">💡 QG Live pulses parked in Deferred with no date don't count — they need to be in Today or This Week to be visible to the team.</p>
+          <p class="criterion-note">⚠️ Every manager has Q3 rocks cascaded onto their board. If none show up, that's a miss — not "nothing to grade."</p>
         </div>
       </div>
 
-      <!-- BH-6 -->
+      <!-- C6 -->
       <div class="criterion-card">
         <div class="criterion-header">
           <div class="criterion-num">6</div>
@@ -723,7 +754,7 @@
         <div class="criterion-body">
           <div class="criterion-row">
             <span class="cr-label green">5 pts</span>
-            <span>No untriaged pulses older than 5 days sitting in the Inbox.</span>
+            <span>No untriaged pulses older than 5 days sitting in the Inbox. An empty Inbox is a full pass.</span>
           </div>
           <div class="criterion-row">
             <span class="cr-label yellow">3 pts</span>
@@ -734,13 +765,126 @@
             <span>3 or more stale items, or the Inbox is being used as a dumping ground.</span>
           </div>
           <p class="criterion-note">💡 Triage means: assign it, set a date, move it — don't let things rot in Inbox.</p>
+          <p class="criterion-note">💡 A stale Inbox item is charged to whoever created it. Items with no creator and no assignee go to the BM — triage is the board owner's job.</p>
         </div>
       </div>
 
-      <!-- BH-7 -->
+      <!-- C7 -->
       <div class="criterion-card">
         <div class="criterion-header">
           <div class="criterion-num">7</div>
+          <span class="criterion-name">Updates with Context</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>All critical pulses — QG, truck/fleet repair and maintenance, sales, customer issues, employee tracking — have an update posted <b>within the last 7 days</b>.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>Most critical pulses have a current update — and/or the gaps are covered by a title plus a Definition of Done that accurately describes the action.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>No current updates and no usable Definition of Done — no evidence of progress.</span>
+          </div>
+          <p class="criterion-note">💡 <b>An update has to be current.</b> A months-old note doesn't satisfy this — the test is current progress, not "has ever been updated."</p>
+          <p class="criterion-note">💡 Sub-items count. If the detail lives in populated sub-items instead of an update post, the context is there and the pulse passes.</p>
+          <p class="criterion-note">💡 Damage pulses and damage claims are excluded — the detail lives in the claim.</p>
+          <p class="criterion-note">🕓 One pass-through, no points off but still flagged for a look: a pulse created today and less than an hour old with no update yet. Too new to expect one.</p>
+        </div>
+      </div>
+
+      <!-- C8 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">8</div>
+          <span class="criterion-name">No Duplicates</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>One pulse per task, no duplicate entries. A board with nothing duplicable is a full pass.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>1 or 2 suspected duplicates — or a duplicate correctly spotted but <b>closed instead of archived</b>.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>Clear duplicates sitting on the board.</span>
+          </div>
+          <p class="criterion-note">💡 Finding a duplicate isn't the same as resolving it. Closing it as Done leaves a false completion record while the open copy is still live — archive or delete it instead.</p>
+          <p class="criterion-note">💡 Legitimate repeats aren't duplicates: sales blocks on different days, one onboarding checklist per employee, employee sprint pulses, and Velocity Check copies assigned to different people.</p>
+          <p class="criterion-note">💡 When a duplicate spans two people, it's charged to whoever created the later copy.</p>
+        </div>
+      </div>
+
+      <!-- C9 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">9</div>
+          <span class="criterion-name">Automations</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>Group distribution matches status — pulses are moving by automation, not by hand.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>Some irregularities affecting active pulses — a few items sitting in the wrong group.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>Items are clearly being dragged manually; statuses and groups don't line up.</span>
+          </div>
+          <p class="criterion-note">💡 <b>Board automations are the BM's to configure</b>, so a broken or missing automation is scored on the BM alone. On your individual score, this criterion only asks one thing: do <em>your</em> pulses' statuses match the group they're sitting in?</p>
+          <p class="criterion-note">💡 A bulk cleanup sweep isn't neglect, and "Needs Review" sitting in Today isn't a mismatch.</p>
+        </div>
+      </div>
+
+      <!-- C10 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">10</div>
+          <span class="criterion-name">Definition of Done</span>
+        </div>
+        <div class="criterion-body">
+          <div class="criterion-row">
+            <span class="cr-label green">5 pts</span>
+            <span>Pulses you closed this week carry a meaningful update explaining what was accomplished.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label yellow">3 pts</span>
+            <span>No completion update, but the title plus the Definition of Done together accurately describe what was done.</span>
+          </div>
+          <div class="criterion-row">
+            <span class="cr-label red">1 pt</span>
+            <span>Neither a completion note nor a usable Definition of Done — or <b>nothing was closed at all</b>.</span>
+          </div>
+          <p class="criterion-note">💡 <b>Only the work you closed since the last read is graded.</b> Older Done items aren't re-scored, and a bulk cleanup sweep of long-closed pulses won't count against you.</p>
+          <p class="criterion-note">💡 A real update beats a Definition of Done. Both are accepted — the update is worth full marks, the DoD is partial credit.</p>
+          <p class="criterion-note">💡 Damage pulses and claims are excluded. Sub-item detail counts as documentation.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONSCIENTIOUS DETAILS -->
+    <div class="section-header">
+      <h2>Conscientious Details</h2>
+      <span class="section-pill">2 criteria — 10 pts</span>
+    </div>
+
+    <p class="criterion-note" style="margin:0 0 16px 0;">Same 5/3/1 scale, same weight per criterion, same 60-point total. These two are board craft rather than daily fundamentals — <b>they are not optional and they are not scored harder.</b></p>
+
+    <div class="criteria-grid">
+
+      <!-- C11 -->
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <div class="criterion-num">11</div>
           <span class="criterion-name">Project Column</span>
         </div>
         <div class="criterion-body">
@@ -760,104 +904,11 @@
         </div>
       </div>
 
-      <!-- BH-8 -->
+      <!-- C12 -->
       <div class="criterion-card">
         <div class="criterion-header">
-          <div class="criterion-num">8</div>
-          <span class="criterion-name">Updates with Context</span>
-        </div>
-        <div class="criterion-body">
-          <div class="criterion-row">
-            <span class="cr-label green">5 pts</span>
-            <span>All critical pulses tied to ongoing projects — QG, truck repair or maintenance, customer issues, and employee tracking — have current updates.</span>
-          </div>
-          <div class="criterion-row">
-            <span class="cr-label yellow">3 pts</span>
-            <span>Most critical pulses tied to ongoing projects — QG, sales, trucks, customer issues, and employee tracking — have current updates.</span>
-          </div>
-          <div class="criterion-row">
-            <span class="cr-label red">1 pt</span>
-            <span>No pulses have updates or show progress.</span>
-          </div>
-          <p class="criterion-note">💡 Simple task placeholders, LOW tracking items, and damage pulses/claims don't need updates and aren't counted. Focus on QG, fleet, customer, and employee pulses — the ones where progress actually needs to be logged.</p>
-          <p class="criterion-note">🕓 Two pass-through exceptions — no points off, but still flagged so they get a look: (1) a pulse created today and less than one hour old with no update yet — too new to expect one; (2) a pulse whose title and Definition of Done already describe the action clearly, even without a separate update. In both cases the pulse passes without penalty and is called out in the report for attention rather than counted against the score.</p>
-        </div>
-      </div>
-
-      <!-- BH-9 -->
-      <div class="criterion-card">
-        <div class="criterion-header">
-          <div class="criterion-num">9</div>
-          <span class="criterion-name">No Duplicates</span>
-        </div>
-        <div class="criterion-body">
-          <div class="criterion-row">
-            <span class="cr-label green">5 pts</span>
-            <span>One pulse per task — no duplicate entries cluttering the board.</span>
-          </div>
-          <div class="criterion-row">
-            <span class="cr-label yellow">3 pts</span>
-            <span>1 or 2 suspected duplicates — same title, same date, same apparent task.</span>
-          </div>
-          <div class="criterion-row">
-            <span class="cr-label red">1 pt</span>
-            <span>Clear duplicates present — identical task entered more than once with no differentiation.</span>
-          </div>
-          <p class="criterion-note">💡 Sales blocks are NOT duplicates. Managers run multiple sales blocks per week on different days (Monday PM, Tuesday AM, Thursday AM, etc.) — each one is a separate, intentional pulse. Same rule for Velocity Check pulses split across team members — one copy per person owning it individually is intentional, not a duplicate.</p>
-        </div>
-      </div>
-
-      <!-- BH-10 -->
-      <div class="criterion-card">
-        <div class="criterion-header">
-          <div class="criterion-num">10</div>
-          <span class="criterion-name">Automations</span>
-        </div>
-        <div class="criterion-body">
-          <div class="criterion-row">
-            <span class="cr-label green">5 pts</span>
-            <span>Items move via status changes — group distribution matches the automation flow.</span>
-          </div>
-          <div class="criterion-row">
-            <span class="cr-label yellow">3 pts</span>
-            <span>A few irregularities — some items in wrong groups for their status.</span>
-          </div>
-          <div class="criterion-row">
-            <span class="cr-label red">1 pt</span>
-            <span>Items are clearly being dragged manually — statuses and groups don't line up.</span>
-          </div>
-          <p class="criterion-note">💡 Use status changes to move pulses. No drag and drop — that breaks the automation logic. Bulk cleanup of template/reference pulses touched together isn't neglect — this only dings active Today/This Week work. A pulse with status "Needs Review" sitting in Today is not a mismatch — it's functionally the same as "Today," just flagged for a second look.</p>
-        </div>
-      </div>
-
-      <!-- BONUS 1 -->
-      <div class="criterion-card">
-        <div class="criterion-header">
-          <div class="criterion-num bonus">★</div>
-          <span class="criterion-name">Bonus — Definition of Done</span>
-        </div>
-        <div class="criterion-body">
-          <div class="criterion-row">
-            <span class="cr-label green">5 pts</span>
-            <span>Done group items have a meaningful update explaining what was accomplished.</span>
-          </div>
-          <div class="criterion-row">
-            <span class="cr-label yellow">3 pts</span>
-            <span>Some Done items have notes, others are blank.</span>
-          </div>
-          <div class="criterion-row">
-            <span class="cr-label red">0 pts</span>
-            <span>No updates on Done pulses — no partial credit on this one.</span>
-          </div>
-          <p class="criterion-note">💡 Damage pulses/claims are excluded — a closed damage claim without a note isn't counted against you.</p>
-        </div>
-      </div>
-
-      <!-- BONUS 2 -->
-      <div class="criterion-card">
-        <div class="criterion-header">
-          <div class="criterion-num bonus">★</div>
-          <span class="criterion-name">Bonus — No Past-Due Items</span>
+          <div class="criterion-num">12</div>
+          <span class="criterion-name">No Past-Due Items</span>
         </div>
         <div class="criterion-body">
           <div class="criterion-row">
@@ -869,8 +920,8 @@
             <span>1 or 2 items are past their due date.</span>
           </div>
           <div class="criterion-row">
-            <span class="cr-label red">0 pts</span>
-            <span>3 or more past-due items sitting around — no partial credit.</span>
+            <span class="cr-label red">1 pt</span>
+            <span>3 or more past-due items sitting around.</span>
           </div>
           <p class="criterion-note">💡 If it's past due, either complete it, defer it with a new Monday date, or delete it. Don't let it linger.</p>
         </div>
@@ -1059,7 +1110,7 @@
 
     <!-- STAYING CERTIFIED -->
     <div class="section-header">
-      <h2>Staying Certified — Recheck Cadence &amp; Recertification</h2>
+      <h2>Staying Certified — Weekly Reads, Recovery &amp; Re-test</h2>
       <span class="section-pill">Certification isn't a one-time badge</span>
     </div>
 
@@ -1068,36 +1119,64 @@
         <div class="win-item">
           <div class="win-num">1</div>
           <div class="win-text">
-            <strong>Maintenance cadence: once a month</strong>
-            A formal, logged scorecard read runs once a month. Weekly BM syncs already surface day-to-day drift informally — a monthly formal read is enough to catch real decay before it compounds.
+            <strong>How you get certified: the mock board</strong>
+            Initial certification is earned on your mock training board — 85% or better (51 of 60), with real improvement over your planted baseline. Mock reads are for certifying; they never count toward the maintenance ladder.
           </div>
         </div>
         <div class="win-item">
           <div class="win-num">2</div>
           <div class="win-text">
-            <strong>Soft flag: below B (80%)</strong>
-            Nothing changes yet — it's noted, and a recheck is scheduled 2 weeks out to confirm it was a blip, not a trend.
-          </div>
-        </div>
-        <div class="win-item" style="background:rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.25);">
-          <div class="win-num" style="background:var(--white); color:var(--red);">3</div>
-          <div class="win-text">
-            <strong style="color:var(--red);">Decertification triggers</strong>
-            Either pulls certification: a single monthly read scores F (below 60%), or two consecutive monthly reads both fall below A (90%).
+            <strong>How you stay certified: a weekly live read</strong>
+            Your real board gets read once a week, the morning of your sync-up, so the score is fresh for the conversation. You'll see it at the sync — it isn't posted to your board before you and your RM have talked.
           </div>
         </div>
         <div class="win-item">
-          <div class="win-num">4</div>
+          <div class="win-num">3</div>
           <div class="win-text">
-            <strong>Getting back to certified</strong>
-            Re-run your own Stage 2 self-check against this reference sheet, fix what's flagged, then score 90%+ on two reads in a row — the same bar as original certification. No shortcuts.
+            <strong>One miss is not a pattern</strong>
+            A single read below the line gets a redirect logged for the team — that's it. No recertification. Everybody has an off week, and one read doesn't tell us anything about a habit.
+          </div>
+        </div>
+        <div class="win-item" style="background:rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.25);">
+          <div class="win-num" style="background:var(--white); color:var(--red);">4</div>
+          <div class="win-text">
+            <strong style="color:var(--red);">What triggers recertification</strong>
+            Either one: <b>three misses inside any four reads</b> (roughly three in a month), or <b>two reads in a row at 44 or below</b>. Same outcome, one path just gets there faster. A pass resets the count.
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-num">5</div>
+          <div class="win-text">
+            <strong>Getting back to certified — Recovery</strong>
+            Re-run your own Stage 2 self-check against this reference sheet, fix what's flagged, then score 85%+ on <b>two consecutive weekly reads</b>. Recovery happens on your live board — the point is to fix the real thing, not re-pass a test.
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-num">6</div>
+          <div class="win-text">
+            <strong>Scheduled Re-test — every 6 months</strong>
+            Separate from Recovery: six months after your last passing test you re-test on the mock board. That one's a knowledge check. Recovery is the post-miss path. Two different things, deliberately named differently.
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-num">7</div>
+          <div class="win-text">
+            <strong>If you're a BM, you clear two bars</strong>
+            Your own individual score <em>and</em> your board's score both have to clear 85%. A spotless personal board on a branch board that's failing isn't the job.
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-num">8</div>
+          <div class="win-text">
+            <strong>Time off doesn't count against you</strong>
+            If you're out for the read week, no read gets logged at all — no miss, no pass, nothing on your ladder. You won't get graded on a week you weren't here for.
           </div>
         </div>
         <div class="win-item" style="background:rgba(239,139,34,0.12); border: 1px solid rgba(239,139,34,0.3);">
-          <div class="win-num" style="background:var(--white); color:var(--orange);">5</div>
+          <div class="win-num" style="background:var(--white); color:var(--orange);">9</div>
           <div class="win-text">
             <strong style="color:var(--orange);">Escalation</strong>
-            Decertified twice in the same quarter? The second recovery isn't self-serve — your RM runs a live walkthrough with you instead of a remote recheck.
+            Hit the recertification trigger twice in the same quarter and the recovery isn't self-serve — your RM runs a live walkthrough with you instead of a remote read.
           </div>
         </div>
       </div>
@@ -1110,7 +1189,7 @@
       </div>
       <div class="footer-right">
         Einstein Moving Company — CTXH Region<br />
-        Scrum University Scorecard v1.0
+        Scrum University Scorecard — rubric v1.5 (2026-08-26)
       </div>
     </div>
 
